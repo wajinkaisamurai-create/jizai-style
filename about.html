@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自在流とは：福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:        #f5f2ec;
+    --bg2:       #edeae3;
+    --ink:       #1c1a16;
+    --ink-mid:   #4a4640;
+    --ink-light: #8a8278;
+    --accent:    #7a6248;
+    --accent2:   #b8956a;
+    --gold:      #c9a96e;
+    --line:      rgba(122,98,72,0.18);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    overflow-x: hidden;
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,242,236,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-brand {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-brand span {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: var(--accent);
+    margin-left: 0.6rem;
+    letter-spacing: 0.15em;
+  }
+
+  .nav-back {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-back:hover { color: var(--accent); }
+  .nav-back::before { content: '← '; }
+
+  /* ========== PAGE HERO ========== */
+  #page-hero {
+    padding: 10rem 2rem 5rem;
+    max-width: 720px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .page-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.4em;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    letter-spacing: 0.2em;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    letter-spacing: 0.3em;
+    color: var(--ink-light);
+  }
+
+  /* ========== ORIGIN ========== */
+  #origin {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-divider {
+    width: 2rem;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 2.5rem;
+    opacity: 0.6;
+  }
+
+  .origin-text {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    line-height: 2.6;
+    color: var(--ink-mid);
+    letter-spacing: 0.08em;
+  }
+
+  .origin-text p { margin-bottom: 2rem; }
+  .origin-text p:last-child { margin-bottom: 0; }
+
+  .origin-text strong {
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .origin-text em {
+    font-style: normal;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.05em;
+  }
+
+  /* ダッシュ引用 */
+  .origin-dash {
+    display: block;
+    padding-left: 1.5em;
+    border-left: 1px solid var(--gold);
+    margin: 2rem 0;
+    color: var(--ink-mid);
+    font-size: 0.92em;
+    line-height: 2.4;
+    opacity: 0.85;
+  }
+
+  /* ========== FOUR WAYS ========== */
+  #ways {
+    background: var(--bg2);
+    padding: 5rem 2rem;
+  }
+
+  .ways-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .ways-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 2.5rem;
+  }
+
+  .way-card {
+    background: var(--bg2);
+    padding: 2.2rem 2rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.3s;
+    display: block;
+  }
+  .way-card:hover { background: var(--bg); }
+
+  .way-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .way-title-ja {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .way-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-light);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .way-catch {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--ink-mid);
+    letter-spacing: 0.08em;
+  }
+
+  .way-arrow {
+    display: block;
+    margin-top: 1.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .way-card:hover .way-arrow { opacity: 1; }
+
+  /* ========== PHILOSOPHY LINK ========== */
+  #philosophy {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 2rem 5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .philosophy-text {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.85rem;
+    line-height: 2.4;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .philosophy-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.2rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .philosophy-link:hover { color: var(--accent2); border-color: var(--accent2); }
+  .philosophy-link::after { content: '→'; font-size: 0.8em; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--ink);
+    padding: 1.5rem 2rem;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.2);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 600px) {
+    .ways-grid { grid-template-columns: 1fr; }
+    #page-hero { padding: 8rem 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">自在流<span>Jizai Style.</span></a>
+  <a href="index.html" class="nav-back">トップへ</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div id="page-hero">
+  <span class="page-label">About Jizai Style</span>
+  <h1 class="page-title">自在流とは。</h1>
+  <p class="page-title-en">What is Jizai Style?</p>
+</div>
+
+<!-- ORIGIN -->
+<section id="origin">
+  <span class="section-label">Origin</span>
+  <div class="section-divider"></div>
+
+  <div class="origin-text">
+    <p>
+      20代の頃の10年ほど、小劇団で活動をしていた。<br>
+      当時、友人のバンドマンのライブを見に行った時に感じた思い。
+    </p>
+
+    <p>
+      劇団員とバンドマンは仲良くなれるのに、<br>
+      それぞれの観客の間には、なんとなく壁がある。
+    </p>
+
+    <p>
+      その壁が、<em>邪魔だと感じた。</em>
+    </p>
+
+    <p>
+      窮屈さや生きづらさ、なんとなくの違和感を感じている人たちが集まり、<br>
+      化学反応が起こる場所を作りたい。
+
+      <span class="origin-dash">
+        ——誰かと何かを起こせたわけではない。<br>
+        ただ、その感覚がずっと、静かに燻り続けている。
+      </span>
+    </p>
+
+    <p>
+      殺陣を軸に、他流の型を見るとき——<br>
+      分解して、自分の体で試して、表現として使えるか確かめる。<br>
+      使えなければ<strong>寝かせる。捨てない。</strong>
+    </p>
+
+    <p>
+      呼吸も、茶も、数秘も、同じ動きをしている。
+    </p>
+
+    <p>
+      流派を作るつもりはなかった。<br>
+      ただ、流派の名前を聞かれたとき、考えた。<br>
+      <strong>自在流、と答えることにした。</strong>
+    </p>
+  </div>
+</section>
+
+<!-- FOUR WAYS -->
+<section id="ways">
+  <div class="ways-inner">
+    <span class="section-label">Four Ways</span>
+    <div class="section-divider"></div>
+
+    <div class="ways-grid">
+
+      <a href="tate.html" class="way-card">
+        <span class="way-num">01</span>
+        <span class="way-title-ja">殺陣道場</span>
+        <span class="way-title-en">Stage Combat</span>
+        <p class="way-catch">斬ることが目的ではない。<br>刀は表現。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+      <a href="sokudo.html" class="way-card">
+        <span class="way-num">02</span>
+        <span class="way-title-ja">息道</span>
+        <span class="way-title-en">Sokudo — Breathwork</span>
+        <p class="way-catch">整え、そして戻る。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+      <a href="passcode.html" class="way-card">
+        <span class="way-num">03</span>
+        <span class="way-title-ja">MY SOUL PASSCODE</span>
+        <span class="way-title-en">Numerology</span>
+        <p class="way-catch">占いではなく、<br>自分の設計図を読む。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+      <a href="tea.html" class="way-card">
+        <span class="way-num">04</span>
+        <span class="way-title-ja">テーブル茶道</span>
+        <span class="way-title-en">Table Tea Ceremony</span>
+        <p class="way-catch">自分で点てる、<br>自分のための一服。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <p class="philosophy-text">
+    自在流の根っこにある考え方を、<br>もう少し言葉にしています。
+  </p>
+  <a href="philosophy.html" class="philosophy-link">自在流の思想へ</a>
+</section>
+
+<footer>
+  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
