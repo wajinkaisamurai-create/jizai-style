@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自在流 / Jizai Style.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@200;300&display=swap');
+
+  *, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  :root {
+    --bg: #f7f5f0;
+    --ink: #1a1814;
+    --ink-light: #6b6560;
+    --accent: #8b7355;
+    --fade-duration: 1.2s;
+    --hold-duration: 3800ms;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Noto Serif JP', serif;
+    overflow: hidden;
+  }
+
+  /* 和紙テクスチャ風オーバーレイ */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  /* テキスト表示エリア */
+  .catch-wrapper {
+    position: relative;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+  }
+
+  .catch-line {
+    position: absolute;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    color: var(--ink);
+    letter-spacing: 0.18em;
+    opacity: 0;
+    transition: opacity var(--fade-duration) ease;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .catch-line.visible {
+    opacity: 1;
+  }
+
+  /* 区切り線 */
+  .divider {
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    margin: 0 auto 2.4rem;
+    opacity: 0.6;
+  }
+
+  /* ブランド名 */
+  .brand {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: clamp(0.85rem, 2vw, 1rem);
+    color: var(--ink-light);
+    letter-spacing: 0.35em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  .brand-ja {
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .brand-sep {
+    color: var(--accent);
+    font-weight: 300;
+    font-size: 0.8em;
+  }
+
+  .brand-en {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    letter-spacing: 0.2em;
+    font-size: 0.9em;
+  }
+
+  /* インジケーター */
+  .indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 2.8rem;
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink-light);
+    opacity: 0.25;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .dot.active {
+    opacity: 0.7;
+    transform: scale(1.4);
+    background: var(--accent);
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="catch-wrapper" id="catchWrapper">
+    <!-- JSで生成 -->
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="brand">
+    <span class="brand-ja">自在流</span>
+    <span class="brand-sep">/</span>
+    <span class="brand-en">Jizai Style.</span>
+  </div>
+
+  <div class="indicators" id="indicators"></div>
+
+</div>
+
+<script>
+  const lines = [
+    '抜かない刀に、意味がある。',
+    'ここに来たのは、偶然じゃないかもしれない。',
+    'うまくいかないのは、やり方じゃなくて、軸かもしれない。',
+    '知っているつもりが、一番遠い。',
+  ];
+
+  // Fisher-Yatesシャッフル
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  const wrapper = document.getElementById('catchWrapper');
+  const indicatorsEl = document.getElementById('indicators');
+
+  // 要素生成
+  const elements = lines.map((text, i) => {
+    const el = document.createElement('div');
+    el.className = 'catch-line';
+    el.textContent = text;
+    wrapper.appendChild(el);
+
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    indicatorsEl.appendChild(dot);
+
+    return { el, dot };
+  });
+
+  let order = shuffle([...Array(lines.length).keys()]);
+  let current = 0;
+  let activeIndex = -1;
+
+  const HOLD = 3800;
+  const FADE = 1200;
+
+  function showNext() {
+    // 現在を消す
+    if (activeIndex >= 0) {
+      elements[activeIndex].el.classList.remove('visible');
+      elements[activeIndex].dot.classList.remove('active');
+    }
+
+    // 次のインデックスへ
+    const nextIndex = order[current % order.length];
+    current++;
+
+    // 一巡したらシャッフル（同じ順にならないよう最初を調整）
+    if (current % order.length === 0) {
+      const last = order[order.length - 1];
+      order = shuffle([...Array(lines.length).keys()]);
+      if (order[0] === last) {
+        const swap = order.findIndex((v, i) => i > 0 && v !== last);
+        if (swap > 0) [order[0], order[swap]] = [order[swap], order[0]];
+      }
+    }
+
+    activeIndex = nextIndex;
+    elements[activeIndex].el.classList.add('visible');
+    elements[activeIndex].dot.classList.add('active');
+
+    setTimeout(showNext, HOLD + FADE);
+  }
+
+  // 初回は少し間を置いて開始
+  setTimeout(showNext, 400);
+</script>
+
+</body>
+</html>
