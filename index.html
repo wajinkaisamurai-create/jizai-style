@@ -4,124 +4,123 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>自在流 / Jizai Style.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@200;300&display=swap');
-
-  *, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --bg: #f7f5f0;
-    --ink: #1a1814;
-    --ink-light: #6b6560;
-    --accent: #8b7355;
-    --fade-duration: 1.2s;
-    --hold-duration: 3800ms;
+    --bg:        #f5f2ec;
+    --bg2:       #edeae3;
+    --ink:       #1c1a16;
+    --ink-mid:   #4a4640;
+    --ink-light: #8a8278;
+    --accent:    #7a6248;
+    --accent2:   #b8956a;
+    --gold:      #c9a96e;
+    --line:      rgba(122,98,72,0.18);
   }
 
-  html, body {
-    width: 100%;
-    height: 100%;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
-    background-color: var(--bg);
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    overflow-x: hidden;
+  }
+
+  /* ========== HERO ========== */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
-    font-family: 'Noto Serif JP', serif;
     overflow: hidden;
   }
 
-  /* 和紙テクスチャ風オーバーレイ */
-  body::before {
+  /* 背景装飾 */
+  #hero::before {
     content: '';
-    position: fixed;
+    position: absolute;
     inset: 0;
-    background-image: 
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201,169,110,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 80% at 80% 80%, rgba(122,98,72,0.05) 0%, transparent 60%);
     pointer-events: none;
-    z-index: 0;
   }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
-    max-width: 800px;
+  /* 薄い縦線装飾 */
+  .hero-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent 0%, var(--line) 30%, var(--line) 70%, transparent 100%);
   }
+  .hero-line:nth-child(1) { left: 15%; }
+  .hero-line:nth-child(2) { left: 85%; }
 
-  /* テキスト表示エリア */
+  /* キャッチコピー切り替えエリア */
   .catch-wrapper {
     position: relative;
-    height: 5rem;
+    height: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 3rem;
+    width: 100%;
+    padding: 0 2rem;
   }
 
   .catch-line {
     position: absolute;
     font-family: 'Noto Serif JP', serif;
     font-weight: 300;
-    font-size: clamp(1.1rem, 3vw, 1.6rem);
+    font-size: clamp(1rem, 2.8vw, 1.5rem);
     color: var(--ink);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     opacity: 0;
-    transition: opacity var(--fade-duration) ease;
+    transition: opacity 1.2s ease;
     white-space: nowrap;
-    line-height: 1;
+    text-align: center;
   }
+  .catch-line.visible { opacity: 1; }
 
-  .catch-line.visible {
-    opacity: 1;
+  /* ブランド */
+  .hero-brand {
+    text-align: center;
+    margin-bottom: 1.2rem;
   }
-
-  /* 区切り線 */
-  .divider {
-    width: 1px;
-    height: 3rem;
-    background: linear-gradient(to bottom, transparent, var(--accent), transparent);
-    margin: 0 auto 2.4rem;
-    opacity: 0.6;
-  }
-
-  /* ブランド名 */
-  .brand {
+  .hero-brand-ja {
     font-family: 'Noto Serif JP', serif;
     font-weight: 400;
-    font-size: clamp(0.85rem, 2vw, 1rem);
-    color: var(--ink-light);
-    letter-spacing: 0.35em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
-  }
-
-  .brand-ja {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: 0.4em;
     color: var(--ink);
-    font-weight: 400;
+    display: block;
+    margin-bottom: 0.5rem;
   }
-
-  .brand-sep {
-    color: var(--accent);
+  .hero-brand-en {
+    font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: 0.8em;
+    font-style: italic;
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+    letter-spacing: 0.25em;
+    color: var(--accent);
   }
 
-  .brand-en {
-    font-family: 'Noto Sans JP', sans-serif;
+  .hero-tagline {
+    font-family: 'Noto Serif JP', serif;
     font-weight: 200;
-    letter-spacing: 0.2em;
-    font-size: 0.9em;
+    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+    letter-spacing: 0.3em;
+    color: var(--ink-light);
+    margin-bottom: 3rem;
+    text-align: center;
   }
 
   /* インジケーター */
@@ -129,44 +128,486 @@
     display: flex;
     justify-content: center;
     gap: 0.6rem;
-    margin-top: 2.8rem;
+    margin-bottom: 3.5rem;
   }
-
   .dot {
-    width: 4px;
-    height: 4px;
+    width: 4px; height: 4px;
     border-radius: 50%;
     background: var(--ink-light);
     opacity: 0.25;
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .dot.active { opacity: 0.7; transform: scale(1.5); background: var(--accent); }
+
+  /* スクロールダウン */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink-light);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 200;
+    letter-spacing: 0.25em;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 3rem;
+    background: linear-gradient(to bottom, var(--accent2), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 0.9; transform: scaleY(1.1); }
   }
 
-  .dot.active {
-    opacity: 0.7;
-    transform: scale(1.4);
+  /* ========== SECTION COMMON ========== */
+  section {
+    padding: 6rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .section-divider {
+    width: 2.5rem;
+    height: 1px;
+    background: var(--gold);
+    margin: 1.5rem 0 2.5rem;
+    opacity: 0.6;
+  }
+
+  /* ========== ABOUT HOOK ========== */
+  #hook {
+    border-top: 1px solid var(--line);
+    padding-top: 5rem;
+  }
+
+  .hook-text {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+    line-height: 2.4;
+    color: var(--ink-mid);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.8rem;
+  }
+
+  .hook-text em {
+    font-style: normal;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  .hook-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.2rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .hook-link:hover { color: var(--accent2); border-color: var(--accent2); }
+  .hook-link::after { content: '→'; font-size: 0.8em; }
+
+  /* ========== FOUR WAYS ========== */
+  #ways {
+    background: var(--bg2);
+    max-width: 100%;
+    padding: 6rem 2rem;
+  }
+
+  .ways-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .ways-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5px;
+    margin-top: 3rem;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .way-card {
+    background: var(--bg2);
+    padding: 2.5rem 2rem;
+    text-decoration: none;
+    color: var(--ink);
+    transition: background 0.3s;
+    display: block;
+  }
+  .way-card:hover { background: var(--bg); }
+
+  .way-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+
+  .way-title-ja {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+
+  .way-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .way-catch {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--ink-mid);
+    letter-spacing: 0.08em;
+  }
+
+  .way-arrow {
+    display: block;
+    margin-top: 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .way-card:hover .way-arrow { opacity: 1; }
+
+  /* ========== NEWS ========== */
+  #news { border-top: 1px solid var(--line); }
+
+  .news-list { list-style: none; }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 2rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .news-tag {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--bg);
     background: var(--accent);
+    padding: 0.2rem 0.6rem;
+    white-space: nowrap;
+    margin-top: 0.1rem;
+  }
+
+  .news-tag.preparing {
+    background: var(--ink-light);
+  }
+
+  .news-body {}
+
+  .news-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    line-height: 1.8;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
+  }
+
+  .news-sub {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+
+  .news-sub a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  /* ========== CONTACT / SNS ========== */
+  #contact {
+    background: var(--ink);
+    max-width: 100%;
+    padding: 5rem 2rem;
+    text-align: center;
+  }
+
+  .contact-inner { max-width: 600px; margin: 0 auto; }
+
+  .contact-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-text {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.6);
+    line-height: 2.2;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-btn {
+    display: inline-block;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.82rem;
+    letter-spacing: 0.3em;
+    color: var(--bg);
+    border: 1px solid rgba(201,169,110,0.4);
+    padding: 0.9rem 2.5rem;
+    text-decoration: none;
+    transition: background 0.3s, border-color 0.3s;
+    margin-bottom: 3rem;
+  }
+  .contact-btn:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
+
+  .sns-links {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+  }
+
+  .sns-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    color: rgba(245,242,236,0.45);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .sns-link:hover { color: var(--gold); }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding: 1.5rem 2rem;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: rgba(245,242,236,0.2);
+  }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 600px) {
+    .catch-line { white-space: normal; text-align: center; font-size: 0.95rem; line-height: 1.8; }
+    .catch-wrapper { height: 5rem; }
+    .ways-grid { grid-template-columns: 1fr 1fr; }
+    .news-item { grid-template-columns: 1fr; gap: 0.5rem; }
   }
 </style>
 </head>
 <body>
 
-<div class="container">
+<!-- ========== HERO ========== -->
+<section id="hero">
+  <div class="hero-line"></div>
+  <div class="hero-line"></div>
 
-  <div class="catch-wrapper" id="catchWrapper">
-    <!-- JSで生成 -->
+  <div class="catch-wrapper" id="catchWrapper"></div>
+
+  <div class="hero-brand">
+    <span class="hero-brand-ja">自在流</span>
+    <span class="hero-brand-en">Jizai Style.</span>
   </div>
 
-  <div class="divider"></div>
-
-  <div class="brand">
-    <span class="brand-ja">自在流</span>
-    <span class="brand-sep">/</span>
-    <span class="brand-en">Jizai Style.</span>
-  </div>
+  <p class="hero-tagline">流派はない。これはスタンスの名前。</p>
 
   <div class="indicators" id="indicators"></div>
 
-</div>
+  <a href="#hook" class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </a>
+</section>
+
+<!-- ========== HOOK ========== -->
+<section id="hook">
+  <span class="section-label">About</span>
+  <div class="section-divider"></div>
+
+  <p class="hook-text">
+    壁があるなら、越えればいい。<br>
+    流派も、ジャンルも、作法も——<br><br>
+    殺陣をベースに、呼吸と茶と数が交わる。<br>
+    違うように見えて、戻る場所はひとつ。<br>
+    <em>腹を通せば、全部つながる。</em>
+  </p>
+
+  <a href="about.html" class="hook-link">自在流とは</a>
+</section>
+
+<!-- ========== FOUR WAYS ========== -->
+<section id="ways" style="padding-top:0; padding-bottom:0;">
+  <div class="ways-inner" style="padding: 6rem 0;">
+    <span class="section-label">Four Ways</span>
+    <div class="section-divider"></div>
+
+    <div class="ways-grid">
+
+      <a href="tate.html" class="way-card">
+        <span class="way-num">01</span>
+        <span class="way-title-ja">殺陣道場</span>
+        <span class="way-title-en">Stage Combat</span>
+        <p class="way-catch">斬ることが目的ではない。<br>刀は表現。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+      <a href="sokudo.html" class="way-card">
+        <span class="way-num">02</span>
+        <span class="way-title-ja">息道</span>
+        <span class="way-title-en">Sokudo — Breathwork</span>
+        <p class="way-catch">整え、そして戻る。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+      <a href="passcode.html" class="way-card">
+        <span class="way-num">03</span>
+        <span class="way-title-ja">MY SOUL PASSCODE</span>
+        <span class="way-title-en">Numerology</span>
+        <p class="way-catch">占いではなく、<br>自分の設計図を読む。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+      <a href="tea.html" class="way-card">
+        <span class="way-num">04</span>
+        <span class="way-title-ja">テーブル茶道</span>
+        <span class="way-title-en">Table Tea Ceremony</span>
+        <p class="way-catch">自分で点てる、<br>自分のための一服。</p>
+        <span class="way-arrow">詳しく見る →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== NEWS ========== -->
+<section id="news">
+  <span class="section-label">News</span>
+  <div class="section-divider"></div>
+
+  <ul class="news-list">
+
+    <li class="news-item">
+      <span class="news-tag">数秘術</span>
+      <div class="news-body">
+        <p class="news-title">口伝数秘術「MY SOUL PASSCODE」講座、第0期生（限定10名）募集中。</p>
+        <p class="news-sub">個別鑑定も受付中。</p>
+      </div>
+    </li>
+
+    <li class="news-item">
+      <span class="news-tag">殺陣</span>
+      <div class="news-body">
+        <p class="news-title">殺陣教室、不定期開催。</p>
+        <p class="news-sub">神奈川県西湘地区にて。経験不問。</p>
+      </div>
+    </li>
+
+    <li class="news-item">
+      <span class="news-tag">茶道</span>
+      <div class="news-body">
+        <p class="news-title">箱根遊船「大茶会」内にて、お点前体験を不定期開催。</p>
+        <p class="news-sub">詳細・お申込みは芦ノ湖箱根遊船、イベントページをご参照ください。</p>
+      </div>
+    </li>
+
+    <li class="news-item">
+      <span class="news-tag preparing">息道</span>
+      <div class="news-body">
+        <p class="news-title">呼吸界入門編、開催準備中。</p>
+        <p class="news-sub">続報をお待ちください。</p>
+      </div>
+    </li>
+
+  </ul>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact">
+  <div class="contact-inner">
+    <span class="contact-label">Contact & Follow</span>
+    <p class="contact-text">
+      各サービスへのお問い合わせ、<br>
+      体験のお申し込みはこちらから。
+    </p>
+    <a href="mailto:" class="contact-btn">お問い合わせ</a>
+    <div class="sns-links">
+      <a href="#" class="sns-link">Instagram</a>
+      <a href="#" class="sns-link">Note</a>
+      <a href="#" class="sns-link">LINE</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
 
 <script>
   const lines = [
@@ -176,7 +617,6 @@
     '知っているつもりが、一番遠い。',
   ];
 
-  // Fisher-Yatesシャッフル
   function shuffle(arr) {
     const a = [...arr];
     for (let i = a.length - 1; i > 0; i--) {
@@ -189,8 +629,7 @@
   const wrapper = document.getElementById('catchWrapper');
   const indicatorsEl = document.getElementById('indicators');
 
-  // 要素生成
-  const elements = lines.map((text, i) => {
+  const elements = lines.map((text) => {
     const el = document.createElement('div');
     el.className = 'catch-line';
     el.textContent = text;
@@ -211,34 +650,26 @@
   const FADE = 1200;
 
   function showNext() {
-    // 現在を消す
     if (activeIndex >= 0) {
       elements[activeIndex].el.classList.remove('visible');
       elements[activeIndex].dot.classList.remove('active');
     }
-
-    // 次のインデックスへ
     const nextIndex = order[current % order.length];
     current++;
-
-    // 一巡したらシャッフル（同じ順にならないよう最初を調整）
     if (current % order.length === 0) {
       const last = order[order.length - 1];
       order = shuffle([...Array(lines.length).keys()]);
       if (order[0] === last) {
-        const swap = order.findIndex((v, i) => i > 0 && v !== last);
+        const swap = order.findIndex((v, i) => i > 0);
         if (swap > 0) [order[0], order[swap]] = [order[swap], order[0]];
       }
     }
-
     activeIndex = nextIndex;
     elements[activeIndex].el.classList.add('visible');
     elements[activeIndex].dot.classList.add('active');
-
     setTimeout(showNext, HOLD + FADE);
   }
 
-  // 初回は少し間を置いて開始
   setTimeout(showNext, 400);
 </script>
 
