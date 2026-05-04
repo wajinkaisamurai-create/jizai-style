@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MY SOUL PASSCODE：福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:        #F2E8D5;
+    --bg2:       #E8D9BC;
+    --bg3:       #1a2e40;
+    --ink:       #2C1F0E;
+    --ink-mid:   #5C3D1E;
+    --ink-light: #8B6540;
+    --gold:      #B8860B;
+    --gold-l:    #D4A843;
+    --gold-ll:   #F0D080;
+    --compass:   #1a2e40;
+    --compass-l: #2C4A5C;
+    --seal:      #8B1A1A;
+    --line:      rgba(184,134,11,0.2);
+    --white:     #FDFAF5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    overflow-x: hidden;
+  }
+
+  /* 古地図グリッド */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(139,101,64,.05) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(139,101,64,.05) 60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ========== NAV ========== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(242,232,213,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .nav-brand {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--compass);
+    text-decoration: none;
+  }
+
+  .nav-brand span {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-left: 0.6rem;
+  }
+
+  .nav-back {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-light);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-back:hover { color: var(--gold); }
+  .nav-back::before { content: '← '; }
+
+  /* ========== HERO ========== */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem 5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 40%, rgba(26,46,64,0.07) 0%, rgba(44,31,14,0.15) 100%);
+    z-index: 0;
+  }
+
+  /* 羅針盤SVG */
+  .compass-bg {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(560px, 88vw);
+    height: min(560px, 88vw);
+    opacity: 0.06;
+    animation: slowRotate 120s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes slowRotate { to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+  }
+
+  .hero-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.45em;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 8vw, 4.5rem);
+    font-weight: 300;
+    letter-spacing: 0.08em;
+    color: var(--compass);
+    line-height: 1.1;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title-ja {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    font-weight: 300;
+    letter-spacing: 0.45em;
+    color: var(--ink-mid);
+    margin-top: 0.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-divider {
+    width: 1px; height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 2.5rem auto;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-catch {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+    font-weight: 300;
+    line-height: 2.2;
+    color: var(--ink-mid);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fadeUp 0.8s 1s forwards;
+  }
+
+  .hero-catch em {
+    font-style: normal;
+    color: var(--compass);
+    font-weight: 500;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem; left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--ink-light);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-decoration: none;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.4s forwards;
+    z-index: 1;
+  }
+
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.5; }
+    50%     { opacity: 1; }
+  }
+
+  /* ========== SECTION COMMON ========== */
+  .section-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.45em;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    line-height: 1.6;
+    margin-bottom: 0.8rem;
+  }
+
+  .gold-line {
+    width: 48px; height: 1px;
+    background: var(--gold);
+    margin: 1.5rem 0 2.5rem;
+    opacity: 0.7;
+  }
+
+  /* ========== WHAT ========== */
+  #what {
+    background: var(--bg2);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    z-index: 1;
+  }
+
+  .what-body {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.92rem;
+    color: var(--ink-mid);
+    line-height: 2.6;
+    letter-spacing: 0.06em;
+  }
+
+  .what-body p { margin-bottom: 1.8rem; }
+  .what-body p:last-child { margin-bottom: 0; }
+
+  .what-emphasis {
+    border-left: 2px solid var(--gold);
+    padding-left: 1.2rem;
+    margin: 2.5rem 0;
+    font-size: 0.95rem;
+    color: var(--compass);
+    font-weight: 400;
+    line-height: 2;
+  }
+
+  /* ========== VOYAGE ========== */
+  #voyage {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .voyage-intro {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+    line-height: 2.4;
+    margin-bottom: 3rem;
+    letter-spacing: 0.06em;
+  }
+
+  .voyage-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .voyage-item {
+    background: var(--bg);
+    padding: 1.8rem 1rem;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .voyage-item:hover { background: var(--bg2); }
+
+  .voyage-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .voyage-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+
+  .voyage-name {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--compass);
+    margin-bottom: 0.5rem;
+  }
+
+  .voyage-meta {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 200;
+    color: var(--ink-light);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+  }
+
+  /* ========== SERVICES ========== */
+  #services {
+    background: var(--compass);
+    position: relative;
+    z-index: 1;
+  }
+
+  #services .section-label { color: var(--gold-l); }
+  #services .section-title { color: var(--white); }
+  #services .gold-line { background: var(--gold-l); }
+
+  .service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.08);
+    margin-top: 0.5rem;
+  }
+
+  .service-card {
+    background: var(--compass-l);
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: background 0.3s;
+  }
+  .service-card:hover { background: rgba(44,74,92,0.8); }
+
+  .card-category {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--gold-l);
+    display: block;
+  }
+
+  .card-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 1.05rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    line-height: 1.7;
+  }
+
+  .card-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.8rem;
+    color: rgba(242,232,213,0.75);
+    line-height: 2.2;
+    letter-spacing: 0.05em;
+    flex: 1;
+  }
+
+  .card-price {
+    margin-top: auto;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .price-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--gold-ll);
+    letter-spacing: 0.05em;
+  }
+
+  .price-note {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 200;
+    color: rgba(242,232,213,0.45);
+    letter-spacing: 0.1em;
+    margin-top: 0.3rem;
+  }
+
+  .line-btn-sm {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--compass);
+    background: var(--gold-l);
+    padding: 0.5rem 1.2rem;
+    text-decoration: none;
+    transition: background 0.3s;
+  }
+  .line-btn-sm:hover { background: var(--gold-ll); }
+
+  /* ========== COURSE ========== */
+  #course {
+    position: relative;
+    z-index: 1;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .course-sessions {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: 3rem;
+  }
+
+  .session {
+    background: var(--bg);
+    padding: 1.5rem 2rem;
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    transition: background 0.3s;
+  }
+  .session:hover { background: var(--bg2); }
+
+  .session-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    padding-top: 0.2rem;
+  }
+
+  .session-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+
+  .session-desc {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.72rem;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    line-height: 1.9;
+  }
+
+  /* 修了特典 */
+  .course-includes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-bottom: 3rem;
+  }
+
+  .include-item {
+    background: var(--bg2);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .include-icon {
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+
+  .include-title {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 400;
+    font-size: 0.88rem;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+
+  .include-desc {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    line-height: 2;
+    letter-spacing: 0.06em;
+  }
+
+  /* 価格テーブル */
+  .price-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Noto Serif JP', serif;
+    margin-bottom: 3rem;
+  }
+
+  .price-table th {
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    background: var(--compass);
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .price-table td {
+    font-size: 0.82rem;
+    font-weight: 300;
+    color: var(--ink-mid);
+    padding: 1.2rem;
+    border: 1px solid var(--line);
+    vertical-align: top;
+    line-height: 2;
+    background: var(--bg);
+  }
+
+  .price-col {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem !important;
+    font-weight: 300;
+    color: var(--compass) !important;
+    white-space: nowrap;
+  }
+
+  .phase-badge {
+    display: inline-block;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    background: var(--gold);
+    padding: 0.15rem 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* 向いている方 */
+  .fit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+  }
+
+  .fit-box {
+    padding: 2rem 1.8rem;
+  }
+
+  .fit-box.yes { background: var(--bg); }
+  .fit-box.no  { background: var(--bg2); }
+
+  .fit-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
+  .fit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .fit-list li {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .fit-list li::before {
+    content: '';
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* ========== MESSAGE ========== */
+  #message {
+    background: var(--compass);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .message-text {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: clamp(0.88rem, 2vw, 1rem);
+    color: rgba(242,232,213,0.85);
+    line-height: 2.6;
+    letter-spacing: 0.1em;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .message-text p { margin-bottom: 1.2rem; }
+  .message-text p:last-child { margin-bottom: 0; }
+
+  .message-text strong {
+    color: var(--gold-ll);
+    font-weight: 400;
+  }
+
+  /* ========== CTA ========== */
+  #cta {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cta-text {
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 200;
+    font-size: 0.88rem;
+    color: var(--ink-mid);
+    line-height: 2.4;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.08em;
+  }
+
+  .btn-line {
+    display: inline-block;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--white);
+    background: var(--compass);
+    border: 1px solid var(--compass);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin: 0.4rem;
+  }
+  .btn-line:hover { background: var(--compass-l); }
+
+  .btn-line-sub {
+    display: inline-block;
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    letter-spacing: 0.25em;
+    color: var(--compass);
+    background: transparent;
+    border: 1px solid var(--line);
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin: 0.4rem;
+  }
+  .btn-line-sub:hover { border-color: var(--gold); color: var(--gold); }
+
+  .cta-note {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.68rem;
+    color: var(--ink-light);
+    letter-spacing: 0.1em;
+    margin-top: 1.5rem;
+    line-height: 2;
+  }
+
+  /* ========== FOOTER ========== */
+  footer {
+    background: var(--compass);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-text {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 200;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: rgba(242,232,213,0.2);
+  }
+
+  /* ========== REVEAL ========== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ========== RESPONSIVE ========== */
+  @media (max-width: 640px) {
+    .voyage-grid { grid-template-columns: repeat(2, 1fr); }
+    .course-includes { grid-template-columns: 1fr; }
+    .fit-grid { grid-template-columns: 1fr; }
+    .price-table { font-size: 0.75rem; }
+    nav { padding: 1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">自在流<span>Jizai Style.</span></a>
+  <a href="index.html" class="nav-back">トップへ</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- 羅針盤SVG -->
+  <svg class="compass-bg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="95" stroke="#B8860B" stroke-width="0.5"/>
+    <circle cx="100" cy="100" r="80" stroke="#B8860B" stroke-width="0.3"/>
+    <circle cx="100" cy="100" r="4" fill="#B8860B"/>
+    <line x1="100" y1="5" x2="100" y2="195" stroke="#B8860B" stroke-width="0.4"/>
+    <line x1="5" y1="100" x2="195" y2="100" stroke="#B8860B" stroke-width="0.4"/>
+    <line x1="32" y1="32" x2="168" y2="168" stroke="#B8860B" stroke-width="0.3"/>
+    <line x1="168" y1="32" x2="32" y2="168" stroke="#B8860B" stroke-width="0.3"/>
+    <polygon points="100,10 96,40 100,36 104,40" fill="#B8860B"/>
+    <polygon points="100,190 96,160 100,164 104,160" fill="#B8860B" opacity="0.4"/>
+    <polygon points="10,100 40,96 36,100 40,104" fill="#B8860B" opacity="0.4"/>
+    <polygon points="190,100 160,96 164,100 160,104" fill="#B8860B" opacity="0.4"/>
+    <text x="100" y="22" text-anchor="middle" font-size="8" fill="#B8860B" font-family="serif">N</text>
+    <text x="100" y="186" text-anchor="middle" font-size="6" fill="#B8860B" font-family="serif">S</text>
+    <text x="18" y="104" text-anchor="middle" font-size="6" fill="#B8860B" font-family="serif">W</text>
+    <text x="183" y="104" text-anchor="middle" font-size="6" fill="#B8860B" font-family="serif">E</text>
+  </svg>
+
+  <div class="hero-inner">
+    <span class="hero-label">Jizai Style — Numerology</span>
+    <h1 class="hero-title-en">MY SOUL<br>PASSCODE</h1>
+    <p class="hero-title-ja">口伝数秘術　自在流</p>
+    <div class="hero-divider"></div>
+    <p class="hero-catch">
+      占いではない。<em>自分の設計図を読む。</em><br>
+      生まれた日と名前の中に、<br>あなたの航海図がある。
+    </p>
+  </div>
+
+  <a href="#what" class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </a>
+</section>
+
+<!-- WHAT -->
+<section id="what">
+  <div class="section-wrap">
+    <span class="section-label reveal">What is this</span>
+    <h2 class="section-title reveal">数秘術とは、なにか。</h2>
+    <div class="gold-line reveal"></div>
+    <div class="what-body reveal">
+      <p>
+        数秘術は、生年月日と名前から導き出された数字を使い、自分の本質・使命・資質を読み解くツールです。占いではなく、<strong>自己理解のための地図</strong>。
+      </p>
+      <div class="what-emphasis">
+        当たるか当たらないか、ではない。<br>
+        使えるか使えないか、が問いです。
+      </div>
+      <p>
+        自在流の数秘術は、一般的なモダン数秘をベースに、カバラ的な解釈と口伝による読み解きを加えた独自の体系です。10項目を算出し、人生を「船の航海」として読み解きます。
+      </p>
+      <p>
+        自分の数字を知ることは、自分の設計図を手に入れること。設計図があれば、どんな海も怖くない。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VOYAGE -->
+<section id="voyage">
+  <div class="section-wrap">
+    <span class="section-label reveal">The Voyage Map</span>
+    <h2 class="section-title reveal">10項目の航海図</h2>
+    <div class="gold-line reveal"></div>
+    <p class="voyage-intro reveal">
+      あなたの人生を、一艘の船の航海として読み解く。<br>
+      LP（船）から始まり、LL（仲間）まで——10の要素が、あなたの全体像を映し出します。
+    </p>
+    <div class="voyage-grid reveal">
+      <div class="voyage-item">
+        <span class="voyage-num">LP</span>
+        <span class="voyage-label">LIFE PATH</span>
+        <div class="voyage-name">船</div>
+        <div class="voyage-meta">人生の道筋・本質的な使命</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">S</span>
+        <span class="voyage-label">SOUL</span>
+        <div class="voyage-name">船長</div>
+        <div class="voyage-meta">魂の欲求・内なる動機</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">B</span>
+        <span class="voyage-label">BIRTHDAY</span>
+        <div class="voyage-name">得意な操船</div>
+        <div class="voyage-meta">生まれ持った気質</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">P</span>
+        <span class="voyage-label">PERSONALITY</span>
+        <div class="voyage-name">外装</div>
+        <div class="voyage-meta">外側の人格・他者への印象</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">D</span>
+        <span class="voyage-label">DESTINY</span>
+        <div class="voyage-name">海流</div>
+        <div class="voyage-meta">運命・外の世界への表れ方</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">M1</span>
+        <span class="voyage-label">MATURITY 1</span>
+        <div class="voyage-name">目指す島</div>
+        <div class="voyage-meta">成熟期に現れる方向性</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">M2</span>
+        <span class="voyage-label">MATURITY 2</span>
+        <div class="voyage-name">島の宝</div>
+        <div class="voyage-meta">成熟した後の到達点</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">IT</span>
+        <span class="voyage-label">INTENSITY</span>
+        <div class="voyage-name">スキル</div>
+        <div class="voyage-meta">意識的に磨ける強み</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">LL1</span>
+        <span class="voyage-label">LESSON 1</span>
+        <div class="voyage-name">船の装備</div>
+        <div class="voyage-meta">手放せない・使い切る性質</div>
+      </div>
+      <div class="voyage-item">
+        <span class="voyage-num">LL2</span>
+        <span class="voyage-label">LESSON 2</span>
+        <div class="voyage-name">仲間への役割</div>
+        <div class="voyage-meta">人に任せていいもの</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-wrap">
+    <span class="section-label reveal">Services</span>
+    <h2 class="section-title reveal">鑑定メニュー</h2>
+    <div class="gold-line reveal"></div>
+    <div class="service-cards reveal">
+
+      <div class="service-card">
+        <span class="card-category">Individual · 個人鑑定</span>
+        <h3 class="card-title">口伝数秘術<br>個人鑑定</h3>
+        <p class="card-desc">
+          10項目すべてを算出し、船の航海として読み解きます。カバラ的メッセージで締める、自在流の鑑定フルコース。所要時間は120分が目安です。
+        </p>
+        <div class="card-price">
+          <div class="price-main">¥11,000</div>
+          <div class="price-note">税込 / 場所代・出張費は別途</div>
+        </div>
+        <a href="https://lin.ee/R9yqvRB" target="_blank" class="line-btn-sm">LINEで申し込む</a>
+      </div>
+
+      <div class="service-card">
+        <span class="card-category">Subscription · サブスク</span>
+        <h3 class="card-title">今月の海図<br>LINEサブスク</h3>
+        <p class="card-desc">
+          毎月、あなたの数字をベースにしたメッセージをLINEでお届けします。初月無料。Guardian numberお守り画像の受け取りも含みます。
+        </p>
+        <div class="card-price">
+          <div class="price-main">¥500<span style="font-size:14px">/月</span></div>
+          <div class="price-note">税込 / 初月無料 / LINE登録後に案内</div>
+        </div>
+        <a href="https://lin.ee/R9yqvRB" target="_blank" class="line-btn-sm">LINEで登録する</a>
+      </div>
+
+      <div class="service-card">
+        <span class="card-category">Calendar · カレンダー</span>
+        <h3 class="card-title">パーソナル<br>数秘カレンダー</h3>
+        <p class="card-desc">
+          日毎の数秘を含む、あなただけの個別カレンダー。サブスクからのアップセルとしてご利用いただけます。
+        </p>
+        <div class="card-price">
+          <div class="price-main">¥2,000<span style="font-size:14px">/月</span></div>
+          <div class="price-note">税込 / サブスク登録者向け</div>
+        </div>
+        <a href="https://lin.ee/R9yqvRB" target="_blank" class="line-btn-sm">LINEで問い合わせる</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- COURSE -->
+<section id="course">
+  <div class="section-wrap">
+    <span class="section-label reveal">Course</span>
+    <h2 class="section-title reveal">自在流・サムライ数秘術<br>第０期講座</h2>
+    <div class="gold-line reveal"></div>
+    <p class="voyage-intro reveal">受ける側から、使う側へ。5回で、術者になる。</p>
+
+    <div class="course-sessions reveal">
+      <div class="session">
+        <div class="session-num">01</div>
+        <div>
+          <div class="session-title">世界観と前提</div>
+          <div class="session-desc">選んできたという前提・数秘とは何か・船と海図</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-num">02</div>
+        <div>
+          <div class="session-title">数字の基礎</div>
+          <div class="session-desc">変換リスト・1〜9とマスター数・生命の樹との対応</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-num">03</div>
+        <div>
+          <div class="session-title">算出方法</div>
+          <div class="session-desc">10項目の計算・マスター数特例・ワークシート</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-num">04</div>
+        <div>
+          <div class="session-title">読み解き方</div>
+          <div class="session-desc">各数値の役割・内外の切り分け・手放しの見方</div>
+        </div>
+      </div>
+      <div class="session">
+        <div class="session-num">05</div>
+        <div>
+          <div class="session-title">実践（口伝）</div>
+          <div class="session-desc">7ステップ鑑定・言葉では渡せない感覚を実践で。ここだけは教材に書けない。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-includes reveal">
+      <div class="include-item">
+        <div class="include-icon">⚙</div>
+        <div class="include-title">計算ツール</div>
+        <div class="include-desc">MY SOUL PASSCODE<br>修了者専用アプリ<br>LINEで即起動</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">◈</div>
+        <div class="include-title">Guardian number</div>
+        <div class="include-desc">お守り画像・全11種<br>使用・贈与許可<br>鑑定相手へのプレゼントに</div>
+      </div>
+      <div class="include-item">
+        <div class="include-icon">巻</div>
+        <div class="include-title">修了証</div>
+        <div class="include-desc">通過した証として<br>共に進む同志として<br>PDF発行</div>
+      </div>
+    </div>
+
+    <table class="price-table reveal">
+      <thead>
+        <tr>
+          <th>フェーズ</th>
+          <th>内容</th>
+          <th>価格</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <span class="phase-badge">現在募集中</span><br>
+            <strong>第０期</strong>
+          </td>
+          <td>
+            全5回講座＋修了証<br>
+            計算ツール（旧アプリ・買い切り）<br>
+            Guardian number使用許可
+          </td>
+          <td class="price-col">¥55,000<br><span style="font-size:12px;color:var(--ink-light)">税込・限定10名</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="phase-badge" style="background:var(--ink-mid)">次期予定</span><br>
+            <strong>第１期</strong>
+          </td>
+          <td>
+            全5回講座＋修了証<br>
+            計算ツール付き<br>
+            Guardian number使用許可
+          </td>
+          <td class="price-col">¥66,000〜<br><span style="font-size:12px;color:var(--ink-light)">税込・価格改定予定</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="phase-badge" style="background:var(--ink-light)">将来予定</span><br>
+            <strong>第２期〜</strong>
+          </td>
+          <td>
+            全5回講座＋修了証<br>
+            Guardian number使用許可<br>
+            新アプリ（サブスク）別途
+          </td>
+          <td class="price-col">¥66,000〜<br><span style="font-size:12px;color:var(--ink-light)">＋¥2,200/月</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fit-grid reveal">
+      <div class="fit-box yes">
+        <span class="fit-label">FOR YOU IF ── 向いている方</span>
+        <ul class="fit-list">
+          <li>自分で読みたい方</li>
+          <li>人の背中を押したい方</li>
+          <li>腹で納得したい方</li>
+        </ul>
+      </div>
+      <div class="fit-box no">
+        <span class="fit-label">NOT FOR YOU IF ── 向いていない方</span>
+        <ul class="fit-list">
+          <li>当ててもらいたい方</li>
+          <li>正解を教えてほしい方</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MESSAGE -->
+<section id="message">
+  <div class="section-wrap" style="text-align:center">
+    <span class="section-label reveal" style="text-align:center">Message</span>
+    <div class="gold-line reveal" style="margin:1.5rem auto 2.5rem"></div>
+    <div class="message-text reveal">
+      <p>この講座は、一方通行ではありません。</p>
+      <p>私も、受講者から受け取ります。</p>
+      <p><strong>「教えることは、教わること」</strong></p>
+      <p>これからの航海を楽しむ準備は整いました。</p>
+      <p>ここからはあなたの手で船を進めてください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-wrap" style="text-align:center">
+    <span class="section-label reveal" style="display:block;text-align:center">Contact</span>
+    <h2 class="section-title reveal" style="text-align:center">お問い合わせ・お申し込み</h2>
+    <div class="gold-line reveal" style="margin:1.5rem auto 2rem"></div>
+    <p class="cta-text reveal">
+      鑑定のご依頼・講座へのお申し込みは<br>
+      LINE公式アカウントよりご連絡ください。
+    </p>
+    <div class="reveal">
+      <a href="https://lin.ee/R9yqvRB" target="_blank" class="btn-line">数秘鑑定専用LINEへ</a>
+      <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-line-sub">倭迅会LINEへ</a>
+    </div>
+    <p class="cta-note reveal">
+      進むかどうかは、あなたが決めてください。<br>
+      お気軽にご連絡ください。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
