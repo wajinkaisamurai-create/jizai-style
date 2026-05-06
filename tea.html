@@ -17,12 +17,23 @@
   html { scroll-behavior: smooth; }
   body { background:var(--bg); color:var(--ink); font-family:'Noto Serif JP',serif; overflow-x:hidden; }
   body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events:none; z-index:0; }
-  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1.2rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(244,240,232,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
-  .nav-brand { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); text-decoration:none; }
-  .nav-brand span { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:0.8rem; color:var(--matcha); margin-left:0.6rem; }
-  .nav-back { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.7rem; letter-spacing:0.2em; color:var(--ink-light); text-decoration:none; transition:color 0.3s; }
-  .nav-back:hover { color:var(--matcha); }
-  .nav-back::before { content:'← '; }
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(245,242,236,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+.nav-brand { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); text-decoration:none; flex-shrink:0; }
+.nav-brand span { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:0.8rem; color:var(--accent, #7a6248); margin-left:0.6rem; }
+.nav-menu { display:flex; align-items:center; gap:2rem; }
+.nav-item { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; letter-spacing:0.2em; color:var(--ink-light, #8a8278); text-decoration:none; transition:color 0.3s; white-space:nowrap; }
+.nav-item:hover { color:var(--accent, #7a6248); }
+.nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+.nav-toggle span { display:block; width:22px; height:1px; background:var(--ink-light, #8a8278); transition:all 0.3s; }
+@media(max-width:700px){
+  .nav-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(245,242,236,0.97); flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; z-index:99; }
+  .nav-menu.open { display:flex; }
+  .nav-toggle { display:flex; z-index:101; }
+  .nav-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity:0; }
+  .nav-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+  .nav-item { font-size:0.9rem; letter-spacing:0.25em; }
+}
   #hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:8rem 2rem 5rem; text-align:center; overflow:hidden; }
   .hero-deco { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(500px,85vw); height:min(500px,85vw); border-radius:50%; border:1px solid rgba(74,103,65,0.08); pointer-events:none; }
   .hero-deco::before { content:''; position:absolute; inset:20px; border-radius:50%; border:1px solid rgba(74,103,65,0.05); }
@@ -120,7 +131,17 @@
 
 <nav>
   <a href="index.html" class="nav-brand">自在流<span>Jizai Style.</span></a>
-  <a href="index.html" class="nav-back">トップへ</a>
+  <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-menu" id="navMenu">
+    <a href="index.html" class="nav-item">トップ</a>
+    <a href="about.html" class="nav-item">自在流とは</a>
+    <a href="tate.html" class="nav-item">殺陣道場</a>
+    <a href="sokudo.html" class="nav-item">息道</a>
+    <a href="passcode.html" class="nav-item">数秘術</a>
+    <a href="tea.html" class="nav-item">テーブル茶道</a>
+  </div>
 </nav>
 
 <section id="hero">
@@ -326,6 +347,12 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+ const toggle = document.getElementById('navToggle');
+const menu = document.getElementById('navMenu');
+toggle.addEventListener('click', () => {
+  toggle.classList.toggle('open');
+  menu.classList.toggle('open');
+});
 </script>
 </body>
 </html>
