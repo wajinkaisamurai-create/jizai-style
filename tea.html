@@ -46,17 +46,10 @@
   .concept-body p { margin-bottom:1.8rem; }
   .concept-body p:last-child { margin-bottom:0; }
   .concept-emphasis { border-left:2px solid var(--matcha-l); padding-left:1.2rem; margin:2.5rem 0; font-size:0.95rem; color:var(--matcha); font-weight:400; line-height:2.2; }
-  #flow { border-bottom:1px solid var(--line); }
-  .flow-steps { display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.5rem; }
-  .flow-step { background:var(--bg); padding:2rem 2rem 2rem 1.5rem; display:grid; grid-template-columns:2.5rem 1fr; gap:1.5rem; align-items:start; transition:background 0.3s; }
-  .flow-step:hover { background:var(--bg2); }
-  .step-num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--matcha-l); line-height:1; opacity:0.7; }
-  .step-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.95rem; letter-spacing:0.15em; color:var(--ink); margin-bottom:0.5rem; }
-  .step-desc { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.82rem; color:var(--ink-mid); line-height:2.2; letter-spacing:0.06em; }
-  #features { background:var(--bg2); border-bottom:1px solid var(--line); }
+  #features { border-bottom:1px solid var(--line); }
   .features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.5rem; }
-  .feature-item { background:var(--bg2); padding:2.2rem 2rem; transition:background 0.3s; }
-  .feature-item:hover { background:var(--bg); }
+  .feature-item { background:var(--bg); padding:2.2rem 2rem; transition:background 0.3s; }
+  .feature-item:hover { background:var(--bg2); }
   .feature-mark { font-size:1.4rem; color:var(--matcha-l); margin-bottom:1rem; opacity:0.7; }
   .feature-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.92rem; letter-spacing:0.15em; color:var(--ink); margin-bottom:0.8rem; }
   .feature-desc { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.8rem; color:var(--ink-mid); line-height:2.2; letter-spacing:0.06em; }
@@ -69,7 +62,6 @@
   .menu-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); }
   .menu-card { background:var(--bg); padding:2.5rem 2rem; display:flex; flex-direction:column; gap:0.8rem; transition:background 0.3s; }
   .menu-card:hover { background:var(--bg2); }
-  .card-badge { display:inline-block; font-family:'Noto Sans JP',sans-serif; font-size:0.6rem; font-weight:300; letter-spacing:0.1em; color:var(--bg); background:var(--matcha); padding:0.2rem 0.7rem; margin-bottom:0.3rem; align-self:flex-start; }
   .card-cat { font-family:'Cormorant Garamond',serif; font-size:0.68rem; letter-spacing:0.3em; color:var(--matcha-l); }
   .card-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:1rem; letter-spacing:0.15em; color:var(--ink); line-height:1.7; }
   .card-detail { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; letter-spacing:0.12em; color:var(--ink-light); }
@@ -78,20 +70,36 @@
   .price-num { font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:300; color:var(--matcha); letter-spacing:0.05em; }
   .price-unit { font-family:'Noto Sans JP',sans-serif; font-size:0.65rem; font-weight:200; color:var(--ink-light); margin-left:0.2rem; }
   .price-note { font-family:'Noto Sans JP',sans-serif; font-size:0.65rem; font-weight:200; color:var(--ink-light); letter-spacing:0.08em; margin-top:0.4rem; line-height:2; }
+
+  /* 大茶会 独立セクション */
+  #ochakkai { background:var(--matcha); border-bottom:1px solid rgba(255,255,255,0.1); position:relative; z-index:1; }
+  #ochakkai .section-label { color:var(--matcha-ll); }
+  #ochakkai .section-title { color:rgba(244,240,232,0.95); }
+  #ochakkai .matcha-line { background:var(--matcha-ll); }
+  .ochakkai-inner { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.1); margin-top:2.5rem; }
+  .ochakkai-info { background:rgba(26,46,26,0.3); padding:2.5rem 2rem; }
+  .ochakkai-info-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:1rem; letter-spacing:0.15em; color:rgba(244,240,232,0.95); margin-bottom:1.2rem; }
+  .ochakkai-info-body { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.82rem; color:rgba(244,240,232,0.75); line-height:2.4; letter-spacing:0.06em; }
+  .ochakkai-price-box { background:rgba(26,46,26,0.5); padding:2.5rem 2rem; display:flex; flex-direction:column; justify-content:space-between; }
+  .ochakkai-price { font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; color:var(--matcha-ll); letter-spacing:0.05em; margin-bottom:0.3rem; }
+  .ochakkai-price-note { font-family:'Noto Sans JP',sans-serif; font-size:0.65rem; font-weight:200; color:rgba(244,240,232,0.5); letter-spacing:0.1em; line-height:2; margin-bottom:1.5rem; }
+  .ochakkai-btn { display:inline-block; font-family:'Noto Serif JP',serif; font-weight:300; font-size:0.78rem; letter-spacing:0.2em; color:var(--matcha); background:var(--matcha-ll); padding:0.8rem 1.5rem; text-decoration:none; transition:all 0.3s; align-self:flex-start; }
+  .ochakkai-btn:hover { background:rgba(168,196,160,0.8); }
+  .ochakkai-badge { display:inline-block; font-family:'Noto Sans JP',sans-serif; font-size:0.6rem; font-weight:300; letter-spacing:0.15em; color:var(--matcha); background:var(--matcha-ll); padding:0.25rem 0.8rem; margin-bottom:1.5rem; }
+
   .corporate-box { background:var(--bg2); border:1px solid var(--line); padding:3rem 2.5rem; }
   .corporate-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:1.1rem; letter-spacing:0.2em; color:var(--ink); margin-bottom:1.5rem; }
   .corporate-desc { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.85rem; color:var(--ink-mid); line-height:2.4; letter-spacing:0.06em; margin-bottom:2rem; }
   .corporate-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:2rem; }
   .corporate-tag { font-family:'Noto Sans JP',sans-serif; font-size:0.68rem; font-weight:200; letter-spacing:0.1em; color:var(--matcha); border:1px solid var(--line); padding:0.3rem 0.8rem; }
   .corporate-contact { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.78rem; color:var(--ink-light); letter-spacing:0.1em; line-height:2; }
-  #message { background:var(--matcha); position:relative; z-index:1; text-align:center; }
+  #message { background:var(--bg2); position:relative; z-index:1; text-align:center; border-bottom:1px solid var(--line); }
   .message-inner { max-width:560px; margin:0 auto; }
-  .message-label { font-family:'Cormorant Garamond',serif; font-size:0.72rem; letter-spacing:0.45em; color:var(--matcha-ll); display:block; margin-bottom:2rem; }
-  .message-text { font-family:'Noto Serif JP',serif; font-weight:300; font-size:clamp(0.88rem,2vw,1rem); color:rgba(244,240,232,0.88); line-height:2.8; letter-spacing:0.1em; }
+  .message-text { font-family:'Noto Serif JP',serif; font-weight:300; font-size:clamp(0.88rem,2vw,1rem); color:var(--ink-mid); line-height:2.8; letter-spacing:0.1em; }
   .message-text p { margin-bottom:1.2rem; }
   .message-text p:last-child { margin-bottom:0; }
-  .message-text strong { color:var(--matcha-ll); font-weight:400; }
-  #cta { position:relative; z-index:1; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .message-text strong { color:var(--matcha); font-weight:400; }
+  #cta { position:relative; z-index:1; text-align:center; border-bottom:1px solid var(--line); }
   .cta-text { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.88rem; color:var(--ink-mid); line-height:2.4; margin-bottom:2.5rem; letter-spacing:0.08em; }
   .btn-primary { display:inline-block; font-family:'Noto Serif JP',serif; font-weight:300; font-size:0.85rem; letter-spacing:0.25em; color:var(--bg); background:var(--matcha); border:1px solid var(--matcha); padding:1rem 2.5rem; text-decoration:none; transition:all 0.3s; margin:0.4rem; }
   .btn-primary:hover { background:var(--matcha-l); border-color:var(--matcha-l); }
@@ -100,7 +108,12 @@
   .footer-text { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.62rem; letter-spacing:0.2em; color:rgba(244,240,232,0.2); }
   .reveal { opacity:0; transform:translateY(12px); transition:opacity 0.7s ease,transform 0.7s ease; }
   .reveal.visible { opacity:1; transform:translateY(0); }
-  @media(max-width:600px){ .features-grid{grid-template-columns:1fr} .menu-cards{grid-template-columns:1fr} nav{padding:1rem 1.2rem} }
+  @media(max-width:600px){
+    .features-grid{grid-template-columns:1fr}
+    .menu-cards{grid-template-columns:1fr}
+    .ochakkai-inner{grid-template-columns:1fr}
+    nav{padding:1rem 1.2rem}
+  }
 </style>
 </head>
 <body>
@@ -136,44 +149,6 @@
       </div>
       <p>それを「知る」のではなく、「思い出す」体験がここにあります。</p>
       <p>殺陣師の視点から見るテーブル茶道とは、呼吸を整え、五感を開いた状態で、ご自身の手でお茶を点て、ご自分でいただく。それだけのことが、どれほど豊かな体験になるか——それを確かめる場です。</p>
-    </div>
-  </div>
-</section>
-
-<section id="flow">
-  <div class="section-wrap">
-    <span class="section-label reveal">Flow</span>
-    <h2 class="section-title reveal">体験の流れ</h2>
-    <div class="matcha-line reveal"></div>
-    <div class="flow-steps reveal">
-      <div class="flow-step">
-        <div class="step-num">一</div>
-        <div>
-          <div class="step-title">スイッチを入れる</div>
-          <p class="step-desc">五感覚を開き、音、空気の温度、香り——普段は見えているものに遮られていたものが、浮かび上がってくる。</p>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="step-num">二</div>
-        <div>
-          <div class="step-title">整える</div>
-          <p class="step-desc">水が湯になるまでの時間で、少し深く、自分のしやすい呼吸で呼吸を落ち着つける。</p>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="step-num">三</div>
-        <div>
-          <div class="step-title">仕上げる</div>
-          <p class="step-desc">呼吸と作法。順番を一緒に追いながら、茶筅を振り、仕上がっていく様子を楽しむ。</p>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="step-num">四</div>
-        <div>
-          <div class="step-title">感じる</div>
-          <p class="step-desc">ご自身で点てたお茶を、開いた五感でお茶をいただく。普段との違いを感じる。</p>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -214,6 +189,7 @@
     <h2 class="section-title reveal">メニュー</h2>
     <div class="matcha-line reveal"></div>
 
+    <!-- 個人向け -->
     <div class="menu-section reveal">
       <div class="menu-section-header">
         <span class="menu-section-label">Personal</span>
@@ -224,7 +200,7 @@
           <span class="card-cat">Standard · 通常体験</span>
           <h3 class="card-title">テーブル茶道<br>体験ワークショップ</h3>
           <div class="card-detail">90分程度 / 少人数制</div>
-          <p class="card-desc">呼吸を整えるところから始まり、手順を追ってご自分でお茶を点て、いただく体験。少人数で丁寧に進めます。簡易帯の貸し出しあり</p>
+          <p class="card-desc">呼吸を整えるところから始まり、手順を追ってご自分でお茶を点て、いただく体験。少人数で丁寧に進めます。簡易帯の貸し出しあり。</p>
           <div class="card-price">
             <span class="price-num">¥8,000</span><span class="price-unit">/ 人（目安）</span>
             <div class="price-note">※材料費・交通費等の諸経費は別途<br>※人数・場所により変動あり</div>
@@ -243,23 +219,13 @@
       </div>
     </div>
 
+    <!-- 出張体験 -->
     <div class="menu-section reveal">
       <div class="menu-section-header">
         <span class="menu-section-label">Event</span>
-        <span class="menu-section-title">イベント・出張体験</span>
+        <span class="menu-section-title">出張・イベント体験</span>
       </div>
       <div class="menu-cards">
-        <div class="menu-card">
-          <span class="card-badge">特別体験</span>
-          <span class="card-cat">Special · 湖上のお点前</span>
-          <h3 class="card-title">箱根遊船「大茶会」<br>お点前体験</h3>
-          <div class="card-detail">約15分 / 湖上・不定期開催</div>
-          <p class="card-desc">芦ノ湖の湖上、お茶の船の中で行う特別なお点前体験。自分でお茶を点て、湖上で一服する非日常の15分。詳細・お申込みは芦ノ湖箱根遊船のイベントページをご参照ください。</p>
-          <div class="card-price">
-            <span class="price-num">¥2,000</span><span class="price-unit">/ 人</span>
-            <div class="price-note">※箱根遊船イベントページにてご確認ください</div>
-          </div>
-        </div>
         <div class="menu-card">
           <span class="card-cat">Outdoor · 出張体験</span>
           <h3 class="card-title">出張お点前体験</h3>
@@ -273,6 +239,7 @@
       </div>
     </div>
 
+    <!-- 法人向け -->
     <div class="menu-section reveal">
       <div class="menu-section-header">
         <span class="menu-section-label">Corporate</span>
@@ -295,12 +262,37 @@
   </div>
 </section>
 
+<!-- 大茶会 独立セクション -->
+<section id="ochakkai">
+  <div class="section-wrap">
+    <span class="section-label reveal">Special Event</span>
+    <h2 class="section-title reveal">箱根遊船「大茶会」<br>お点前体験</h2>
+    <div class="matcha-line reveal"></div>
+    <div class="ochakkai-inner reveal">
+      <div class="ochakkai-info">
+        <span class="ochakkai-badge">特別体験 / 芦ノ湖 湖上</span>
+        <div class="ochakkai-info-title">お茶の船の中で、一服。</div>
+        <p class="ochakkai-info-body">
+          芦ノ湖の湖上、お茶の船の中で行う特別なお点前体験。約15分間、ご自分でお茶を点て、湖の上でいただく——日常では出会えない非日常の一服です。<br><br>
+          倭迅会が箱根遊船の「大茶会」内にて不定期開催しています。詳細・開催日程・お申込みは箱根遊船のイベントページをご確認ください。
+        </p>
+      </div>
+      <div class="ochakkai-price-box">
+        <div>
+          <div class="ochakkai-price">¥2,000<span style="font-size:1rem;opacity:0.7"> / 人</span></div>
+          <div class="ochakkai-price-note">約15分 / 湖上・不定期開催<br>詳細は箱根遊船イベントページへ</div>
+        </div>
+        <a href="https://www.hakone-yuransen.jp/news/" target="_blank" class="ochakkai-btn">箱根遊船 イベントページへ →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="message">
   <div class="section-wrap" style="text-align:center;">
     <div class="message-inner">
-      <span class="message-label reveal">From the practitioner</span>
       <div class="message-text reveal">
-        <p><br><strong>殺陣師だからこそ届けられる一服</strong>がここにあります。</p>
+        <p><strong>殺陣師だからこそ届けられる一服</strong>がここにあります。</p>
         <p>忘れていたものを思い出すきっかけとして。</p>
       </div>
     </div>
@@ -316,7 +308,7 @@
     <div class="reveal">
       <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-primary">LINEでお問い合わせ</a>
     </div>
-    <p class="cta-note reveal">着物・帯の貸出あり。動きやすい服装でお越しください。<br>※材料費・交通費等の諸経費は別途申し受けます。</p>
+    <p class="cta-note reveal">簡易帯の貸出あり。動きやすい服装でお越しください。<br>※材料費・交通費等の諸経費は別途申し受けます。</p>
   </div>
 </section>
 
