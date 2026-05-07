@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>殺陣道場：福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:      #f0ede6;
+    --bg2:     #e6e2d9;
+    --bg3:     #d8d3c8;
+    --ink:     #141210;
+    --ink-mid: #3a3530;
+    --ink-light:#7a7268;
+    --red:     #8b1a1a;
+    --red-l:   #a83232;
+    --gold:    #b89060;
+    --gold-l:  #d4ac7a;
+    --line:    rgba(20,18,16,0.12);
+    --line-r:  rgba(139,26,26,0.15);
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font-family:'Noto Serif JP',serif; overflow-x:hidden; }
+
+  /* 墨の滲み風背景 */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse 40% 60% at 15% 20%, rgba(20,18,16,0.04) 0%, transparent 70%),
+      radial-gradient(ellipse 30% 40% at 85% 80%, rgba(20,18,16,0.03) 0%, transparent 60%);
+    pointer-events:none; z-index:0;
+  }
+
+  /* ========== NAV ========== */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(240,237,230,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .nav-brand { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); text-decoration:none; flex-shrink:0; }
+  .nav-brand span { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:0.8rem; color:var(--red); margin-left:0.6rem; }
+  .nav-menu { display:flex; align-items:center; gap:2rem; }
+  .nav-item { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; letter-spacing:0.2em; color:var(--ink-light); text-decoration:none; transition:color 0.3s; white-space:nowrap; }
+  .nav-item:hover { color:var(--red); }
+  .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+  .nav-toggle span { display:block; width:22px; height:1px; background:var(--ink-light); transition:all 0.3s; }
+  @media(max-width:700px){
+    .nav-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(240,237,230,0.97); flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; z-index:99; }
+    .nav-menu.open { display:flex; }
+    .nav-toggle { display:flex; z-index:101; }
+    .nav-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity:0; }
+    .nav-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+    .nav-item { font-size:0.9rem; letter-spacing:0.25em; }
+  }
+
+  /* ========== HERO ========== */
+  #hero {
+    position:relative; min-height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:8rem 2rem 5rem; text-align:center; overflow:hidden;
+  }
+
+  /* 刀の縦線装飾 */
+  .hero-blade {
+    position:absolute;
+    top:0; bottom:0;
+    width:1px;
+    background:linear-gradient(to bottom, transparent 0%, rgba(139,26,26,0.15) 20%, rgba(139,26,26,0.25) 50%, rgba(139,26,26,0.15) 80%, transparent 100%);
+  }
+  .hero-blade:nth-child(1) { left:20%; }
+  .hero-blade:nth-child(2) { left:80%; }
+
+  .hero-inner { position:relative; z-index:1; max-width:640px; }
+
+  .hero-label { font-family:'Cormorant Garamond',serif; font-size:0.72rem; letter-spacing:0.45em; color:var(--ink-light); display:block; margin-bottom:2.5rem; opacity:0; animation:fadeUp 0.8s 0.2s forwards; }
+
+  .hero-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:clamp(3rem,12vw,7rem); letter-spacing:0.2em; color:var(--ink); line-height:1.1; margin-bottom:0.5rem; opacity:0; animation:fadeUp 0.8s 0.4s forwards; }
+
+  .hero-title-read { display:block; font-size:0.22em; letter-spacing:0.6em; color:var(--ink-light); font-weight:200; margin-top:0.8rem; }
+
+  .hero-divider { width:1px; height:60px; background:linear-gradient(to bottom,transparent,var(--red),transparent); margin:2rem auto; opacity:0; animation:fadeUp 0.8s 0.8s forwards; }
+
+  .hero-catch { font-family:'Noto Serif JP',serif; font-weight:300; font-size:clamp(0.88rem,2vw,1.05rem); line-height:2.6; color:var(--ink-mid); letter-spacing:0.15em; opacity:0; animation:fadeUp 0.8s 1s forwards; }
+
+  .hero-catch em { font-style:normal; color:var(--red); font-weight:400; }
+
+  .hero-license { margin-top:2rem; opacity:0; animation:fadeUp 0.8s 1.2s forwards; }
+  .hero-license span { display:inline-block; font-family:'Noto Sans JP',sans-serif; font-size:0.65rem; font-weight:200; letter-spacing:0.2em; color:var(--ink-light); border:1px solid var(--line); padding:0.4rem 1.2rem; }
+
+  .scroll-hint { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:0.5rem; color:var(--ink-light); font-family:'Cormorant Garamond',serif; font-size:0.65rem; letter-spacing:0.3em; text-decoration:none; opacity:0; animation:fadeUp 0.8s 1.6s forwards; z-index:1; }
+  .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--red),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* ========== SECTION COMMON ========== */
+  .section-wrap { position:relative; z-index:1; max-width:800px; margin:0 auto; padding:6rem 2rem; }
+  .section-label { font-family:'Cormorant Garamond',serif; font-size:0.72rem; letter-spacing:0.45em; color:var(--ink-light); text-transform:uppercase; display:block; margin-bottom:1rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-weight:300; font-size:clamp(1.3rem,3.5vw,1.8rem); letter-spacing:0.2em; color:var(--ink); line-height:1.6; }
+  .red-line { width:2.5rem; height:1px; background:var(--red); margin:1.5rem 0 2.5rem; opacity:0.5; }
+
+  /* ========== CONCEPT ========== */
+  #concept { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bg2); }
+
+  .concept-body { font-family:'Noto Serif JP',serif; font-weight:300; font-size:0.92rem; color:var(--ink-mid); line-height:2.8; letter-spacing:0.08em; }
+  .concept-body p { margin-bottom:1.8rem; }
+  .concept-body p:last-child { margin-bottom:0; }
+
+  .concept-emphasis { border-left:2px solid var(--red); padding-left:1.2rem; margin:2.5rem 0; font-size:0.95rem; color:var(--red); font-weight:400; line-height:2.2; opacity:0.85; }
+
+  /* ========== FEATURES ========== */
+  #features { border-bottom:1px solid var(--line); }
+
+  .features-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.5rem; }
+
+  .feature-item { background:var(--bg); padding:2.5rem 1.8rem; transition:background 0.3s; }
+  .feature-item:hover { background:var(--bg2); }
+
+  .feature-num { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:var(--red); opacity:0.4; line-height:1; margin-bottom:1rem; }
+
+  .feature-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.92rem; letter-spacing:0.15em; color:var(--ink); margin-bottom:0.8rem; }
+
+  .feature-desc { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.8rem; color:var(--ink-mid); line-height:2.2; letter-spacing:0.06em; }
+
+  /* ========== CLASSES ========== */
+  #classes { background:var(--bg2); border-bottom:1px solid var(--line); }
+
+  .class-list { display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.5rem; }
+
+  .class-item { background:var(--bg2); padding:2rem 2.5rem; display:grid; grid-template-columns:8rem 1fr auto; gap:2rem; align-items:center; transition:background 0.3s; }
+  .class-item:hover { background:var(--bg); }
+  .class-item.featured { background:var(--ink); }
+  .class-item.featured:hover { background:#2a2520; }
+
+  .class-name { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.95rem; letter-spacing:0.2em; color:var(--ink); }
+  .class-item.featured .class-name { color:var(--bg); }
+
+  .class-sub { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.65rem; letter-spacing:0.15em; color:var(--ink-light); margin-top:0.3rem; }
+  .class-item.featured .class-sub { color:rgba(240,237,230,0.4); }
+
+  .class-desc { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.8rem; color:var(--ink-mid); line-height:2; letter-spacing:0.06em; }
+  .class-item.featured .class-desc { color:rgba(240,237,230,0.7); }
+
+  .class-price { text-align:right; flex-shrink:0; }
+
+  .price-main { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:300; color:var(--ink); white-space:nowrap; }
+  .class-item.featured .price-main { color:var(--gold-l, #d4ac7a); }
+
+  .price-sub { font-family:'Noto Sans JP',sans-serif; font-size:0.62rem; font-weight:200; color:var(--ink-light); letter-spacing:0.1em; margin-top:0.3rem; }
+  .class-item.featured .price-sub { color:rgba(240,237,230,0.4); }
+
+  .price-ticket { font-family:'Noto Sans JP',sans-serif; font-size:0.68rem; font-weight:200; color:var(--red); letter-spacing:0.08em; margin-top:0.4rem; white-space:nowrap; }
+  .class-item.featured .price-ticket { color:var(--gold-l, #d4ac7a); opacity:0.8; }
+
+  /* ========== CURRICULUM ========== */
+  #curriculum { border-bottom:1px solid var(--line); }
+
+  .curriculum-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin-top:2.5rem; }
+
+  .curriculum-item { background:var(--bg); padding:2.2rem 2rem; transition:background 0.3s; }
+  .curriculum-item:hover { background:var(--bg2); }
+
+  .curr-level { font-family:'Cormorant Garamond',serif; font-size:0.68rem; letter-spacing:0.3em; color:var(--red); display:block; margin-bottom:0.8rem; opacity:0.8; }
+
+  .curr-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.92rem; letter-spacing:0.15em; color:var(--ink); margin-bottom:1rem; }
+
+  .curr-list { list-style:none; display:flex; flex-direction:column; gap:0.5rem; }
+
+  .curr-list li { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.78rem; color:var(--ink-mid); letter-spacing:0.06em; line-height:1.8; display:flex; align-items:flex-start; gap:0.6rem; }
+
+  .curr-list li::before { content:''; width:1px; height:1em; background:var(--red); flex-shrink:0; margin-top:0.2em; opacity:0.5; }
+
+  /* ========== PATH ========== */
+  #path { background:var(--ink); border-bottom:1px solid rgba(255,255,255,0.05); }
+
+  #path .section-label { color:rgba(240,237,230,0.3); }
+  #path .section-title { color:rgba(240,237,230,0.9); }
+  #path .red-line { background:var(--red); opacity:0.6; }
+
+  .path-steps { display:flex; flex-direction:column; gap:1px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.05); margin-top:2.5rem; }
+
+  .path-step { background:rgba(255,255,255,0.02); padding:1.8rem 2rem; display:grid; grid-template-columns:3rem 1fr; gap:1.5rem; align-items:start; transition:background 0.3s; }
+  .path-step:hover { background:rgba(255,255,255,0.05); }
+  .path-step.highlight { background:rgba(139,26,26,0.15); }
+
+  .path-num { font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:300; color:var(--red); line-height:1; opacity:0.7; }
+
+  .path-title { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.92rem; letter-spacing:0.15em; color:rgba(240,237,230,0.9); margin-bottom:0.4rem; }
+
+  .path-desc { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.78rem; color:rgba(240,237,230,0.5); line-height:2; letter-spacing:0.06em; }
+
+  .path-badge { display:inline-block; font-family:'Noto Sans JP',sans-serif; font-size:0.58rem; font-weight:300; letter-spacing:0.1em; color:var(--red); border:1px solid rgba(139,26,26,0.4); padding:0.15rem 0.6rem; margin-bottom:0.5rem; }
+
+  /* ========== CTA ========== */
+  #cta { position:relative; z-index:1; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+
+  .cta-text { font-family:'Noto Serif JP',serif; font-weight:200; font-size:0.88rem; color:var(--ink-mid); line-height:2.4; margin-bottom:2.5rem; letter-spacing:0.08em; }
+
+  .btn-primary { display:inline-block; font-family:'Noto Serif JP',serif; font-weight:300; font-size:0.85rem; letter-spacing:0.25em; color:var(--bg); background:var(--ink); border:1px solid var(--ink); padding:1rem 2.5rem; text-decoration:none; transition:all 0.3s; margin:0.4rem; }
+  .btn-primary:hover { background:var(--ink-mid); border-color:var(--ink-mid); }
+
+  .btn-secondary { display:inline-block; font-family:'Noto Serif JP',serif; font-weight:300; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); background:transparent; border:1px solid var(--line); padding:1rem 2.5rem; text-decoration:none; transition:all 0.3s; margin:0.4rem; }
+  .btn-secondary:hover { border-color:var(--ink); }
+
+  .cta-note { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; color:var(--ink-light); letter-spacing:0.1em; margin-top:1.5rem; line-height:2; }
+
+  /* ========== FOOTER ========== */
+  footer { background:var(--ink); padding:1.5rem 2rem; text-align:center; position:relative; z-index:1; }
+  .footer-text { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.62rem; letter-spacing:0.2em; color:rgba(240,237,230,0.2); }
+
+  /* ========== REVEAL ========== */
+  .reveal { opacity:0; transform:translateY(12px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ========== RESPONSIVE ========== */
+  @media(max-width:640px){
+    .features-grid { grid-template-columns:1fr; }
+    .class-item { grid-template-columns:1fr; gap:0.8rem; }
+    .class-price { text-align:left; }
+    .curriculum-grid { grid-template-columns:1fr; }
+    nav { padding:1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">自在流<span>Jizai Style.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-menu" id="navMenu">
+    <a href="index.html" class="nav-item">トップ</a>
+    <a href="about.html" class="nav-item">自在流とは</a>
+    <a href="tate.html" class="nav-item">殺陣道場</a>
+    <a href="sokudo.html" class="nav-item">息道</a>
+    <a href="passcode.html" class="nav-item">数秘術</a>
+    <a href="tea.html" class="nav-item">テーブル茶道</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-blade"></div>
+  <div class="hero-blade"></div>
+  <div class="hero-inner">
+    <span class="hero-label">Jizai Style — Stage Combat</span>
+    <h1 class="hero-title">
+      殺陣
+      <span class="hero-title-read">た て</span>
+    </h1>
+    <div class="hero-divider"></div>
+    <p class="hero-catch">
+      斬ることが目的ではない。<br>
+      <em>刀は、表現だ。</em>
+    </p>
+    <div class="hero-license">
+      <span>日本俳優連合　殺陣上級ライセンス所持</span>
+    </div>
+  </div>
+  <a href="#concept" class="scroll-hint"><div class="scroll-line"></div><span>scroll</span></a>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="section-wrap">
+    <span class="section-label reveal">What is Tate</span>
+    <h2 class="section-title reveal">殺陣とは、なにか。</h2>
+    <div class="red-line reveal"></div>
+    <div class="concept-body reveal">
+      <p>殺陣は武道ではありません。武術でもありません。舞台や映像の上で、刀を使った表現を成立させるための技術です。人を倒すためではなく、<strong>見る人に何かを届けるために刀を抜く。</strong></p>
+      <div class="concept-emphasis">
+        納刀が、最も重要。<br>
+        抜かないことが、理想。
+      </div>
+      <p>自在流の殺陣は、流派の型にとらわれません。他流の動きを分解し、自分の身体で試し、表現として使えるかを確かめる。安全性を担保した上で、自由自在に型を探求するスタンスです。</p>
+      <p>呼吸・歩法・間（ま）——すべてが殺陣の中に生きています。刀を持つことで、身体の軸が通る。その感覚を、ここで体感してください。</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-wrap">
+    <span class="section-label reveal">Features</span>
+    <h2 class="section-title reveal">稽古の特徴</h2>
+    <div class="red-line reveal"></div>
+    <div class="features-grid reveal">
+      <div class="feature-item">
+        <div class="feature-num">一</div>
+        <div class="feature-title">本物の竹光を使う</div>
+        <p class="feature-desc">舞台で実際に使用している竹光（木製模造刀）で稽古します。重さ・長さ・間合い——本物の感覚で体験できます。</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">二</div>
+        <div class="feature-title">少人数・丁寧な指導</div>
+        <p class="feature-desc">少人数制で、参加者一人ひとりのレベルに合わせて進めます。初心者からプロを目指す方まで対応します。</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">三</div>
+        <div class="feature-title">着物と帯の貸出あり</div>
+        <p class="feature-desc">和装での稽古が可能です。着物を着ることで、殺陣に必要な身体感覚が変わります。動きやすい服装でも参加できます。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section id="classes">
+  <div class="section-wrap">
+    <span class="section-label reveal">Classes</span>
+    <h2 class="section-title reveal">クラスと料金</h2>
+    <div class="red-line reveal"></div>
+
+    <div class="class-list reveal">
+
+      <div class="class-item">
+        <div>
+          <div class="class-name">体験</div>
+          <div class="class-sub">初回のみ</div>
+        </div>
+        <div class="class-desc">呼吸の整えから始まり、抜刀・構え・真っ向の型・血振り・納刀まで一連の流れを体験。実演鑑賞・記念撮影あり。約20分。</div>
+        <div class="class-price">
+          <div class="price-main">¥2,000</div>
+          <div class="price-sub">都度払い</div>
+        </div>
+      </div>
+
+      <div class="class-item">
+        <div>
+          <div class="class-name">趣味クラス</div>
+          <div class="class-sub">月1〜2回向け</div>
+        </div>
+        <div class="class-desc">エクササイズや脳トレ、時代劇好きの方など、気軽に楽しみたい方向け。発表会参加も可能。都度払いのみ。</div>
+        <div class="class-price">
+          <div class="price-main">¥2,500</div>
+          <div class="price-sub">/ 回・都度払い</div>
+        </div>
+      </div>
+
+      <div class="class-item">
+        <div>
+          <div class="class-name">初級クラス</div>
+          <div class="class-sub">基礎を正しく</div>
+        </div>
+        <div class="class-desc">舞台的な視点を加えながら、基礎を丁寧に身につける。一対一の動きを中心に、表現としての殺陣を学ぶ。</div>
+        <div class="class-price">
+          <div class="price-main">¥3,500</div>
+          <div class="price-sub">/ 回・都度払い</div>
+          <div class="price-ticket">4回チケット ¥12,000（3ヶ月有効）</div>
+        </div>
+      </div>
+
+      <div class="class-item">
+        <div>
+          <div class="class-name">中級クラス</div>
+          <div class="class-sub">表現として使う</div>
+        </div>
+        <div class="class-desc">一対多の動き、役者側のカメラワークを取り入れ、舞台・ステージで通用するレベルへ。</div>
+        <div class="class-price">
+          <div class="price-main">¥6,000</div>
+          <div class="price-sub">/ 回・都度払い</div>
+          <div class="price-ticket">4回チケット ¥20,000（3ヶ月有効）</div>
+        </div>
+      </div>
+
+      <div class="class-item featured">
+        <div>
+          <div class="class-name">上級クラス</div>
+          <div class="class-sub">本番で通用する技術へ</div>
+        </div>
+        <div class="class-desc">舞台構成・演出・台本構成・撮影者側のカメラワークまで。演劇・ステージパフォーマンスの本番を見据えた本気の稽古。</div>
+        <div class="class-price">
+          <div class="price-main">¥8,000</div>
+          <div class="price-sub">/ 回・都度払い</div>
+          <div class="price-ticket">4回チケット ¥28,000（3ヶ月有効）</div>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="reveal" style="font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.72rem; color:var(--ink-light); letter-spacing:0.1em; line-height:2; margin-top:1.5rem;">
+      ※個別指導・団体稽古・短期集中・出張指導については別途ご相談ください。<br>
+      ※稽古の開催日程はLINEにてご案内します。ご希望日をお知らせください。
+    </p>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="section-wrap">
+    <span class="section-label reveal">Curriculum</span>
+    <h2 class="section-title reveal">稽古の内容</h2>
+    <div class="red-line reveal"></div>
+    <div class="curriculum-grid reveal">
+
+      <div class="curriculum-item">
+        <span class="curr-level">趣味クラス</span>
+        <div class="curr-title">基本の一巡</div>
+        <ul class="curr-list">
+          <li>呼吸の整え（簡易版）</li>
+          <li>和の歩法・足捌き</li>
+          <li>納刀・抜刀のおさらい</li>
+          <li>構えと振りの型</li>
+          <li>一対一の簡単な手合わせ</li>
+        </ul>
+      </div>
+
+      <div class="curriculum-item">
+        <span class="curr-level">初級クラス</span>
+        <div class="curr-title">舞台的視点の導入</div>
+        <ul class="curr-list">
+          <li>基本の一巡＋</li>
+          <li>舞台的な視点と身体の使い方</li>
+          <li>一対一の動きを深める</li>
+          <li>見せるための間（ま）</li>
+        </ul>
+      </div>
+
+      <div class="curriculum-item">
+        <span class="curr-level">中級クラス</span>
+        <div class="curr-title">表現として使う</div>
+        <ul class="curr-list">
+          <li>一対多の動き</li>
+          <li>役者側のカメラワーク</li>
+          <li>シーンとして成立させる</li>
+        </ul>
+      </div>
+
+      <div class="curriculum-item">
+        <span class="curr-level">上級クラス</span>
+        <div class="curr-title">舞台を作る側へ</div>
+        <ul class="curr-list">
+          <li>舞台構成・演出</li>
+          <li>台本構成</li>
+          <li>撮影者側のカメラワーク</li>
+          <li>日俳連ライセンス取得を視野に</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="section-wrap" style="text-align:center;">
+    <span class="section-label reveal" style="display:block;text-align:center;">Contact</span>
+    <h2 class="section-title reveal" style="text-align:center;">まず、体験から。</h2>
+    <div class="red-line reveal" style="margin:1.5rem auto 2rem;"></div>
+    <p class="cta-text reveal">
+      稽古の日程・体験のお申し込みは<br>
+      LINE公式アカウントよりご連絡ください。<br>
+      経験不問。着物・帯の貸出あり。
+    </p>
+    <div class="reveal">
+      <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-primary">LINEで申し込む</a>
+    </div>
+    <p class="cta-note reveal">
+      神奈川県西湘地区にて不定期開催。<br>
+      出張指導・団体稽古もご相談ください。
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navMenu');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+</script>
+</body>
+</html>
