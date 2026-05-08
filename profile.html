@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代表紹介：福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  :root {
+    --bg:#f0ede6; --bg2:#e6e2d9; --bg3:#d8d3c8;
+    --ink:#141210; --ink-mid:#3a3530; --ink-light:#7a7268;
+    --accent:#5a4a3a; --gold:#b89060; --gold-l:#d4ac7a;
+    --line:rgba(20,18,16,0.1);
+  }
+  html { scroll-behavior:smooth; }
+  body { background:var(--bg); color:var(--ink); font-family:'Noto Serif JP',serif; overflow-x:hidden; }
+
+  /* ========== NAV ========== */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(240,237,230,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .nav-brand { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); text-decoration:none; flex-shrink:0; }
+  .nav-brand span { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:0.8rem; color:var(--accent); margin-left:0.6rem; }
+  .nav-menu { display:flex; align-items:center; gap:2rem; }
+  .nav-item { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; letter-spacing:0.2em; color:var(--ink-light); text-decoration:none; transition:color 0.3s; white-space:nowrap; }
+  .nav-item:hover { color:var(--accent); }
+  .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+  .nav-toggle span { display:block; width:22px; height:1px; background:var(--ink-light); transition:all 0.3s; }
+  @media(max-width:700px){
+    .nav-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(240,237,230,0.97); flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; z-index:99; }
+    .nav-menu.open { display:flex; }
+    .nav-toggle { display:flex; z-index:101; }
+    .nav-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity:0; }
+    .nav-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+    .nav-item { font-size:0.9rem; letter-spacing:0.25em; }
+  }
+
+  /* ========== HERO ========== */
+  #hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:8rem 2rem 5rem; text-align:center;
+    position:relative; overflow:hidden;
+  }
+
+  .hero-img-wrap {
+    width:min(320px,70vw); height:min(400px,85vw);
+    margin:0 auto 3rem;
+    position:relative; overflow:hidden;
+    opacity:0; animation:fadeUp 1s 0.3s forwards;
+  }
+
+  .hero-img-wrap::before {
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom, transparent 60%, var(--bg) 100%);
+    z-index:1; pointer-events:none;
+  }
+
+  .hero-img-wrap img {
+    width:100%; height:100%;
+    object-fit:cover; object-position:center top;
+    filter:sepia(15%) contrast(1.05);
+  }
+
+  .hero-inner { position:relative; z-index:1; }
+
+  .hero-nickname {
+    font-family:'Cormorant Garamond',serif;
+    font-size:0.72rem; letter-spacing:0.4em;
+    color:var(--ink-light); display:block;
+    margin-bottom:1rem;
+    opacity:0; animation:fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-name-ja {
+    font-family:'Noto Serif JP',serif; font-weight:400;
+    font-size:clamp(2rem,6vw,3rem); letter-spacing:0.3em;
+    color:var(--ink); display:block;
+    margin-bottom:0.5rem;
+    opacity:0; animation:fadeUp 0.8s 0.8s forwards;
+  }
+
+  .hero-name-en {
+    font-family:'Cormorant Garamond',serif; font-weight:300;
+    font-style:italic; font-size:clamp(0.8rem,2vw,1rem);
+    letter-spacing:0.3em; color:var(--ink-light);
+    opacity:0; animation:fadeUp 0.8s 1s forwards;
+  }
+
+  .hero-divider {
+    width:1px; height:50px;
+    background:linear-gradient(to bottom,transparent,var(--gold),transparent);
+    margin:2rem auto;
+    opacity:0; animation:fadeUp 0.8s 1.2s forwards;
+  }
+
+  .hero-titles {
+    display:flex; flex-wrap:wrap; justify-content:center;
+    gap:0.5rem; margin-bottom:1rem;
+    opacity:0; animation:fadeUp 0.8s 1.4s forwards;
+  }
+
+  .hero-title-tag {
+    font-family:'Noto Sans JP',sans-serif; font-weight:200;
+    font-size:0.68rem; letter-spacing:0.15em;
+    color:var(--ink-light); border:1px solid var(--line);
+    padding:0.3rem 0.8rem;
+  }
+
+  .scroll-hint { position:absolute; bottom:2.5rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:0.5rem; color:var(--ink-light); font-family:'Cormorant Garamond',serif; font-size:0.65rem; letter-spacing:0.3em; text-decoration:none; opacity:0; animation:fadeUp 0.8s 1.8s forwards; z-index:1; }
+  .scroll-line { width:1px; height:40px; background:linear-gradient(to bottom,var(--gold),transparent); animation:scrollPulse 2s ease-in-out infinite; }
+
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+  @keyframes scrollPulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
+
+  /* ========== SECTION COMMON ========== */
+  .section-wrap { max-width:720px; margin:0 auto; padding:6rem 2rem; }
+  .section-label { font-family:'Cormorant Garamond',serif; font-size:0.72rem; letter-spacing:0.45em; color:var(--ink-light); text-transform:uppercase; display:block; margin-bottom:1rem; }
+  .section-title { font-family:'Noto Serif JP',serif; font-weight:300; font-size:clamp(1.3rem,3.5vw,1.8rem); letter-spacing:0.2em; color:var(--ink); line-height:1.6; }
+  .gold-line { width:2.5rem; height:1px; background:var(--gold); margin:1.5rem 0 2.5rem; opacity:0.5; }
+
+  /* ========== CREDENTIALS ========== */
+  #credentials { border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bg2); }
+
+  .credentials-grid {
+    display:grid; grid-template-columns:repeat(2,1fr);
+    gap:1px; background:var(--line); border:1px solid var(--line);
+    margin-top:2.5rem;
+  }
+
+  .credential-item {
+    background:var(--bg2); padding:2rem 1.8rem;
+    transition:background 0.3s;
+  }
+  .credential-item:hover { background:var(--bg); }
+
+  .credential-icon {
+    font-size:1.2rem; color:var(--gold);
+    margin-bottom:0.8rem; opacity:0.7;
+  }
+
+  .credential-title {
+    font-family:'Noto Serif JP',serif; font-weight:400;
+    font-size:0.88rem; letter-spacing:0.12em;
+    color:var(--ink); margin-bottom:0.4rem; line-height:1.7;
+  }
+
+  .credential-sub {
+    font-family:'Noto Sans JP',sans-serif; font-weight:200;
+    font-size:0.68rem; letter-spacing:0.1em;
+    color:var(--ink-light); line-height:1.9;
+  }
+
+  /* ========== HISTORY ========== */
+  #history { border-bottom:1px solid var(--line); }
+
+  .history-body {
+    font-family:'Noto Serif JP',serif; font-weight:300;
+    font-size:0.9rem; color:var(--ink-mid);
+    line-height:2.8; letter-spacing:0.08em;
+  }
+
+  .history-body p { margin-bottom:1.6rem; }
+  .history-body p:last-child { margin-bottom:0; }
+
+  .history-timeline {
+    display:flex; flex-direction:column; gap:1px;
+    background:var(--line); border:1px solid var(--line);
+    margin-top:2.5rem;
+  }
+
+  .timeline-item {
+    background:var(--bg); padding:1.8rem 2rem;
+    display:grid; grid-template-columns:5rem 1fr;
+    gap:1.5rem; align-items:start;
+    transition:background 0.3s;
+  }
+  .timeline-item:hover { background:var(--bg2); }
+
+  .timeline-period {
+    font-family:'Cormorant Garamond',serif; font-size:0.78rem;
+    font-weight:300; letter-spacing:0.15em;
+    color:var(--gold); padding-top:0.15rem;
+    line-height:1.6;
+  }
+
+  .timeline-content {}
+
+  .timeline-title {
+    font-family:'Noto Serif JP',serif; font-weight:400;
+    font-size:0.9rem; letter-spacing:0.12em;
+    color:var(--ink); margin-bottom:0.4rem;
+  }
+
+  .timeline-desc {
+    font-family:'Noto Serif JP',serif; font-weight:200;
+    font-size:0.78rem; color:var(--ink-mid);
+    line-height:2.2; letter-spacing:0.06em;
+  }
+
+  /* ========== WORKS（写真グリッド）========== */
+  #works { background:var(--bg2); border-bottom:1px solid var(--line); }
+
+  .works-grid {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px; background:var(--line); border:1px solid var(--line);
+    margin-top:2.5rem;
+  }
+
+  .work-item {
+    position:relative; overflow:hidden;
+    aspect-ratio:3/4;
+  }
+
+  .work-item img {
+    width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    filter:sepia(10%) contrast(1.05);
+    transition:transform 0.6s ease, filter 0.4s ease;
+  }
+  .work-item:hover img { transform:scale(1.03); filter:sepia(0%) contrast(1.05); }
+
+  .work-caption {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:1rem 0.8rem 0.8rem;
+    background:linear-gradient(to top,rgba(20,18,16,0.7),transparent);
+    font-family:'Noto Sans JP',sans-serif; font-weight:200;
+    font-size:0.6rem; letter-spacing:0.15em;
+    color:rgba(240,237,230,0.8);
+  }
+
+  /* ========== ACTIVITIES ========== */
+  #activities { border-bottom:1px solid var(--line); }
+
+  .activities-section { margin-bottom:3.5rem; }
+  .activities-section:last-child { margin-bottom:0; }
+
+  .activities-header {
+    display:flex; align-items:baseline; gap:1rem;
+    margin-bottom:1.2rem; padding-bottom:0.8rem;
+    border-bottom:1px solid var(--line);
+  }
+
+  .activities-label {
+    font-family:'Cormorant Garamond',serif; font-size:0.68rem;
+    letter-spacing:0.3em; color:var(--gold); text-transform:uppercase;
+  }
+
+  .activities-title {
+    font-family:'Noto Serif JP',serif; font-weight:300;
+    font-size:0.9rem; letter-spacing:0.15em; color:var(--ink-mid);
+  }
+
+  .activities-list {
+    display:flex; flex-wrap:wrap; gap:0.5rem;
+  }
+
+  .activity-tag {
+    font-family:'Noto Sans JP',sans-serif; font-weight:200;
+    font-size:0.72rem; letter-spacing:0.1em;
+    color:var(--ink-mid); border:1px solid var(--line);
+    padding:0.35rem 0.8rem;
+    transition:background 0.3s, color 0.3s;
+  }
+  .activity-tag:hover { background:var(--bg2); }
+
+  .activity-tag.dim {
+    color:var(--ink-light); border-color:rgba(20,18,16,0.06);
+    font-size:0.68rem;
+  }
+
+  /* 拠点リスト */
+  .venue-list {
+    display:flex; flex-direction:column; gap:1px;
+    background:var(--line); border:1px solid var(--line);
+  }
+
+  .venue-item {
+    background:var(--bg); padding:1.2rem 1.5rem;
+    display:flex; justify-content:space-between;
+    align-items:center; transition:background 0.3s;
+  }
+  .venue-item:hover { background:var(--bg2); }
+
+  .venue-name {
+    font-family:'Noto Serif JP',serif; font-weight:300;
+    font-size:0.85rem; letter-spacing:0.1em; color:var(--ink);
+  }
+
+  .venue-area {
+    font-family:'Noto Sans JP',sans-serif; font-weight:200;
+    font-size:0.65rem; letter-spacing:0.12em; color:var(--ink-light);
+  }
+
+  .venue-status {
+    font-family:'Noto Sans JP',sans-serif; font-weight:200;
+    font-size:0.6rem; letter-spacing:0.1em;
+    color:var(--ink-light); border:1px solid var(--line);
+    padding:0.15rem 0.5rem; flex-shrink:0;
+  }
+
+  /* ========== FOOTER ========== */
+  footer { background:var(--ink); padding:1.5rem 2rem; text-align:center; }
+  .footer-text { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.62rem; letter-spacing:0.2em; color:rgba(240,237,230,0.2); }
+
+  /* ========== REVEAL ========== */
+  .reveal { opacity:0; transform:translateY(12px); transition:opacity 0.7s ease,transform 0.7s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* ========== RESPONSIVE ========== */
+  @media(max-width:600px){
+    .credentials-grid { grid-template-columns:1fr; }
+    .works-grid { grid-template-columns:repeat(2,1fr); }
+    .timeline-item { grid-template-columns:4rem 1fr; }
+    nav { padding:1rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">自在流<span>Jizai Style.</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-menu" id="navMenu">
+    <a href="index.html" class="nav-item">トップ</a>
+    <a href="about.html" class="nav-item">自在流とは</a>
+    <a href="tate.html" class="nav-item">殺陣道場</a>
+    <a href="sokudo.html" class="nav-item">息道</a>
+    <a href="passcode.html" class="nav-item">数秘術</a>
+    <a href="tea.html" class="nav-item">テーブル茶道</a>
+    <a href="profile.html" class="nav-item">代表紹介</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-img-wrap">
+    <img src="images/image5.jpg" alt="福田ひろし">
+  </div>
+  <div class="hero-inner">
+    <span class="hero-nickname">殺陣とお茶のサムライ数秘術家</span>
+    <span class="hero-name-ja">福田　ひろし</span>
+    <span class="hero-name-en">Hiroshi Fukuda</span>
+    <div class="hero-divider"></div>
+    <div class="hero-titles">
+      <span class="hero-title-tag">殺陣師</span>
+      <span class="hero-title-tag">自在流呼吸法・息道　提唱者</span>
+      <span class="hero-title-tag">カバラ式口伝数秘術鑑定家</span>
+      <span class="hero-title-tag">福和倭迅会　代表</span>
+    </div>
+  </div>
+  <a href="#credentials" class="scroll-hint"><div class="scroll-line"></div><span>scroll</span></a>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="section-wrap">
+    <span class="section-label reveal">Credentials</span>
+    <h2 class="section-title reveal">資格・肩書き</h2>
+    <div class="gold-line reveal"></div>
+    <div class="credentials-grid reveal">
+      <div class="credential-item">
+        <div class="credential-icon">⚔</div>
+        <div class="credential-title">日本俳優連合　アクション部会<br>殺陣上級ライセンス所持</div>
+        <div class="credential-sub">殺陣師</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">◎</div>
+        <div class="credential-title">テーブル茶道「雪月花」<br>インストラクター資格所有</div>
+        <div class="credential-sub">テーブル茶道ワークショップ</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">息</div>
+        <div class="credential-title">自在流呼吸法・息道<br>提唱者</div>
+        <div class="credential-sub">殺陣師が舞台の実践から体得した呼吸法</div>
+      </div>
+      <div class="credential-item">
+        <div class="credential-icon">数</div>
+        <div class="credential-title">カバラ式口伝数秘術<br>鑑定家</div>
+        <div class="credential-sub">MY SOUL PASSCODE　主宰</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section id="history">
+  <div class="section-wrap">
+    <span class="section-label reveal">History</span>
+    <h2 class="section-title reveal">来歴</h2>
+    <div class="gold-line reveal"></div>
+    <div class="history-timeline reveal">
+
+      <div class="timeline-item">
+        <div class="timeline-period">20代〜</div>
+        <div class="timeline-content">
+          <div class="timeline-title">演劇の世界へ</div>
+          <p class="timeline-desc">小劇団にて活動。舞台を拠点に、声優・ステージパフォーマー・ステージMC・インターネットTVパーソナリティなども行う。並行して、様々な現場・職種を経験。</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">30代〜</div>
+        <div class="timeline-content">
+          <div class="timeline-title">殺陣と出会う</div>
+          <p class="timeline-desc">殺陣と出会い、本格的に取り組み始める。日本俳優連合　アクション部会　殺陣上級ライセンスを取得。表現としての刀を追求する。</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">令和元年</div>
+        <div class="timeline-content">
+          <div class="timeline-title">福和倭迅会　設立</div>
+          <p class="timeline-desc">殺陣・呼吸・茶・数秘を統合した活動の場として、福和倭迅会を設立。</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2022〜<br>2023</div>
+        <div class="timeline-content">
+          <div class="timeline-title">胃がん発覚・部分胃切除手術</div>
+          <p class="timeline-desc">2022年に胃がんが発覚、2023年に部分胃切除手術を受ける。この経験が、呼吸と身体への向き合い方を深めるきっかけとなり、自在流呼吸法・息道の体系化へと繋がる。</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-period">2024年〜<br>現在</div>
+        <div class="timeline-content">
+          <div class="timeline-title">神奈川県西湘地区に拠点を移し活動を再開</div>
+          <p class="timeline-desc">殺陣道場・テーブル茶道ワークショップ・カバラ式口伝数秘術鑑定・自在流呼吸法・息道を展開。箱根遊船「大茶会」にてお点前体験を不定期開催。マルシェ等での活動も精力的に行う。</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WORKS（写真） -->
+<section id="works">
+  <div class="section-wrap">
+    <span class="section-label reveal">Gallery</span>
+    <h2 class="section-title reveal">活動の記録</h2>
+    <div class="gold-line reveal"></div>
+    <div class="works-grid reveal">
+      <div class="work-item">
+        <img src="images/image2.jpg" alt="殺陣・庭">
+        <div class="work-caption">殺陣</div>
+      </div>
+      <div class="work-item">
+        <img src="images/image3.jpg" alt="殺陣・古民家">
+        <div class="work-caption">殺陣</div>
+      </div>
+      <div class="work-item">
+        <img src="images/image1.jpg" alt="テーブル茶道">
+        <div class="work-caption">テーブル茶道</div>
+      </div>
+      <div class="work-item">
+        <img src="images/image4.jpg" alt="大茶会">
+        <div class="work-caption">箱根遊船　大茶会</div>
+      </div>
+      <div class="work-item">
+        <img src="images/image5.jpg" alt="刀を見る">
+        <div class="work-caption">静</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVITIES -->
+<section id="activities">
+  <div class="section-wrap">
+    <span class="section-label reveal">Activities</span>
+    <h2 class="section-title reveal">活動・拠点</h2>
+    <div class="gold-line reveal"></div>
+
+    <!-- マルシェ主軸 -->
+    <div class="activities-section reveal">
+      <div class="activities-header">
+        <span class="activities-label">Marché · 主軸</span>
+        <span class="activities-title">定期出展マルシェ</span>
+      </div>
+      <div class="activities-list">
+        <span class="activity-tag">さんにち市（富士吉田・北口本宮浅間神社）</span>
+        <span class="activity-tag">活き活きマルシェ（小田原）</span>
+      </div>
+    </div>
+
+    <!-- マルシェ遠征 -->
+    <div class="activities-section reveal">
+      <div class="activities-header">
+        <span class="activities-label">Marché · 遠征</span>
+        <span class="activities-title">出展実績</span>
+      </div>
+      <div class="activities-list">
+        <span class="activity-tag dim">BANBANマルシェ（甲府）</span>
+        <span class="activity-tag dim">日石ビレッジ（岐阜）</span>
+        <span class="activity-tag dim">３３ラボ（香川）</span>
+        <span class="activity-tag dim">iina-iina（出雲）</span>
+        <span class="activity-tag dim">和咲美-wasabi-（岡山）</span>
+      </div>
+    </div>
+
+    <!-- 活動拠点・連携先 -->
+    <!-- ▼ 拠点追加・変更はこのセクション内のvenue-itemを編集してください ▼ -->
+    <div class="activities-section reveal">
+      <div class="activities-header">
+        <span class="activities-label">Venues</span>
+        <span class="activities-title">活動拠点・連携先</span>
+      </div>
+      <div class="venue-list">
+        <div class="venue-item">
+          <span class="venue-name">箱根遊船「大茶会」</span>
+          <span class="venue-area">芦ノ湖</span>
+          <span class="venue-status">開催中</span>
+        </div>
+        <div class="venue-item">
+          <span class="venue-name">墨荘・BOKUSOU</span>
+          <span class="venue-area">熱海・湯河原</span>
+          <span class="venue-status">調整中</span>
+        </div>
+        <div class="venue-item">
+          <span class="venue-name">凹家</span>
+          <span class="venue-area">小田原・弓浜海岸</span>
+          <span class="venue-status">調整中</span>
+        </div>
+        <div class="venue-item">
+          <span class="venue-name">泊まれる廃墟　ぐんじょう</span>
+          <span class="venue-area">—</span>
+          <span class="venue-status">調整中</span>
+        </div>
+        <div class="venue-item">
+          <span class="venue-name">八亀庵</span>
+          <span class="venue-area">湯河原</span>
+          <span class="venue-status">調整中</span>
+        </div>
+      </div>
+    </div>
+    <!-- ▲ 拠点追加・変更はここまで ▲ -->
+
+  </div>
+</section>
+
+<footer>
+  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const toggle = document.getElementById('navToggle');
+  const menu = document.getElementById('navMenu');
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+</script>
+</body>
+</html>
