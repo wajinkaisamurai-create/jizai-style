@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数秘｜継続サポート | MY SOUL PASSCODE | 福和倭迅会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f5f2ec;
+      --paper: #fffaf0;
+      --bg2: #ebe5d8;
+      --ink: #1c1a16;
+      --ink-mid: #4a4640;
+      --ink-light: #8a8278;
+      --accent: #7a6248;
+      --gold: #b08a3c;
+      --gold-l: #d0ad5c;
+      --brown: #4b2f1f;
+      --compass: #1a2e40;
+      --compass-l: #2c4a5c;
+      --line: rgba(75, 47, 31, 0.18);
+      --gold-line: rgba(176, 138, 60, 0.24);
+      --shadow: 0 18px 45px rgba(31, 26, 22, 0.08);
+      --white: #ffffff;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+      line-height: 2.1;
+      overflow-x: hidden;
+      letter-spacing: 0.06em;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(139,101,64,.045) 60px),
+        repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(139,101,64,.045) 60px),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    h1, h2, h3, .serif { font-family: 'Noto Serif JP', serif; font-weight: 300; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    b, strong { font-weight: 400; color: var(--compass); }
+
+    .header {
+      position: fixed;
+      width: 100%; top: 0; left: 0;
+      background: rgba(245,242,236,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      z-index: 1000;
+    }
+    .header nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
+    .nav-brand { color: var(--ink); font-size: 15px; letter-spacing: 0.22em; font-weight: 400; }
+    .nav-brand span { display: inline-block; margin-left: 8px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 13px; color: var(--accent); }
+    .nav-menu { display: flex; gap: 24px; }
+    .nav-item { color: var(--ink-light); font-size: 12px; letter-spacing: 0.16em; font-family: "Noto Sans JP", sans-serif; }
+    .nav-item:hover { color: var(--accent); }
+
+    section { position: relative; z-index: 1; padding: 8rem 1.5rem; max-width: 1000px; margin: 0 auto; text-align: center; }
+    .section-label { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); letter-spacing: 0.3em; font-size: 14px; display: block; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .section-title { font-size: clamp(1.55rem, 4vw, 2rem); margin-bottom: 2.3rem; color: var(--brown); line-height: 1.7; letter-spacing: 0.16em; }
+    .lead { max-width: 760px; margin: 0 auto; color: var(--ink-mid); font-size: 0.98rem; line-height: 2.45; }
+    .lead p { margin-bottom: 1.4rem; }
+    .gold-line { width: 44px; height: 1px; background: var(--gold); opacity: 0.65; margin: 0 auto 2.5rem; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .hero-simple {
+      max-width: 100%;
+      min-height: 58vh;
+      padding: 9rem 1.5rem 6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .hero-simple::before {
+      content: "";
+      position: absolute;
+      width: min(560px, 82vw);
+      height: min(560px, 82vw);
+      border: 1px solid rgba(176,138,60,0.14);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -45%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 760px; }
+    .hero-inner h1 { font-size: clamp(1.85rem, 5vw, 3rem); color: var(--brown); line-height: 1.8; letter-spacing: 0.16em; }
+    .hero-inner p { margin-top: 1.5rem; color: var(--ink-mid); line-height: 2.2; }
+
+    .soft-section { background: var(--bg2); max-width: 100%; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .soft-inner { max-width: 1000px; margin: 0 auto; }
+    .support-grid, .club-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 4rem; }
+    .support-card, .club-card {
+      text-align: left;
+      background: rgba(255,250,240,0.78);
+      padding: 38px 32px;
+      border-radius: 20px;
+      border: 1px solid var(--gold-line);
+      box-shadow: var(--shadow);
+    }
+    .support-card h3, .club-card h3 { font-size: 1.08rem; color: var(--brown); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; line-height: 1.7; }
+    .support-card h3::before, .club-card h3::before { content: ""; width: 20px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .support-card p, .club-card p { font-size: 0.9rem; line-height: 2.05; color: var(--ink-mid); }
+    .price { font-family: 'Cormorant Garamond', serif; font-size: 1.65rem; color: var(--compass); margin: 1rem 0 0.8rem; letter-spacing: 0.04em; }
+    .price small { font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--ink-light); }
+
+    .btn-primary { display: inline-block; padding: 18px 56px; border-radius: 999px; background: var(--compass); color: var(--white); transition: 0.4s; letter-spacing: 0.2em; font-size: 15px; box-shadow: 0 12px 30px rgba(26,46,64,0.22); margin-top: 2rem; }
+    .btn-primary:hover { background: var(--compass-l); transform: translateY(-3px); }
+    .btn-secondary { display: inline-block; padding: 17px 46px; border-radius: 999px; border: 1px solid var(--gold); color: var(--compass); transition: 0.4s; letter-spacing: 0.18em; font-size: 14px; margin: 2rem 0.4rem 0; }
+    .btn-secondary:hover { background: rgba(176,138,60,0.12); transform: translateY(-3px); }
+    .cta-note { font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--ink-light); line-height: 2; margin-top: 1.5rem; }
+
+    footer { padding: 80px 20px; border-top: 1px solid var(--line); text-align: center; position: relative; z-index: 1; }
+    .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 12px; color: var(--ink-light); letter-spacing: 0.1em; }
+    .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; }
+
+    @media (max-width: 850px) {
+      .header nav { padding: 12px 20px; flex-direction: column; gap: 8px; }
+      .nav-menu { gap: 12px; flex-wrap: wrap; justify-content: center; }
+      .nav-item { font-size: 11px; }
+      section { padding: 6rem 1.2rem; }
+      .hero-simple { padding-top: 8rem; }
+      .btn-primary, .btn-secondary { width: 100%; max-width: 360px; padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <nav>
+    <a href="index.html" class="nav-brand">福和倭迅会<span>jizai Style.</span></a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-item">トップ</a>
+      <a href="about.html" class="nav-item">目指すところ</a>
+      <a href="tate.html" class="nav-item">殺陣道場</a>
+      <a href="sokudo.html" class="nav-item">息道</a>
+      <a href="passcode.html" class="nav-item">口伝数秘術</a>
+      <a href="tea.html" class="nav-item">テーブル茶道</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero-simple">
+  <div class="hero-inner reveal">
+    <span class="section-label">MEMBERS SUPPORT</span>
+    <h1>鑑定の後から、<br>始まるものがあります。</h1>
+    <p>MY SOUL PASSCODEで受け取った地図を、日常の中で使っていくための継続サポートです。</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="lead">
+    <span class="section-label">USE IN DAILY LIFE</span>
+    <h2 class="section-title">知るだけで終わらせないために</h2>
+    <div class="gold-line"></div>
+    <p>鑑定で地図を受け取った後、どう使うかが本番です。</p>
+    <p>数字は、毎月変わる波の中にあります。</p>
+    <p>年単位・月単位で、流れが変わっていく。</p>
+    <p>その流れを日常の中で読めるようになると、<br>決断のタイミング、休むべき時期、動くべき時期が<br>自分の中から見えてくるようになります。</p>
+  </div>
+</section>
+
+<section class="soft-section reveal">
+  <div class="soft-inner">
+    <span class="section-label">SUPPORT MENU</span>
+    <h2 class="section-title">継続メニュー</h2>
+    <div class="gold-line"></div>
+    <div class="support-grid">
+      <div class="support-card">
+        <h3>今月の海図</h3>
+        <div class="price">無料 <small>/ 毎月公開</small></div>
+        <p>今月の数字の流れを、短編読み物として発信しています。鑑定を受けていない方も読めます。</p>
+      </div>
+      <div class="support-card">
+        <h3>月次壁紙サブスク</h3>
+        <div class="price">¥1,500 <small>/ 3ヶ月</small><br>¥2,700 <small>/ 6ヶ月</small></div>
+        <p>その月の気配を、一枚の画像で受け取る。日常の中で数字を思い出すための、静かな合図です。</p>
+      </div>
+      <div class="support-card">
+        <h3>月次パーソナルカレンダー</h3>
+        <div class="price">¥2,200 <small>/ 月</small></div>
+        <p>あなたの数字と月の流れを組み合わせた、個人向けカレンダーです。</p>
+      </div>
+    </div>
+    <p class="cta-note">※簡易鑑定系メニューは名称確認後に追記します。</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <span class="section-label">CLUB</span>
+  <h2 class="section-title">Club（継続コミュニティ）</h2>
+  <div class="gold-line"></div>
+  <div class="lead">
+    <p>数字を一人で使い続けるのが難しいと感じる方へ。</p>
+    <p>同じように数字と向き合っている人たちと、定期的につながる場があります。</p>
+  </div>
+  <div class="club-grid">
+    <div class="club-card">
+      <h3>Remoteクラス</h3>
+      <p>週次・オンライン。<br>週に一度、数字の流れを確認しながら対話する場。場所を選ばず参加できます。</p>
+    </div>
+    <div class="club-card">
+      <h3>Caféクラス</h3>
+      <p>月次・対面。<br>月に一度、顔を合わせて集まる場。対面で話すことで見えてくるものがあります。</p>
+    </div>
+  </div>
+  <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-secondary">Clubへの参加・料金はLINEでご相談ください</a>
+</section>
+
+<section class="soft-section reveal" id="cta">
+  <div class="soft-inner">
+    <span class="section-label">CONTACT</span>
+    <h2 class="section-title">LINEで相談する</h2>
+    <div class="gold-line"></div>
+    <div class="lead">
+      <p>どのメニューが合うか分からない場合も、LINEでご相談ください。</p>
+      <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-primary">LINEで相談する</a>
+      <p class="cta-note">医療・法律・投資等の判断代行は行いません。必要に応じて専門家へご相談ください。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">TOP</a>
+    <a href="about.html">倭迅会の目指すところ</a>
+    <a href="sokudo.html">息道</a>
+    <a href="tate.html">殺陣道場</a>
+    <a href="tea.html">テーブル茶道</a>
+    <a href="passcode.html">口伝数秘術</a>
+    <a href="passcode-members.html">数秘｜継続サポート</a>
+    <a href="profile.html">代表紹介</a>
+  </div>
+  <p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => { entry.target.classList.add('visible'); }, i * 150);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
