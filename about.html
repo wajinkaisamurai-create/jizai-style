@@ -1,440 +1,457 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>自在流とは：福和倭迅会</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>福和倭迅会｜倭迅会が目指すところ</title>
 
-  :root {
-    --bg:        #f5f2ec;
-    --bg2:       #edeae3;
-    --ink:       #1c1a16;
-    --ink-mid:   #4a4640;
-    --ink-light: #8a8278;
-    --accent:    #7a6248;
-    --accent2:   #b8956a;
-    --gold:      #c9a96e;
-    --line:      rgba(122,98,72,0.18);
-  }
+  <style>
+    :root {
+      --bg: #f7f3eb;
+      --paper: #fffaf0;
+      --ink: #1f1a16;
+      --sub: #6f6256;
+      --gold: #b08a3c;
+      --brown: #4b2f1f;
+      --line: rgba(75, 47, 31, 0.18);
+      --shadow: 0 18px 45px rgba(31, 26, 22, 0.08);
+    }
 
-  html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
 
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Noto Serif JP', serif;
-    overflow-x: hidden;
-  }
+    body {
+      margin: 0;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.9;
+      letter-spacing: 0.04em;
+    }
 
-  /* ========== NAV ========== */
-  nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(245,242,236,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-.nav-brand { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); text-decoration:none; flex-shrink:0; }
+      /* ========== NAV ========== */
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; padding:1rem 2.5rem; display:flex; align-items:center; justify-content:space-between; background:rgba(245,242,236,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
 
-.nav-brand span { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:0.8rem; color:var(--accent, #7a6248); margin-left:0.6rem; }
+      .nav-brand { font-family:'Noto Serif JP',serif; font-weight:400; font-size:0.85rem; letter-spacing:0.25em; color:var(--ink); text-decoration:none; flex-shrink:0; }
 
-.nav-menu { display:flex; align-items:center; gap:2rem; }
+      .nav-brand span { font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; font-size:0.8rem; color:var(--accent, #7a6248); margin-left:0.6rem; }
 
-.nav-item { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; letter-spacing:0.2em; color:var(--ink-light, #8a8278); text-decoration:none; transition:color 0.3s; white-space:nowrap; }
+      .nav-menu { display:flex; align-items:center; gap:2rem; }
 
-.nav-item:hover { color:var(--accent, #7a6248); }
+      .nav-item { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:0.68rem; letter-spacing:0.2em; color:var(--ink-light, #8a8278); text-decoration:none; transition:color 0.3s; white-space:nowrap; }
 
-.nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
+      .nav-item:hover { color:var(--accent, #7a6248); }
 
-.nav-toggle span { display:block; width:22px; height:1px; background:var(--ink-light, #8a8278); transition:all 0.3s; }
-@media(max-width:700px){
+      .nav-toggle { display:none; flex-direction:column; gap:5px; background:none; border:none; cursor:pointer; padding:4px; }
 
-  .nav-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(245,242,236,0.97); flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; z-index:99; }
+      .nav-toggle span { display:block; width:22px; height:1px; background:var(--ink-light, #8a8278); transition:all 0.3s; }
+      @media(max-width:700px){
 
-  .nav-menu.open { display:flex; }
+        .nav-menu { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(245,242,236,0.97); flex-direction:column; align-items:center; justify-content:center; gap:2.5rem; z-index:99; }
 
-  .nav-toggle { display:flex; z-index:101; }
+        .nav-menu.open { display:flex; }
 
-  .nav-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
+        .nav-toggle { display:flex; z-index:101; }
 
-  .nav-toggle.open span:nth-child(2) { opacity:0; }
+        .nav-toggle.open span:nth-child(1) { transform:translateY(6px) rotate(45deg); }
 
-  .nav-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity:0; }
 
-  .nav-item { font-size:0.9rem; letter-spacing:0.25em; }
-}
+        .nav-toggle.open span:nth-child(3) { transform:translateY(-6px) rotate(-45deg); }
 
-  /* ========== PAGE HERO ========== */
-  #page-hero {
-    padding: 10rem 2rem 5rem;
-    max-width: 720px;
-    margin: 0 auto;
-    border-bottom: 1px solid var(--line);
-  }
+        .nav-item { font-size:0.9rem; letter-spacing:0.25em; }
+    }
 
-  .page-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 0.75rem;
-    letter-spacing: 0.4em;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 1.5rem;
-  }
+    .about-hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      max-width: 100%;
+      padding-top: 9rem;
+      padding: 120px 24px 90px;
+      overflow: hidden;
+      text-align: center;
+      background:
+        linear-gradient(rgba(245,242,236,0.28), rgba(245,242,236,0.72)),
+        radial-gradient(circle at center, #7b5a36, #1f1a16);
+        url('images/Image14.png') center 42%/cover no-repeat;
+    }
+    .about-hero::before {
+      content: ""; position: absolute; width: min(560px, 82vw); height: min(560px, 82vw);
+      border: 1px solid rgba(74,103,65,0.10); border-radius: 50%;
+      top: 50%; left: 50%; transform: translate(-50%, -47%);
+    }
+    .about-hero::after {
+      content: ""; position: absolute; inset: auto 0 0 0; height: 38%;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+    }
 
-  .page-title {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: clamp(1.8rem, 5vw, 2.8rem);
-    letter-spacing: 0.2em;
-    color: var(--ink);
-    line-height: 1.4;
-    margin-bottom: 0.5rem;
-  }
 
-  .page-title-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(0.9rem, 2vw, 1.1rem);
-    letter-spacing: 0.3em;
-    color: var(--ink-light);
-  }
+    .eyebrow {
+      margin: 0 0 18px;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: #e8d7ad;
+    }
 
-  /* ========== ORIGIN ========== */
-  #origin {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 5rem 2rem;
-    border-bottom: 1px solid var(--line);
-  }
+    .about-hero h1 {
+      margin: 0;
+      font-size: clamp(32px, 6vw, 56px);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+    }
 
-  .section-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    color: var(--accent);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 1rem;
-  }
+    .lead {
+      margin: 28px auto 0;
+      max-width: 720px;
+      font-size: clamp(17px, 2.5vw, 22px);
+      color: #f5ead2;
+    }
 
-  .section-divider {
-    width: 2rem;
-    height: 1px;
-    background: var(--gold);
-    margin-bottom: 2.5rem;
-    opacity: 0.6;
-  }
+    .about-page {
+      width: min(1080px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 72px 0 100px;
+    }
 
-  .origin-text {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    line-height: 2.6;
-    color: var(--ink-mid);
-    letter-spacing: 0.08em;
-  }
+    .about-section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: clamp(30px, 5vw, 56px);
+      margin-bottom: 34px;
+      box-shadow: var(--shadow);
+    }
 
-  .origin-text p { margin-bottom: 2rem; }
-  .origin-text p:last-child { margin-bottom: 0; }
+    .about-section h2 {
+      margin: 0 0 24px;
+      font-size: clamp(24px, 4vw, 34px);
+      color: var(--brown);
+      line-height: 1.45;
+      position: relative;
+      padding-bottom: 16px;
+      text-align: center;
+    }
 
-  .origin-text strong {
-    font-weight: 400;
-    color: var(--ink);
-  }
+    .about-section h2::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 64px;
+      height: 2px;
+      background: var(--gold);
+    }
 
-  .origin-text em {
-    font-style: normal;
-    color: var(--ink);
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 0.05em;
-  }
+    .about-section p {
+      margin: 0 auto 18px;
+      font-size: 16px;
+      text-align: center;
+      max-width: 680px;
+    }
 
-  /* ダッシュ引用 */
-  .origin-dash {
-    display: block;
-    padding-left: 1.5em;
-    border-left: 1px solid var(--gold);
-    margin: 2rem 0;
-    color: var(--ink-mid);
-    font-size: 0.92em;
-    line-height: 2.4;
-    opacity: 0.85;
-  }
+    .about-section p:last-child {
+      margin-bottom: 0;
+    }
 
-  /* ========== FOUR WAYS ========== */
-  #ways {
-    background: var(--bg2);
-    padding: 5rem 2rem;
-  }
+    .three-columns {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
 
-  .ways-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
+    .card {
+      padding: 26px 22px;
+      border-radius: 18px;
+      background: #f4ead8;
+      border: 1px solid var(--line);
+    }
 
-  .ways-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    margin-top: 2.5rem;
-  }
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: var(--brown);
+    }
 
-  .way-card {
-    background: var(--bg2);
-    padding: 2.2rem 2rem;
-    text-decoration: none;
-    color: var(--ink);
-    transition: background 0.3s;
-    display: block;
-  }
-  .way-card:hover { background: var(--bg); }
+    .card p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--sub);
+    }
 
-  .way-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.72rem;
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    display: block;
-  }
+    .profile-link-section {
+      background: linear-gradient(135deg, #fffaf0, #efe1c6);
+    }
 
-  .way-title-ja {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 400;
-    font-size: 1rem;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.3rem;
-    display: block;
-  }
+    .name-en {
+      margin-top: -10px;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+    }
 
-  .way-title-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    color: var(--ink-light);
-    margin-bottom: 1.2rem;
-    display: block;
-  }
+    .button {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 13px 28px;
+      border-radius: 999px;
+      background: var(--brown);
+      color: #fff;
+      font-size: 15px;
+      transition: 0.25s ease;
+    }
 
-  .way-catch {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 200;
-    font-size: 0.82rem;
-    line-height: 2;
-    color: var(--ink-mid);
-    letter-spacing: 0.08em;
-  }
+    .button:hover {
+      background: var(--gold);
+      transform: translateY(-2px);
+    }
 
-  .way-arrow {
-    display: block;
-    margin-top: 1.5rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .way-card:hover .way-arrow { opacity: 1; }
+    .closing-section {
+      text-align: center;
+      background: #241a14;
+      color: #fff;
+    }
 
-  /* ========== PHILOSOPHY LINK ========== */
-  #philosophy {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 4rem 2rem 5rem;
-    border-top: 1px solid var(--line);
-  }
+    .closing-section h2 {
+      color: #fff;
+    }
 
-  .philosophy-text {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 200;
-    font-size: 0.85rem;
-    line-height: 2.4;
-    color: var(--ink-light);
-    letter-spacing: 0.1em;
-    margin-bottom: 1.5rem;
-  }
+    .closing-section h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+      background: #d6b66b;
+    }
 
-  .philosophy-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 0.82rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 0.2rem;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .philosophy-link:hover { color: var(--accent2); border-color: var(--accent2); }
-  .philosophy-link::after { content: '→'; font-size: 0.8em; }
+    .closing-section p {
+      color: #efe5d2;
+    }
 
-  /* ========== FOOTER ========== */
-  footer {
-    background: var(--ink);
-    padding: 1.5rem 2rem;
-    text-align: center;
-  }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 32px;
+    }
 
-  .footer-text {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 200;
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: rgba(245,242,236,0.2);
-  }
+    .link-grid a {
+      display: block;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+      transition: 0.25s ease;
+    }
 
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 600px) {
-    .ways-grid { grid-template-columns: 1fr; }
-    #page-hero { padding: 8rem 1.5rem 3rem; }
-  }
-</style>
+    .link-grid a:hover {
+      background: rgba(214, 182, 107, 0.22);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .about-hero {
+        padding: 88px 20px 70px;
+      }
+
+      .three-columns,
+      .link-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-page {
+        width: min(100% - 24px, 1080px);
+        padding: 44px 0 72px;
+      }
+
+      .about-section {
+        border-radius: 18px;
+      }
+    }
+
+    .ichienkan-image {
+      margin: 32px auto 40px;
+      text-align: center;
+    }
+
+    .ichienkan-image img {
+      width: 100%;
+      max-width: 820px;
+      height: auto;
+      display: inline-block;
+      border-radius: 18px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+    }
+
+    /* --- Reveal Animation --- */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    footer {
+      padding: 4rem 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 1.8rem; }
+      .content-box { padding: 1.5rem; }
+      .section-wrap { padding: 4rem 1.5rem; }
+    }  
+  </style>
 </head>
+
 <body>
-
-<!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-brand">自在流<span>Jizai Style.</span></a>
-  <button class="nav-toggle" id="navToggle" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-menu" id="navMenu">
-    <a href="index.html" class="nav-item">トップ</a>
-    <a href="about.html" class="nav-item">自在流とは</a>
-    <a href="tate.html" class="nav-item">殺陣道場</a>
-    <a href="sokudo.html" class="nav-item">息道</a>
-    <a href="passcode.html" class="nav-item">数秘術</a>
-    <a href="tea.html" class="nav-item">テーブル茶道</a>
-  </div>
-</nav>
-
-<!-- PAGE HERO -->
-<div id="page-hero">
-  <span class="page-label">About Jizai Style</span>
-  <h1 class="page-title">自在流とは。</h1>
-  <p class="page-title-en">What is Jizai Style?</p>
-</div>
-
-<!-- ORIGIN -->
-<section id="origin">
-  <span class="section-label">Origin</span>
-  <div class="section-divider"></div>
-
-  <div class="origin-text">
-    <p>
-      20代の頃の10年ほど、小劇団で活動をしていた。<br>
-      当時、友人のバンドマンのライブを見に行った時に感じた思い。
-    </p>
-
-    <p>
-      劇団員とバンドマンは仲良くなれるのに、<br>
-      それぞれの観客の間には、なんとなく壁がある。
-    </p>
-
-    <p>
-      その壁が、<em>邪魔だと感じた。</em>
-    </p>
-
-    <p>
-      窮屈さや生きづらさ、なんとなくの違和感を感じている人たちが集まり、<br>
-      化学反応が起こる場所を作りたい。
-
-      <span class="origin-dash">
-        ——誰かと何かを起こせたわけではない。<br>
-        ただ、その感覚がずっと、静かに燻り続けている。
-      </span>
-    </p>
-
-    <p>
-      殺陣を軸に、他流の型を見るとき——<br>
-      分解して、自分の体で試して、表現として使えるか確かめる。<br>
-      使えなければ<strong>寝かせる。捨てない。</strong>
-    </p>
-
-    <p>
-      呼吸も、茶も、数秘も、同じ動きをしている。
-    </p>
-
-    <p>
-      流派を作るつもりはなかった。<br>
-      ただ、流派の名前を聞かれたとき、考えた。<br>
-      <strong>自在流、と答えることにした。</strong>
-    </p>
-  </div>
-</section>
-
-<!-- FOUR WAYS -->
-<section id="ways">
-  <div class="ways-inner">
-    <span class="section-label">Four Ways</span>
-    <div class="section-divider"></div>
-
-    <div class="ways-grid">
-
-      <a href="tate.html" class="way-card">
-        <span class="way-num">01</span>
-        <span class="way-title-ja">殺陣道場</span>
-        <span class="way-title-en">Stage Combat</span>
-        <p class="way-catch">斬ることが目的ではない。<br>刀は表現。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
-      <a href="sokudo.html" class="way-card">
-        <span class="way-num">02</span>
-        <span class="way-title-ja">息道</span>
-        <span class="way-title-en">Sokudo — Breathwork</span>
-        <p class="way-catch">整え、そして戻る。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
-      <a href="passcode.html" class="way-card">
-        <span class="way-num">03</span>
-        <span class="way-title-ja">MY SOUL PASSCODE</span>
-        <span class="way-title-en">Numerology</span>
-        <p class="way-catch">占いではなく、<br>自分の設計図を読む。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
-      <a href="tea.html" class="way-card">
-        <span class="way-num">04</span>
-        <span class="way-title-ja">テーブル茶道</span>
-        <span class="way-title-en">Table Tea Ceremony</span>
-        <p class="way-catch">自分で点てる、<br>自分のための一服。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
+    <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
+      <a href="index.html" class="nav-item">トップ</a>
+      <a href="about.html" class="nav-item" style="color: var(--deep);">目指すところ</a>
+      <a href="tate.html" class="nav-item">殺陣道場</a>
+      <a href="sokudo.html" class="nav-item">息道</a>
+      <a href="passcode.html" class="nav-item">MY SOUL PASSCODE</a>
+      <a href="tea.html" class="nav-item">テーブル茶道</a>
+      <a href="profile.html" class="nav-item">代表紹介</a>
     </div>
-  </div>
+  </nav>
+
+<section class="about-hero">
+  <p class="eyebrow">ABOUT WAJINKAI<br>福和倭迅会</p>
+  <h1>倭迅会が目指すところ</h1>
+  <p class="lead">
+    自分の肚で、世界を受け取る。
+  </p>
 </section>
 
+<main class="about-page">
 
+  <section class="about-section">
+    <h2>倭迅会が目指すもの</h2>
+    <p>
+      何かを新しく足すのではなく、<br>
+      すでに身体の中にある感覚を、<br>
+      もう一度思い出すための場です。
+    </p>
+    <p>
+      頭で理解するだけでなく、<br>
+      身体の奥で腑に落ちること。
+    </p>
+    <p>
+      呼吸が変わると、姿勢が変わり、声が変わり、<br>
+      場の受け取り方まで変わります。
+    </p>
+  </section>
 
-<footer>
-  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
-</footer>
+  <section class="about-section">
+    <h2>一圓観</h2>
 
-<script>
-const toggle = document.getElementById('navToggle');
-const menu = document.getElementById('navMenu');
-toggle.addEventListener('click', () => {
-  toggle.classList.toggle('open');
-  menu.classList.toggle('open');
-});
-</script>
+    <p>
+      殺陣・茶道・数秘<br>
+      これらは、それぞれ独立した入口です。<br>
+      どこから入っても構いません。
+    </p>
+    <p>
+      ただ、中心ではすべてが一つに繋がっています。
+    </p>
+
+    <div class="ichienkan-image">
+      <img src="images/wajinkai-ichienkan.png" alt="倭迅会 一圓観">
+    </div>
+
+    <p>
+      その全体を包む考え方が、息道です。
+    </p>
+    <p>
+      呼吸は、殺陣の間合いにも、茶道の所作にも、数秘の言葉にも、<br>
+      共通して流れています。
+    </p>
+  </section>
+
+  <section class="about-section">
+    <h2>三つの入口</h2>
+    <p>
+      倭迅会の入口は一つではありません。
+    </p>
+    <p>
+      動くこと、静まること、数で読み解くこと。<br>
+      それぞれ違う入口から、同じ中心へ向かっていきます。
+    </p>
+
+    <div class="three-columns">
+      <div class="card">
+        <h3>殺陣</h3>
+        <p>動きの中で、<br>呼吸・間・身体の軸を扱う。</p>
+      </div>
+
+      <div class="card">
+        <h3>茶道</h3>
+        <p>静けさの中で、<br>所作・空気・感覚を整える。</p>
+      </div>
+
+      <div class="card">
+        <h3>数秘</h3>
+        <p>数字を通して、<br>自分の航海図を読み解く。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>自在流という考え方</h2>
+    <p>
+      自在流とは、型を押しつけるものではありません。<br>
+      場に応じ、人に応じ、目的に応じて必要な形を選ぶ。<br>
+      大切なのは、その人の中で本当に使える形になることです。
+    </p>
+  </section>
+
+  <section class="about-section profile-link-section">
+    <h2>福和倭迅会 代表について</h2>
+    <p class="name-en">福田 ひろし（FUKUTA HIROSHI）</p>
+    <p>
+      倭迅会の活動は、代表の舞台経験、殺陣、茶道、数秘、<br>
+      そして身体と呼吸への実感から生まれています。
+    </p>
+    <p>
+      なぜこれらを一つの場として扱っているのか。<br>
+      その背景は、代表紹介ページで詳しくご覧いただけます。
+    </p>
+    <a href="profile.html" class="button">
+      なぜこれらが一本に繋がるのか → 代表紹介へ
+    </a>
+  </section>
+
+  <section class="about-section closing-section">
+    <h2>次の入口へ</h2>
+
+    <div class="link-grid">
+      <a href="tate.html">殺陣で、動きの中から整える</a>
+      <a href="tea.html">茶道で、静けさの中から整える</a>
+      <a href="passcode.html">数秘で、自分の航海図を読む</a>
+      <a href="sokudo.html">息道で、呼吸から整える</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+  </footer>
+
+</main>
 
 </body>
 </html>
