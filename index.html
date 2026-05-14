@@ -1,826 +1,475 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>自在流 / Jizai Style.：福和倭迅会</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テーブル茶道 | 福和倭迅会</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
-  :root {
-    --bg:        #f5f2ec;
-    --bg2:       #edeae3;
-    --ink:       #1c1a16;
-    --ink-mid:   #4a4640;
-    --ink-light: #8a8278;
-    --accent:    #7a6248;
-    --accent2:   #b8956a;
-    --gold:      #c9a96e;
-    --line:      rgba(122,98,72,0.18);
-  }
+  <style>
+    :root {
+      --bg: #f5f2ec;
+      --paper: #fffaf0;
+      --bg2: #ebe5d8;
+      --bg-dark: #1c1a16;
+      --ink: #1c1a16;
+      --ink-mid: #4a4640;
+      --ink-light: #8a8278;
+      --accent: #7a6248;
+      --gold: #b08a3c;
+      --brown: #4b2f1f;
+      --matcha: #4a6741;
+      --matcha-l: #6b8f62;
+      --matcha-ll: #a8c4a0;
+      --line: rgba(75, 47, 31, 0.18);
+      --green-line: rgba(74,103,65,0.16);
+      --shadow: 0 18px 45px rgba(31, 26, 22, 0.08);
+      --white: #ffffff;
+    }
 
-  html { scroll-behavior: smooth; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+      line-height: 2.1;
+      overflow-x: hidden;
+      letter-spacing: 0.06em;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+    h1, h2, h3, .serif { font-family: 'Noto Serif JP', serif; font-weight: 300; }
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    b, strong { font-weight: 400; color: var(--matcha); }
 
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Noto Serif JP', serif;
-    overflow-x: hidden;
-  }
+    /* ===== ヘッダー（tate.html 構造保持） ===== */
+    .header {
+      position: fixed;
+      width: 100%; top: 0; left: 0;
+      background: rgba(245,242,236,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      z-index: 1000;
+    }
+    .header nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
+    .nav-brand { color: var(--ink); font-size: 15px; letter-spacing: 0.22em; font-weight: 400; }
+    .nav-brand span { display: inline-block; margin-left: 8px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 13px; color: var(--accent); }
+    .nav-menu { display: flex; gap: 24px; }
+    .nav-item { color: var(--ink-light); font-size: 12px; letter-spacing: 0.16em; font-family: "Noto Sans JP", sans-serif; }
+    .nav-item:hover { color: var(--accent); }
 
- /* ========== NAV ========== */
-  nav {
-   position:fixed;
-   top:0;
-   left:0;
-   right:0;
-   z-index:100;
-   padding:1rem 2.5rem;
-   display:flex;
-   align-items:center;
-   justify-content:space-between;
-   background:rgba(245,242,236,0.92);
-   backdrop-filter:blur(8px);
-   border-bottom:1px solid var(--line);
-  }
+    /* ===== 共通 ===== */
+    section { position: relative; z-index: 1; padding: 8rem 1.5rem; max-width: 1000px; margin: 0 auto; text-align: center; }
+    .section-label { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--matcha-l); letter-spacing: 0.3em; font-size: 14px; display: block; margin-bottom: 1.5rem; text-transform: uppercase; }
+    .section-title { font-size: clamp(1.55rem, 4vw, 2rem); margin-bottom: 2.3rem; color: var(--brown); line-height: 1.7; letter-spacing: 0.16em; }
+    .lead { max-width: 720px; margin: 0 auto; color: var(--ink-mid); font-size: 0.98rem; line-height: 2.45; }
+    .lead p { margin-bottom: 1.4rem; }
+    .matcha-line { width: 44px; height: 1px; background: var(--matcha-l); opacity: 0.65; margin: 0 auto 2.5rem; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-.nav-brand {
- font-family:'Noto Serif JP',serif;
- font-weight:400;
- font-size:0.85rem;
- letter-spacing:0.25em;
- color:var(--ink);
- text-decoration:none;
- flex-shrink:0; 
-}
+    /* ===== Hero ===== */
+    .hero-tea {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      max-width: 100%;
+      padding-top: 9rem;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(245,242,236,0.28), rgba(245,242,236,0.72)),
+        url('images/Image8.jpeg') center 42%/cover no-repeat;
+    }
+    .hero-tea::before {
+      content: ""; position: absolute; width: min(560px, 82vw); height: min(560px, 82vw);
+      border: 1px solid rgba(74,103,65,0.10); border-radius: 50%;
+      top: 50%; left: 50%; transform: translate(-50%, -47%);
+    }
+    .hero-tea::after {
+      content: ""; position: absolute; inset: auto 0 0 0; height: 38%;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 760px; padding: 0 1rem; }
+    .hero-content h1 { font-size: clamp(2.2rem, 7vw, 4rem); letter-spacing: 0.42em; color: var(--brown); margin-bottom: 1.1rem; padding-left: 0.42em; }
+    .hero-content .sub { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-light); letter-spacing: 0.28em; font-size: 1rem; margin-bottom: 2.4rem; }
+    .hero-copy { color: var(--ink-mid); font-size: clamp(1rem, 2.6vw, 1.18rem); line-height: 2.6; letter-spacing: 0.12em; }
+    .hero-copy em { font-style: normal; color: var(--matcha); }
 
-.nav-brand span {
- font-family:'Cormorant Garamond',serif;
- font-style:italic;
- font-weight:300;
- font-size:0.8rem;
- color:var(--accent, #7a6248);
- margin-left:0.6rem;
-}
+    /* ===== Cards / Grids ===== */
+    .value-grid, .sense-grid, .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 4rem; }
+    .value-item, .sense-item, .photo-note, .flow-item {
+      text-align: left;
+      background: rgba(255,250,240,0.78);
+      padding: 38px 32px;
+      border-radius: 20px;
+      border: 1px solid var(--green-line);
+      box-shadow: var(--shadow);
+    }
+    .value-item h3, .sense-item h3, .photo-note h3, .flow-item h3 { font-size: 1.08rem; color: var(--brown); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+    .value-item h3::before, .sense-item h3::before, .photo-note h3::before, .flow-item h3::before { content: ""; width: 20px; height: 1px; background: var(--matcha-l); }
+    .value-item p, .sense-item p, .photo-note p, .flow-item p { font-size: 0.9rem; line-height: 2.05; color: var(--ink-mid); }
 
-.nav-menu {
- display:flex;
- align-items:center;
- gap:2rem;
-}
+    .soft-section { background: var(--bg2); max-width: 100%; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .soft-inner { max-width: 1000px; margin: 0 auto; }
+    .dark-section { background: var(--bg-dark, #1c1a16); max-width: 100%; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .dark-section .section-label { color: var(--matcha-ll); }
+    .dark-section .section-title { color: rgba(255,250,240,0.92); }
+    .dark-section .matcha-line { background: var(--matcha-ll); }
+    .dark-section .lead { color: rgba(255,250,240,0.72); }
+    .dark-section strong { color: var(--matcha-ll); }
 
-.nav-item {
- font-family:'Noto Sans JP',sans-serif;
- font-weight:200;
- font-size:0.68rem;
- letter-spacing:0.2em;
- color:var(--ink-light, #8a8278);
- text-decoration:none;
- transition:color 0.3s;
- white-space:nowrap;
-}
+    .img-text-section {display: flex; align-items: center; gap: 40px; text-align: left; margin: 3rem 0;}
+    .img-text-section .sense-image {flex: 0 0 42%;}
+    .img-text-section .text-wrap {flex: 1; max-width: 520px; transform: translateX(-20px);}
+    .img-text-section.reverse { flex-direction: row-reverse; }
+    .img-wrap { flex: 1; border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); background: var(--paper); min-height: 320px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--green-line); }
+    .img-placeholder { width: 100%; min-height: 320px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--ink-light); font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; line-height: 2; background: linear-gradient(135deg, rgba(168,196,160,0.22), rgba(255,250,240,0.95)); }
+    .img-wrap img { width: 100%; height: 100%; min-height: 320px; object-fit: cover; display: block; }
+    .wide-photo { max-width: 880px; margin: 3rem auto 0; border-radius: 22px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--green-line); }
+    .wide-photo img { width: 100%; display: block; }
+    .menu-group { max-width: 900px; margin: 4rem auto 0; text-align: left; }
+    .menu-group + .menu-group { margin-top: 3.2rem; }
+    .menu-group-title { font-size: 1.2rem; color: var(--brown); letter-spacing: 0.14em; margin-bottom: 1rem; padding-left: 1rem; border-left: 3px solid var(--matcha-l); }
+    .menu-group-lead { color: var(--ink-mid); font-size: 0.9rem; line-height: 2; margin-bottom: 1.4rem; }
+    .price-table.grouped { margin-top: 0; }
+    .link-sub { display:inline-block; margin-top:1rem; color: var(--matcha); border-bottom:1px solid var(--matcha-l); font-size:0.9rem; letter-spacing:0.08em; }
+    .text-wrap { flex: 1; }
+    .text-wrap h2 { text-align: left; font-size: 1.65rem; line-height: 1.8; margin-bottom: 1.6rem; color: var(--brown); }
+    .text-wrap p { color: var(--ink-mid); margin-bottom: 1.2rem; }
 
-.nav-item:hover {
- color:var(--accent, #7a6248);
-}
+    /* ===== Flow ===== */
+    .flow-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 4rem; counter-reset: flow; }
+    .flow-item { padding: 30px 26px; }
+    .flow-item::before { counter-increment: flow; content: counter(flow, decimal-leading-zero); display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--matcha-l); margin-bottom: 0.6rem; }
 
-.nav-toggle {
- display:none;
- flex-direction:column;
- gap:5px;
- background:none;
- border:none;
- cursor:pointer;
- padding:4px;
-}
+    /* ===== Price ===== */
+    .menu-section { background: var(--paper); padding: 100px 20px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); max-width: 100%; }
+    .price-table { max-width: 900px; margin: 4rem auto 0; background: var(--white); border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; border: 1px solid var(--line); }
+    .price-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 38px 40px; border-bottom: 1px solid var(--bg); transition: 0.3s; text-align: left; }
+    .price-row:last-child { border-bottom: none; }
+    .price-row:hover { background: #fffcf5; }
+    .item-name { flex: 1; padding-right: 40px; }
+    .item-name b { display: block; font-size: 1.15rem; color: var(--brown); margin-bottom: 8px; font-weight: 400; }
+    .item-name b span { font-size: 0.85rem; color: var(--matcha-l); margin-left: 12px; font-weight: 300; }
+    .item-name span { display: block; font-size: 0.9rem; color: var(--ink-mid); line-height: 1.8; }
+    .item-price { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 1.8rem; color: var(--matcha); white-space: nowrap; padding-top: 5px; }
+    .item-price small { font-size: 0.85rem; color: var(--ink-light); }
+    .ticket-info { margin-top: 12px; display: inline-block; padding: 4px 12px; background: var(--bg); color: var(--accent); font-size: 0.82rem; border-radius: 4px; border-left: 3px solid var(--gold); }
 
-.nav-toggle span {
- display:block;
- width:22px;
- height:1px;
- background:var(--ink-light, #8a8278);
- transition:all 0.3s;
-}
-@media(max-width:700px){
-  .nav-menu {
-   display:none;
-   position:fixed;
-   top:0; left:0;
-   right:0;
-   bottom:0;
-   background:rgba(245,242,236,0.97);
-   flex-direction:column;
-   align-items:center;
-   justify-content:center;
-   gap:2.5rem;
-   z-index:99;
-  }
+    /* ===== CTA ===== */
+    .btn-primary { display: inline-block; padding: 18px 56px; border-radius: 999px; background: var(--matcha); color: var(--white); transition: 0.4s; letter-spacing: 0.2em; font-size: 15px; box-shadow: 0 12px 30px rgba(74,103,65,0.22); margin-top: 2rem; }
+    .btn-primary:hover { background: var(--matcha-l); transform: translateY(-3px); }
+    .cta-note { font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--ink-light); line-height: 2; margin-top: 1.5rem; }
 
-  .nav-menu.open {
-   display:flex;
-  }
+    /* ===== Footer（tate.html 構造保持） ===== */
+    footer { padding: 80px 20px; border-top: 1px solid var(--line); text-align: center; position: relative; z-index: 1; }
+    .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 12px; color: var(--ink-light); letter-spacing: 0.1em; }
+    .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; }
 
-  .nav-toggle {
-   display:flex;
-   z-index:101;
-  }
+    @media (max-width: 850px) {
+      .img-text-section, .img-text-section.reverse { flex-direction: column; text-align: center; gap: 30px; }
+      .img-text-section .text-wrap { max-width: 100%; transform: none; }
+      .img-text-section .sense-image { flex: none; }
+      .text-wrap h2 { text-align: center; }
+      .header nav { padding: 12px 20px; flex-direction: column; gap: 8px; }
+      .nav-menu { gap: 12px; flex-wrap: wrap; justify-content: center; }
+      .nav-item { font-size: 11px; }
+      .hero-content h1 { letter-spacing: 0.24em; padding-left: 0.24em; }
+      .price-row { flex-direction: column; padding: 30px 22px; }
+      .item-name { padding-right: 0; margin-bottom: 15px; }
+      .item-price { width: 100%; text-align: right; border-top: 1px dashed var(--line); padding-top: 15px; }
+      section { padding: 6rem 1.2rem; }
+    }
 
-  .nav-toggle.open span:nth-child(1) {
-   transform:translateY(6px) rotate(45deg);
-  }
-
-  .nav-toggle.open span:nth-child(2) {
-   opacity:0;
-  }
-
-  .nav-toggle.open span:nth-child(3) {
-   transform:translateY(-6px) rotate(-45deg);
-  }
-
-  .nav-item {
-   font-size:0.9rem;
-   letter-spacing:0.25em;
-  }
-}
- 
-  /* ========== HERO ========== */
-  #hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  /* 背景装飾 */
-  #hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201,169,110,0.07) 0%, transparent 70%),
-      radial-gradient(ellipse 80% 80% at 80% 80%, rgba(122,98,72,0.05) 0%, transparent 60%);
-    pointer-events: none;
-  }
-
-  /* 薄い縦線装飾 */
-  .hero-line {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent 0%, var(--line) 30%, var(--line) 70%, transparent 100%);
-  }
-  .hero-line:nth-child(1) { left: 15%; }
-  .hero-line:nth-child(2) { left: 85%; }
-
-  /* キャッチコピー切り替えエリア */
-  .catch-wrapper {
-    position: relative;
-    height: 3.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 3rem;
-    width: 100%;
-    padding: 0 2rem;
-  }
-
-  .catch-line {
-    position: absolute;
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: clamp(1rem, 2.8vw, 1.5rem);
-    color: var(--ink);
-    letter-spacing: 0.2em;
-    opacity: 0;
-    transition: opacity 1.2s ease;
-    white-space: nowrap;
-    text-align: center;
-  }
-  .catch-line.visible { opacity: 1; }
-
-  /* ブランド */
-  .hero-brand {
-    text-align: center;
-    margin-bottom: 1.2rem;
-  }
-  .hero-brand-ja {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 400;
-    font-size: clamp(1.6rem, 4vw, 2.4rem);
-    letter-spacing: 0.4em;
-    color: var(--ink);
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  .hero-brand-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
-    letter-spacing: 0.25em;
-    color: var(--accent);
-  }
-
-  .hero-tagline {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 200;
-    font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-    letter-spacing: 0.3em;
-    color: var(--ink-light);
-    margin-bottom: 3rem;
-    text-align: center;
-  }
-
-  /* インジケーター */
-  .indicators {
-    display: flex;
-    justify-content: center;
-    gap: 0.6rem;
-    margin-bottom: 3.5rem;
-  }
-  .dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--ink-light);
-    opacity: 0.25;
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .dot.active { opacity: 0.7; transform: scale(1.5); background: var(--accent); }
-
-  /* スクロールダウン */
-  .scroll-hint {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--ink-light);
-    font-family: 'Noto Sans JP', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 200;
-    letter-spacing: 0.25em;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  .scroll-line {
-    width: 1px;
-    height: 3rem;
-    background: linear-gradient(to bottom, var(--accent2), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.4; transform: scaleY(1); }
-    50% { opacity: 0.9; transform: scaleY(1.1); }
-  }
-
-  /* ========== SECTION COMMON ========== */
-  section {
-    padding: 6rem 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 0.75rem;
-    letter-spacing: 0.35em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-
-  .section-divider {
-    width: 2.5rem;
-    height: 1px;
-    background: var(--gold);
-    margin: 1.5rem 0 2.5rem;
-    opacity: 0.6;
-  }
-
-  /* ========== ABOUT HOOK ========== */
-  #hook {
-    border-top: 1px solid var(--line);
-    padding-top: 5rem;
-  }
-
-  .hook-text {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: clamp(0.95rem, 2.2vw, 1.15rem);
-    line-height: 2.4;
-    color: var(--ink-mid);
-    letter-spacing: 0.08em;
-    margin-bottom: 1.8rem;
-  }
-
-  .hook-text em {
-    font-style: normal;
-    color: var(--ink);
-    font-weight: 400;
-  }
-
-  .hook-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 0.85rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 0.2rem;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .hook-link:hover { color: var(--accent2); border-color: var(--accent2); }
-  .hook-link::after { content: '→'; font-size: 0.8em; }
-
-  /* ========== FOUR WAYS ========== */
-  #ways {
-    background: var(--bg2);
-    max-width: 100%;
-    padding: 6rem 2rem;
-  }
-
-  .ways-inner {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .ways-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5px;
-    margin-top: 3rem;
-    background: var(--line);
-    border: 1px solid var(--line);
-  }
-
-  .way-card {
-    background: var(--bg2);
-    padding: 2.5rem 2rem;
-    text-decoration: none;
-    color: var(--ink);
-    transition: background 0.3s;
-    display: block;
-  }
-  .way-card:hover { background: var(--bg); }
-
-  .way-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.75rem;
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-
-  .way-title-ja {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 400;
-    font-size: 1.05rem;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.3rem;
-    display: block;
-  }
-
-  .way-title-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--ink-light);
-    margin-bottom: 1.5rem;
-    display: block;
-  }
-
-  .way-catch {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 200;
-    font-size: 0.82rem;
-    line-height: 2;
-    color: var(--ink-mid);
-    letter-spacing: 0.08em;
-  }
-
-  .way-arrow {
-    display: block;
-    margin-top: 1.8rem;
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    color: var(--accent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .way-card:hover .way-arrow { opacity: 1; }
-
-  /* ========== NEWS ========== */
-  #news { border-top: 1px solid var(--line); }
-
-  .news-list { list-style: none; }
-
-  .news-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0 2rem;
-    padding: 1.6rem 0;
-    border-bottom: 1px solid var(--line);
-    align-items: start;
-  }
-
-  .news-tag {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    color: var(--bg);
-    background: var(--accent);
-    padding: 0.2rem 0.6rem;
-    white-space: nowrap;
-    margin-top: 0.1rem;
-  }
-
-  .news-tag.preparing {
-    background: var(--ink-light);
-  }
-
-  .news-body {}
-
-  .news-title {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 0.9rem;
-    letter-spacing: 0.1em;
-    line-height: 1.8;
-    color: var(--ink);
-    margin-bottom: 0.3rem;
-  }
-
-  .news-sub {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 200;
-    font-size: 0.72rem;
-    letter-spacing: 0.1em;
-    color: var(--ink-light);
-    line-height: 1.8;
-  }
-
-  .news-sub a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-  }
-
-  /* ========== CONTACT / SNS ========== */
-  #contact {
-    background: var(--ink);
-    max-width: 100%;
-    padding: 5rem 2rem;
-    text-align: center;
-  }
-
-  .contact-inner { max-width: 600px; margin: 0 auto; }
-
-  .contact-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 0.75rem;
-    letter-spacing: 0.35em;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 1.5rem;
-  }
-
-  .contact-text {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 200;
-    font-size: 0.85rem;
-    letter-spacing: 0.2em;
-    color: rgba(245,242,236,0.6);
-    line-height: 2.2;
-    margin-bottom: 2.5rem;
-  }
-
-  .contact-btn {
-    display: inline-block;
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 300;
-    font-size: 0.82rem;
-    letter-spacing: 0.3em;
-    color: var(--bg);
-    border: 1px solid rgba(201,169,110,0.4);
-    padding: 0.9rem 2.5rem;
-    text-decoration: none;
-    transition: background 0.3s, border-color 0.3s;
-    margin-bottom: 3rem;
-  }
-  .contact-btn:hover { background: rgba(201,169,110,0.1); border-color: var(--gold); }
-
-  .sns-links {
-    display: flex;
-    justify-content: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-  }
-
-  .sns-link {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-size: 0.8rem;
-    letter-spacing: 0.25em;
-    color: rgba(245,242,236,0.45);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .sns-link:hover { color: var(--gold); }
-
-  /* ========== FOOTER ========== */
-  footer {
-    background: var(--ink);
-    border-top: 1px solid rgba(255,255,255,0.05);
-    padding: 1.5rem 2rem;
-    text-align: center;
-  }
-
-  .footer-text {
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 200;
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
-    color: rgba(245,242,236,0.2);
-  }
-
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 600px) {
-    .catch-line { white-space: normal; text-align: center; font-size: 0.95rem; line-height: 1.8; }
-    .catch-wrapper { height: 5rem; }
-    .ways-grid { grid-template-columns: 1fr 1fr; }
-    .news-item { grid-template-columns: 1fr; gap: 0.5rem; }
-  }
-</style>
+    /* ===== 五感が開くセクション画像 ===== */
+    .sense-image img {
+      width: 45%;
+      max-width: 760px;
+      display: block;
+      margin: 3rem auto;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+  </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="nav-brand">自在流
-   <span>Jizai Style.</span>
-  </a>
-  <button class="nav-toggle" id="navToggle" aria-label="メニュー">
-    <span></span>
-   <span></span>
-   <span></span>
-  </button>
-  <div class="nav-menu" id="navMenu">
-    <a href="index.html" class="nav-item">トップ</a>
-    <a href="about.html" class="nav-item">自在流とは</a>
-    <a href="tate.html" class="nav-item">殺陣道場</a>
-    <a href="sokudo.html" class="nav-item">息道</a>
-    <a href="passcode.html" class="nav-item">数秘術</a>
-    <a href="tea.html" class="nav-item">テーブル茶道</a>
-  </div>
-</nav>
- 
-<!-- ========== HERO ========== -->
-<section id="hero">
-  <div class="hero-line"></div>
-  <div class="hero-line"></div>
-
-  <div class="catch-wrapper" id="catchWrapper"></div>
-
-  <div class="hero-brand">
-    <span class="hero-brand-en">自在流 / Jizai Style.</span>
-    <span class="hero-brand-ja">福和倭迅会</span>
-  </div>
-
-  <p class="hero-tagline">流派はない。これはスタンスの名前。</p>
-
-  <div class="indicators" id="indicators"></div>
-
-  <a href="#hook" class="scroll-hint">
-    <div class="scroll-line"></div>
-    <span>scroll</span>
-  </a>
-</section>
-
-<!-- ========== HOOK ========== -->
-<section id="hook">
-  <span class="section-label">About</span>
-  <div class="section-divider"></div>
-
-  <p class="hook-text">
-    壁があるなら、越えればいい。<br>
-    流派も、ジャンルも、作法も——<br><br>
-    殺陣をベースに、呼吸と茶と数が交わる。<br>
-    違うように見えて、戻る場所はひとつ。<br>
-    <em>腹を通せば、全部つながる。</em>
-  </p>
-
-  <a href="about.html" class="hook-link">自在流とは</a>
-</section>
-
-<!-- ========== FOUR WAYS ========== -->
-<section id="ways" style="padding-top:0; padding-bottom:0;">
-  <div class="ways-inner" style="padding: 6rem 0;">
-    <span class="section-label">Four Ways</span>
-    <div class="section-divider"></div>
-
-    <div class="ways-grid">
-
-      <a href="tate.html" class="way-card">
-        <span class="way-num">01</span>
-        <span class="way-title-ja">殺陣道場</span>
-        <span class="way-title-en">Stage Combat</span>
-        <p class="way-catch">斬ることが目的ではない。<br>刀は表現。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
-      <a href="sokudo.html" class="way-card">
-        <span class="way-num">02</span>
-        <span class="way-title-ja">息道</span>
-        <span class="way-title-en">Sokudo — Breathwork</span>
-        <p class="way-catch">整え、そして戻る。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
-      <a href="passcode.html" class="way-card">
-        <span class="way-num">03</span>
-        <span class="way-title-ja">MY SOUL PASSCODE</span>
-        <span class="way-title-en">Numerology</span>
-        <p class="way-catch">占いではなく、<br>自分の設計図を読む。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
-      <a href="tea.html" class="way-card">
-        <span class="way-num">04</span>
-        <span class="way-title-ja">テーブル茶道</span>
-        <span class="way-title-en">Table Tea Ceremony</span>
-        <p class="way-catch">自分で点てる、<br>自分のための一服。</p>
-        <span class="way-arrow">詳しく見る →</span>
-      </a>
-
+<header class="header">
+  <nav>
+    <a href="index.html" class="nav-brand">福和倭迅会<span>jizai Style.</span></a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-item">トップ</a>
+      <a href="about.html" class="nav-item">目指すところ</a>
+      <a href="tate.html" class="nav-item">殺陣道場</a>
+      <a href="sokudo.html" class="nav-item">息道</a>
+      <a href="passcode.html" class="nav-item">口伝数秘術</a>
+      <a href="tea.html" class="nav-item" style="color: var(--matcha);">テーブル茶道</a>
+      <a href="profile.html" class="nav-item">代表紹介</a>
     </div>
-  </div>
-</section>
+  </nav>
+</header>
 
-<!-- ========== NEWS ========== -->
-<section id="news">
-  <span class="section-label">News</span>
-  <div class="section-divider"></div>
-
-  <ul class="news-list">
-
-    <li class="news-item">
-      <span class="news-tag">数秘術</span>
-      <div class="news-body">
-        <p class="news-title">口伝数秘術「MY SOUL PASSCODE」講座、第0期生（限定10名）募集中。</p>
-        <p class="news-sub">個別鑑定も受付中。</p>
-      </div>
-    </li>
-
-    <li class="news-item">
-      <span class="news-tag">殺陣</span>
-      <div class="news-body">
-        <p class="news-title">殺陣教室、不定期開催。</p>
-        <p class="news-sub">神奈川県西湘地区にて。経験不問。</p>
-      </div>
-    </li>
-
-    <li class="news-item">
-      <span class="news-tag">茶道</span>
-      <div class="news-body">
-        <p class="news-title">箱根遊船「大茶会」内にて、お点前体験を不定期開催。</p>
-        <p class="news-sub">詳細・お申込みは芦ノ湖箱根遊船、イベントページをご参照ください。</p>
-      </div>
-    </li>
-
-    <li class="news-item">
-      <span class="news-tag preparing">息道</span>
-      <div class="news-body">
-        <p class="news-title">呼吸界入門編、開催準備中。</p>
-        <p class="news-sub">続報をお待ちください。</p>
-      </div>
-    </li>
-
-  </ul>
-</section>
-
-<!-- ========== CONTACT ========== -->
-<section id="contact">
-  <div class="contact-inner">
-    <span class="contact-label">Contact & Follow</span>
-    <p class="contact-text">
-      各サービスへのお問い合わせ、<br>
-      体験のお申し込みはこちらから。
+<section class="hero-tea">
+  <div class="hero-content reveal">
+    <span class="section-label">STILLNESS TO SENSATION</span>
+    <h1>テーブル茶道</h1>
+    <p class="sub">Table Tea Ceremony</p>
+    <p class="hero-copy">
+      お茶を学ぶ時間ではなく、<br>
+      <em>静けさの中で、感覚を思い出す時間。</em>
     </p>
-    <a href="mailto:" class="contact-btn">お問い合わせ</a>
-    <div class="sns-links">
-      <a href="#" class="sns-link">Instagram</a>
-      <a href="#" class="sns-link">Note</a>
-      <a href="#" class="sns-link">LINE</a>
+  </div>
+</section>
+
+<section class="dark-section reveal">
+  <div class="soft-inner">
+    <div class="lead">
+      <span class="section-label">THE REASON</span>
+      <h2 class="section-title">殺陣師が、茶を点てる理由</h2>
+      <div class="matcha-line"></div>
+      <p>刀を振ることと、茶を点てることは、<br>同じ一本の線の上にあります。</p>
+      <p>動きの極致は、静けさです。</p>
+      <p>静けさの極致は、<br>一つの所作に全部が宿ること。</p>
+      <p>殺陣の稽古で身体と呼吸を整えてきた30年が、<br>茶道の一服の中にも同じように流れているのを感じます。</p>
+      <p><strong>動と静は、反対側にあるものではなく、<br>同じ感覚の、二つの表れだと感じています。</strong></p>
     </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="lead">
+    <span class="section-label">REDEFINITION</span>
+    <h2 class="section-title">テーブル茶道とは</h2>
+    <div class="matcha-line"></div>
+    <p>正座をしなくても、茶道は味わえます。</p>
+    <p>難しい作法を覚えることよりも、<br>まずは一服の中にある音、香り、味、空気、手触りに気づくこと。</p>
+    <p>倭迅会のテーブル茶道は、<br><strong>作法を押し付ける場ではなく、感じるための入口</strong>です。</p>
+  </div>
+</section>
+
+<section class="soft-section reveal">
+  <div class="soft-inner">
+    <div class="lead">
+      <span class="section-label">WHY NOW</span>
+      <h2 class="section-title">なぜ今、静けさが必要なのか</h2>
+      <div class="matcha-line"></div>
+      <p>常に何かを見て、何かを考え、何かを判断し続ける日常の中で、<br>呼吸はどんどん浅くなります。</p>
+      <p>音も、香りも、味も、本当はそこにある。</p>
+      <p>でも感じ取る余裕がなくなっています。</p>
+      <p><strong>一服のお茶を点てる時間は、<br>その感覚を取り戻すための、最小の余白です。</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <span class="section-label">FIVE SENSES</span>
+  <h2 class="section-title">五感が開く体験</h2>
+  <div class="matcha-line"></div>
+  <div class="img-text-section">
+    <div class="sense-image">
+      <img src="images/Image4.jpg" alt="五感が開く">
+    </div>
+    <div class="text-wrap">
+      <h2>静かな時間は、<br>何もない時間ではありません。</h2>
+      <p>茶筅が器に触れる音。</p>
+      <p>湯気に混じる抹茶の香り。</p>
+      <p>器を持つ手の温度、口に広がる苦味と甘み。</p>
+      <p>窓から入る光や、場に流れる空気。</p>
+      <p>体験のあと、視界が少し明るく感じたり、<br>香りや音に気づきやすくなることがあります。</p>
+    </div>
+  </div>
+</section>
+
+<section class="soft-section reveal">
+  <div class="soft-inner">
+    <span class="section-label">WAJINKAI STYLE</span>
+    <h2 class="section-title">倭迅会のテーブル茶道</h2>
+    <div class="matcha-line"></div>
+    <div class="lead">
+      <p>本格的な茶道の格式と作法が、お茶の世界を守っている。</p>
+      <p>ただ、格式が入口を狭めているのも事実です。</p>
+      <p>倭迅会で行うテーブル茶道は、その入口を広げられたらと考えています。</p>
+      <p>正座ができなくても、作法がわからなくても、<br>
+        一服を受け取ることができる場にはなれる。</p>
+      <p>茶道の本質——五感で場を楽しむ感覚——は、<br>
+        作法を覚える前、最初の一服から始まります。</p>
+      <p><strong>テーブル茶道が守っているものは、好きを楽しむ心。</strong><br>
+        誰かの正解に合わせる前に、自分の感覚で味わってみませんか。</p>
+    </div>
+    <div class="sense-grid">
+      <div class="sense-item"><h3>制約ではなくガイド</h3><p>形はありますが、縛るためではありません。<br>安心して楽しむための道しるべとして扱います。</p></div>
+      <div class="sense-item"><h3>正解を押し付けない</h3><p>完璧にできることよりも、自分の手で点て、自分の感覚で味わうことを大切にします。</p></div>
+      <div class="sense-item"><h3>呼吸から始める</h3><p>いきなり作法に入りません。<br>まず一息ついて、身体と場が落ち着くところから始めます。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <span class="section-label">FOR BEGINNERS</span>
+  <h2 class="section-title">正座不要・初心者歓迎</h2>
+  <div class="matcha-line"></div>
+  <div class="lead">
+    <p>茶道未経験の方、正座が苦手な方、膝に不安がある方も歓迎します。</p>
+    <p>テーブルと椅子で行うため、無理な姿勢は必要ありません。<br>お子様や、初めて和文化に触れる方にも参加しやすい内容です。</p>
+    <p><strong>難しいことはしません。まずは呼吸から始めます。</strong></p>
+  </div>
+</section>
+
+<section class="soft-section reveal">
+  <div class="soft-inner">
+    <span class="section-label">THE FLOW</span>
+    <h2 class="section-title">体験の流れ</h2>
+    <div class="matcha-line"></div>
+    <div class="flow-list">
+      <div class="flow-item"><h3>呼吸を整える</h3><p>日常の速さから少し離れ、身体と場を落ち着かせます。</p></div>
+      <div class="flow-item"><h3>お茶と空間を味わう</h3><p>香り、音、光、器の感触など、今ここにあるものへ意識を向けます。</p></div>
+      <div class="flow-item"><h3>お点前を見る</h3><p>難しい説明ではなく、流れと空気を見て感じていただきます。</p></div>
+      <div class="flow-item"><h3>実際に点てる</h3><p>ご自身の手でお茶を点てます。<br>うまくやるより、味わうことを大切にします。</p></div>
+      <div class="flow-item"><h3>お菓子とともに味わう</h3><p>甘み、苦味、温度、香りの変化をゆっくり受け取ります。</p></div>
+      <div class="flow-item"><h3>感覚を味わう</h3><p>体験後の呼吸、視界、音への気づきをそのまま感じます。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="lead">
+    <span class="section-label">RETURN TO DAILY LIFE</span>
+    <h2 class="section-title">日常へ戻る感覚</h2>
+    <div class="matcha-line"></div>
+    <p>体験の目的は、非日常に逃げることではありません。</p>
+    <p>一服を通じて、呼吸を整え、感覚をリセットし、<br>日常へ戻るためのスタートラインに立ち直ること。</p>
+    <p><strong>本来の自分が見ていた世界、感じていた世界を思い出す。</strong></p>
+    <p>その余白を、静けさの中に作ります。</p>
+  </div>
+</section>
+
+<section class="menu-section reveal" id="menu">
+  <span class="section-label">MENU & PRICE</span>
+  <h2 class="section-title">メニューと料金</h2>
+  <div class="matcha-line"></div>
+  <div class="menu-group">
+    <h3 class="menu-group-title">個人・少人数体験</h3>
+    <p class="menu-group-lead">少人数で、呼吸を整えるところから始める体験です。初めての方でも無理なく参加できます。</p>
+    <div class="price-table grouped">
+      <div class="price-row">
+        <div class="item-name">
+          <b>テーブル茶道 体験ワークショップ<span>90分程度 / 少人数（2〜4名）制</span></b>
+          <span>呼吸を整えるところから始まり、手順を追ってご自分でお茶を点て、いただく体験。<br>少人数で丁寧に進めます。簡易帯の貸し出しあり。</span>
+        </div>
+        <div class="item-price">¥8,000<small> / 人（目安）</small></div>
+      </div>
+      <div class="price-row">
+        <div class="item-name">
+          <b>呼吸×茶道 深化ワークショップ<span>120分程度 / 個人向け</span></b>
+          <span>息道の呼吸を丁寧に行ってからお点前へ。<br>整った状態で茶を受け取ることで、感覚の開き方をより深く味わいます。</span>
+        </div>
+        <div class="item-price">¥12,000<small> / 人（目安）</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <h3 class="menu-group-title">お点前体験・出張案件</h3>
+    <p class="menu-group-lead">地域イベント、施設、宿泊施設など、会場や目的に合わせて内容を調整します。</p>
+    <div class="price-table grouped">
+      <div class="price-row">
+        <div class="item-name">
+          <b>出張お点前体験<span>イベント・各種会場</span></b>
+          <span>地域イベント、施設、宿泊施設などへの出張体験。<br>規模・場所・内容に応じて個別に設計します。</span>
+        </div>
+        <div class="item-price">要相談</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <h3 class="menu-group-title">企業・法人向け案件</h3>
+    <p class="menu-group-lead">茶道単体のほか、息道・殺陣との組み合わせも可能です。研修・福利厚生・チームビルディング等に合わせて個別提案します。</p>
+    <div class="price-table grouped">
+      <div class="price-row">
+        <div class="item-name">
+          <b>企業・法人向けプログラム<span>茶道単体 / 息道・殺陣との組み合わせ可</span></b>
+          <span>静と動、集中と解放、五感の回復を体験する法人向けプログラム。<br>日常業務から一度離れ、感覚を整える時間を設計します。</span>
+          <div class="ticket-info">内容・人数・会場条件により個別見積り</div>
+        </div>
+        <div class="item-price">個別提案</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="menu-group">
+    <h3 class="menu-group-title">イベント参加情報</h3>
+    <p class="menu-group-lead">箱根遊船「大茶会」での参加体験です。<br>個人体験とは内容・時間・予約導線が異なります。開催日程・予約・詳細は、箱根遊船イベントページをご確認ください。</p>
+    <div class="price-table grouped">
+      <div class="price-row">
+        <div class="item-name">
+          <b>箱根遊船「大茶会」お点前体験<span>芦ノ湖 湖上 / 不定期開催</span></b>
+          <span>芦ノ湖の湖上、お茶の船の中で行う特別なお点前体験。<br>箱根遊船「大茶会」の船内で開催しています。詳細確認・ご予約は箱根遊船イベントページをご確認ください。</span>
+          <a href="https://www.hakone-yuransen.jp/news/" target="_blank" rel="noopener" class="link-sub">箱根遊船イベントページへ →</a>
+        </div>
+        <div class="item-price">¥2,000<small> / 人</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width: 900px; margin: 2rem auto 0;"><p style="font-size: 0.86rem; color: var(--accent); line-height: 2; text-align: left;">
+    ※材料費・会場費・交通費・出張費・備品費などが必要な場合があります。<br>
+    ※人数・場所・内容により料金は変動します。<br>
+    ※イベント、法人研修、宿泊施設向けプランは個別見積りとなります。
+  </p></div>
+</section>
+
+<section class="reveal" id="cta">
+  <div class="lead">
+    <span class="section-label">CONTACT</span>
+    <h2 class="section-title">まずは一服から。</h2>
+    <div class="matcha-line"></div>
+    <p>茶道未経験の方、正座が苦手な方、膝に不安がある方も<br>
+      お気軽にご相談ください。。</p>
+    <p>テーブルと椅子で行うため、無理な姿勢は必要ありません。<br>
+      お子様や、初めて和文化に触れる方にも参加しやすい内容になっています。</p>
+    <p><strong>難しいことはしません。まずは呼吸から始めます。</strong></p>
+    <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-primary">LINEで申し込む・相談する</a>
+    <p class="cta-note">正座不要 / 初心者歓迎 / 子供参加可 / 出張相談可<br>まずはご希望の人数・場所・内容をお知らせください。</p>
   </div>
 </section>
 
 <footer>
-  <p class="footer-text">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+  <div class="footer-nav">
+    <a href="index.html">TOP</a>
+    <a href="about.html">倭迅会の目指すところ</a>
+    <a href="sokudo.html">息道</a>
+    <a href="tate.html">殺陣道場</a>
+    <a href="tea.html">テーブル茶道</a>
+    <a href="passcode.html">口伝数秘術</a>
+    <a href="profile.html">代表紹介</a>
+  </div>
+  <p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
 </footer>
 
 <script>
-  const lines = [
-    '抜かない刀に、意味がある。',
-    'ここに来たのは、偶然じゃないかもしれない。',
-    'うまくいかないのは、やり方じゃなくて、軸かもしれない。',
-    '知っているつもりが、一番遠い。',
-  ];
-
-  function shuffle(arr) {
-    const a = [...arr];
-    for (let i = a.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
-  const wrapper = document.getElementById('catchWrapper');
-  const indicatorsEl = document.getElementById('indicators');
-
-  const elements = lines.map((text) => {
-    const el = document.createElement('div');
-    el.className = 'catch-line';
-    el.textContent = text;
-    wrapper.appendChild(el);
-
-    const dot = document.createElement('div');
-    dot.className = 'dot';
-    indicatorsEl.appendChild(dot);
-
-    return { el, dot };
-  });
-
-  let order = shuffle([...Array(lines.length).keys()]);
-  let current = 0;
-  let activeIndex = -1;
-
-  const HOLD = 3800;
-  const FADE = 1200;
-
-  function showNext() {
-    if (activeIndex >= 0) {
-      elements[activeIndex].el.classList.remove('visible');
-      elements[activeIndex].dot.classList.remove('active');
-    }
-    const nextIndex = order[current % order.length];
-    current++;
-    if (current % order.length === 0) {
-      const last = order[order.length - 1];
-      order = shuffle([...Array(lines.length).keys()]);
-      if (order[0] === last) {
-        const swap = order.findIndex((v, i) => i > 0);
-        if (swap > 0) [order[0], order[swap]] = [order[swap], order[0]];
-      }
-    }
-    activeIndex = nextIndex;
-    elements[activeIndex].el.classList.add('visible');
-    elements[activeIndex].dot.classList.add('active');
-    setTimeout(showNext, HOLD + FADE);
-  }
-
-  setTimeout(showNext, 400);
-   const observer = new IntersectionObserver((entries) => {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => { entry.target.classList.add('visible'); }, i * 80);
+        setTimeout(() => { entry.target.classList.add('visible'); }, i * 150);
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  const toggle = document.getElementById('navToggle');
-  const menu = document.getElementById('navMenu');
-    toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    menu.classList.toggle('open');
-  });
 </script>
 
 </body>
