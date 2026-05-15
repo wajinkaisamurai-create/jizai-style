@@ -179,21 +179,21 @@
   padding: 0 20px;
 }
 
-/* 下段：1枚中央 */
-.entrance-upper {
-  display: flex;
-  justify-content: center;
-}
-
 /* 上段：3枚並び */
-.entrance-lower {
+.entrance-upper {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3列固定 */
   gap: 24px;
   margin-bottom: 24px;
 }
 
-.entrance-upper .entrance-card {
+/* 下段：1枚中央 */
+.entrance-lower {
+  display: flex;
+  justify-content: center;
+}
+
+.entrance-lower .entrance-card {
   width: calc(33.333% - 16px); /* 上段のカードと幅を合わせる */
 }
 
