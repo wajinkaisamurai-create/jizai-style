@@ -81,14 +81,14 @@
     .origin-title { font-size: 1.6rem; color: var(--gold); margin-bottom: 3rem; text-align: center; font-weight: 300; }
 
     /* 要素カードのグリッド */
-    .element-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 3rem; }
-    .element-card { background: rgba(255,255,255,0.5); border: 1px solid var(--line); padding: 25px; border-radius: 12px; text-align: left; }
+    .entrance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 3rem; }
+    .entrance-card { background: var(--paper); padding: 40px 20px; border-radius: 12px; border: 1px solid var(--line); transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; }
     .element-card h3 { font-size: 1.1rem; color: var(--gold); margin-bottom: 0.8rem; border-bottom: 1px solid var(--gold); display: inline-block; }
     .element-card p { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.7; }
     .entrance-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--gold); }
     .entrance-card.main { border: 2px solid var(--gold); }
 
-    .card-label { font-size: 0.7rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .card-title { font-size: 1.05rem; color: var(--deep); margin-bottom: 1rem; }
     .card-title { font-size: 1.05rem; color: var(--deep); margin-bottom: 1rem; }
     .btn-card { font-size: 0.8rem; padding: 10px; border-radius: 999px; border: 1px solid var(--line); display: block; text-align: center; }
     .main .btn-card { background: var(--deep); color: white; border: none; }
