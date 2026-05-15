@@ -9,7 +9,7 @@
       /* 共通変数の継承 */
     :root {
      --bg:#f5f2ec;
-     --bg2:#edeae3;
+     --bg2:#ebe5d8; 
      --bg3:#e6e2d9; 
      --bg-dark:#1c1a16; 
      --ink:#1c1a16; 
@@ -17,12 +17,13 @@
      --ink-light:#8a8278; 
      --accent:#7a6248; 
      --accent2:#b8956a; 
-     --gold:#c9a96e; 
-     --line:rgba(122,98,72,0.18); 
+     --gold: #b08a3c; 
+     --deep: #1f2f2b;
+     --line: rgba(75, 47, 31, 0.18); 
      --paper:#fffaf0; 
      --white:#fff; 
-     --shadow:0 18px 45px rgba(31,26,22,.08);
-     }
+     --shadow: 0 18px 45px rgba(31, 26, 22, 0.08);
+    }
 
     body {
       background-color: var(--bg); color: var(--ink);
@@ -34,8 +35,8 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
       pointer-events: none; z-index: 10;
     }
-    
-      /* Header: 現行サイトの構成を反映 */
+
+   /* Header: 現行サイトの構成を反映 */
     .header { 
       position: fixed; 
       width: 100%; 
@@ -64,6 +65,13 @@
     .element-card { background: rgba(255,255,255,0.5); border: 1px solid var(--line); padding: 25px; border-radius: 12px; text-align: left; }
     .element-card h3 { font-size: 1.1rem; color: var(--gold); margin-bottom: 0.8rem; border-bottom: 1px solid var(--gold); display: inline-block; }
     .element-card p { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.7; }
+    .entrance-card { background: var(--paper); padding: 40px 20px; border-radius: 12px; border: 1px solid var(--line); transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; }
+    .entrance-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--gold); }
+    .entrance-card.main { border: 2px solid var(--gold); }
+    .card-label { font-size: 0.7rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.1em; }
+    .card-title { font-size: 1.05rem; color: var(--deep); margin-bottom: 1rem; }
+    .btn-card { font-size: 0.8rem; padding: 10px; border-radius: 999px; border: 1px solid var(--line); display: block; text-align: center; }
+    .main .btn-card { background: var(--deep); color: white; border: none; }
 
     /* タイムライン */
     .timeline { text-align: left; max-width: 600px; margin: 3rem auto; position: relative; padding-left: 30px; border-left: 1px solid var(--gold); }
@@ -87,7 +95,6 @@
     .footer-nav a { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--ink-light); letter-spacing:.12em; }
     .footer-text { font-family:'Noto Sans JP',sans-serif; font-weight:200; font-size:.62rem; letter-spacing:.2em; color:var(--ink-light); }
 
-    
     .card { background: white; padding: 40px; border-radius: 15px; border: 1px solid var(--line); margin-bottom: 3rem; }
 　　　h2 { font-weight: 300; color: var(--deep); border-left: 3px solid var(--gold); padding-left: 15px; margin-bottom: 1.5rem; }
     .price-tag { font-size: 1.2rem; color: var(--deep); font-family: sans-serif; margin-top: 1rem; display: block; font-weight: 600; }
