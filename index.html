@@ -173,53 +173,93 @@
     .section-label { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); letter-spacing: 0.3em; font-size: 14px; }
     
     /* --- 4つの入口セクション：2段構成への変更 --- */
-.entrance-container {
-  max-width: 1100px;
-  margin: 0 auto 10rem;
-  padding: 0 20px;
-}
+    .entrance-container {
+      max-width: 1100px;
+      margin: 0 auto 10rem;
+      padding: 0 20px;
+    }
+    /* 上段：息道を横長カードにする */
+    .entrance-upper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    /* 上段カードを3列分に広げる */
+    .entrance-upper .entrance-card {
+      grid-column: 1 / -1;
+    }
+    /* 下段：3枚並び */
+    .entrance-lower {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    /* 下段カードは通常幅 */
+    .entrance-lower .entrance-card {
+      width: auto;
+    }
 
-/* 上段：3枚並び */
-.entrance-upper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3列固定 */
-  gap: 24px;
-  margin-bottom: 24px;
-}
+    /* 共通：カードのスタイル（about.html準拠） */
+    .entrance-card {
+      background: var(--paper);
+      padding: 50px 30px;
+      text-align: center;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      transition: 0.4s ease;
+      display: block; /* リンクとして機能 */
+    }
 
-/* 下段：1枚中央 */
-.entrance-lower {
-  display: flex;
-  justify-content: center;
-}
+    .entrance-card:hover { transform: translateY(-10px); background: var(--white); 
+    }
 
-.entrance-lower .entrance-card {
-  width: calc(33.333% - 16px); /* 上段のカードと幅を合わせる */
-}
+    .sokudo-card {
+      position: relative;
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255, 250, 240, 0.98),
+          rgba(245, 242, 236, 0.92)
+        );
+      border: 1px solid rgba(176, 138, 60, 0.35);
+      box-shadow: 0 22px 55px rgba(75, 47, 31, 0.10);
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
 
-/* 共通：カードのスタイル（about.html準拠） */
-.entrance-card {
-  background: var(--paper);
-  padding: 50px 30px;
-  text-align: center;
-  border-radius: 22px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow);
-  transition: 0.4s ease;
-  display: block; /* リンクとして機能 */
-}
+    .sokudo-card::before {
+      content: "";
+      position: absolute;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.65;
+    }
 
-.entrance-card:hover { transform: translateY(-10px); background: var(--white); }
+    .sokudo-card:hover {
+      transform: translateY(-6px);
+      background: var(--white);
+    }
 
-/* モバイル対応：スマホでは1列に並べる */
-@media (max-width: 900px) {
-  .entrance-upper {
-    grid-template-columns: 1fr;
-  }
-  .entrance-lower .entrance-card {
-    width: 100%;
-  }
-}
+    /* モバイル対応：スマホでは1列に並べる */
+    @media (max-width: 900px) {
+      .entrance-upper,
+      .entrance-lower {
+        grid-template-columns: 1fr;
+      }
+
+      .entrance-upper .entrance-card,
+      .entrance-lower .entrance-card {
+        grid-column: auto;
+        width: 100%;
+      }
+    }
+
 
     /* --- 倭迅会とは（導線） --- */
     .about-lead {
@@ -299,8 +339,9 @@
     <h2 class="serif" style="font-size: 2rem; margin-top: 1rem; color: var(--brown);">どこから入りますか</h2>
   </div>
 
-    <div class="entrance-lower">
-      <a href="sokudo.html" class="entrance-card">
+  <div class="entrance-container reveal">
+    <div class="entrance-upper">
+      <a href="sokudo.html" class="entrance-card sokudo-card">
         <span class="section-label">Foundation / Breath</span>
         <h3>息道</h3>
         <p>すべてはここから始まり、<br>ここへと還る。<br>ことの始まり「呼吸の道」。</p>
@@ -309,7 +350,7 @@
   </div>
 
   <div class="entrance-container reveal">
-    <div class="entrance-upper">
+    <div class="entrance-lower">
       <a href="tate.html" class="entrance-card">
         <span class="section-label">Movement</span>
         <h3>殺陣道場</h3>
@@ -332,10 +373,10 @@
   <section class="about-lead">
     <div class="about-lead-content reveal">
       <span class="section-label" style="color: var(--gold);">PHILOSOPHY</span>
-      <h2 class="serif">すべては、呼吸へ還る。</h2>
+      <h2 class="serif">そしてすべては、呼吸へと還る。</h2>
       <p>
         殺陣で身体を動かすことも、茶道で静寂を味わうことも、<br>
-        数秘で自分を知ることも、すべては一つの中心に繋がっています。
+        数秘で自分を知ることも、すべては一つの中心「呼吸」に繋がっています。
       </p>
       <a href="about.html" class="btn btn-secondary" style="border-color: var(--gold); color: var(--gold); background: transparent;">倭迅会の考え方</a>
       <a href="https://lin.ee/tJDJseM" class="btn btn-primary">体験を申し込む</a>
