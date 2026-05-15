@@ -179,18 +179,18 @@
   padding: 0 20px;
 }
 
-/* 上段：3枚並び */
+/* 下段：1枚中央 */
 .entrance-upper {
+  display: flex;
+  justify-content: center;
+}
+
+/* 上段：3枚並び */
+.entrance-lower {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* 3列固定 */
   gap: 24px;
   margin-bottom: 24px;
-}
-
-/* 下段：1枚中央 */
-.entrance-lower {
-  display: flex;
-  justify-content: center;
 }
 
 .entrance-lower .entrance-card {
@@ -299,6 +299,15 @@
     <h2 class="serif" style="font-size: 2rem; margin-top: 1rem; color: var(--brown);">どこから入りますか</h2>
   </div>
 
+    <div class="entrance-lower">
+      <a href="sokudo.html" class="entrance-card">
+        <span class="section-label">Foundation / Breath</span>
+        <h3>息道</h3>
+        <p>すべてはここから始まり、<br>ここへと還る。<br>ことの始まり「呼吸の道」。</p>
+      </a>
+    </div>
+  </div>
+
   <div class="entrance-container reveal">
     <div class="entrance-upper">
       <a href="tate.html" class="entrance-card">
@@ -319,15 +328,6 @@
         <p>数字は、占いではない。<br>名前と生年月日の中に、<br>自分の設計図がある。</p>
       </a>
     </div>
-
-    <div class="entrance-lower">
-      <a href="sokudo.html" class="entrance-card">
-        <span class="section-label">Foundation / Breath</span>
-        <h3>息道</h3>
-        <p>すべての根っこにある、呼吸の道。<br>他の三つは、ここから始まり、<br>ここへと還る。</p>
-      </a>
-    </div>
-  </div>
 
   <section class="about-lead">
     <div class="about-lead-content reveal">
