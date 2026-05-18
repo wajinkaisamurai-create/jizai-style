@@ -11,13 +11,12 @@
   :root {
     --bg: #f5f2ec;
     --paper: #fffaf0;
+    --bg-dark: #1c1a16;
     --bg2: #ebe5d8;
-    --bg3: #e6e2d9;
     --ink: #1c1a16;
     --ink-mid: #4a4640;
     --ink-light: #8a8278;
     --accent: #7a6248;
-    --accent2: #b8956a;
     --gold: #b08a3c;
     --gold-l: #d0ad5c;
     --brown: #4b2f1f;
@@ -35,18 +34,18 @@
     background-color: var(--bg);
     color: var(--ink);
     font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
-    line-height: 2.1;
+    line-height: 2.05;
     overflow-x: hidden;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.055em;
   }
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(139,101,64,.045) 60px),
-      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(139,101,64,.045) 60px),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.028'/%3E%3C/svg%3E");
+      repeating-linear-gradient(0deg, transparent, transparent 59px, rgba(139,101,64,.035) 60px),
+      repeating-linear-gradient(90deg, transparent, transparent 59px, rgba(139,101,64,.035) 60px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.022'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 0;
   }
@@ -54,69 +53,106 @@
   a { text-decoration: none; color: inherit; transition: 0.3s; }
   b, strong { font-weight: 400; color: var(--deep); }
 
+  /* ===== Header: index.html準拠 ===== */
   .header {
     position: fixed;
-    width: 100%; top: 0; left: 0;
+    width: 100%;
+    top: 0;
+    left: 0;
     background: rgba(245,242,236,0.92);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--line);
     z-index: 1000;
   }
-  .header nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
-  .nav-brand { color: var(--ink); font-size: 15px; letter-spacing: 0.22em; font-weight: 400; }
-  .nav-brand span { display: inline-block; margin-left: 8px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 13px; color: var(--accent); }
+  .header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 40px;
+  }
+  .nav-brand {
+    color: var(--ink);
+    font-size: 15px;
+    letter-spacing: 0.22em;
+    font-weight: 400;
+  }
+  .nav-brand span {
+    display: inline-block;
+    margin-left: 8px;
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+  }
   .nav-menu { display: flex; gap: 24px; }
-  .nav-item { color: var(--ink-light); font-size: 12px; letter-spacing: 0.16em; font-family: "Noto Sans JP", sans-serif; }
+  .nav-item {
+    color: var(--ink-light);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    font-family: "Noto Sans JP", sans-serif;
+    font-weight: 300;
+  }
   .nav-item:hover { color: var(--accent); }
 
-  section { position: relative; z-index: 1; padding: 8rem 1.5rem; max-width: 1000px; margin: 0 auto; text-align: center; }
-  .section-label { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); letter-spacing: 0.3em; font-size: 14px; display: block; margin-bottom: 1.5rem; text-transform: uppercase; }
-  .section-title { font-size: clamp(1.55rem, 4vw, 2rem); margin-bottom: 2.3rem; color: var(--brown); line-height: 1.7; letter-spacing: 0.16em; }
-  .lead { max-width: 760px; margin: 0 auto; color: var(--ink-mid); font-size: 0.98rem; line-height: 2.45; }
-  .lead p { margin-bottom: 1.4rem; }
-  .gold-line { width: 44px; height: 1px; background: var(--gold); opacity: 0.65; margin: 0 auto 2.5rem; }
-  .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .soft-section { background: var(--bg2); max-width: 100%; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  main { position: relative; z-index: 1; }
+  section { position: relative; z-index: 1; padding: 7.2rem 1.5rem; max-width: 1000px; margin: 0 auto; text-align: center; }
+  .section-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--gold);
+    letter-spacing: 0.28em;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 1.2rem;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-size: clamp(1.34rem, 3vw, 1.8rem);
+    margin-bottom: 2rem;
+    color: var(--brown);
+    line-height: 1.75;
+    letter-spacing: 0.13em;
+  }
+  .gold-line { width: 42px; height: 1px; background: var(--gold); opacity: 0.62; margin: 0 auto 2.4rem; }
+  .lead { max-width: 760px; margin: 0 auto; color: var(--ink-mid); font-size: 0.96rem; line-height: 2.35; }
+  .lead p { margin-bottom: 1.25rem; }
+  .text-block { max-width: 760px; margin: 0 auto; color: var(--ink-mid); font-size: 0.96rem; line-height: 2.35; text-align: left; }
+  .text-block p { margin-bottom: 1.28rem; }
+  .soft-section { background: rgba(235,229,216,0.68); max-width: 100%; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .soft-inner { max-width: 1000px; margin: 0 auto; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: all 0.9s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ===== Hero ===== */
   .hero-profile {
-    position: relative;
     max-width: 100%;
-    min-height: 100vh;
-    padding: 96px 1.5rem 7rem;
+    min-height: auto;
+    padding: 112px 1.5rem 7.2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     background:
-      radial-gradient(circle at 50% 18%, rgba(255,250,240,0.85), rgba(245,242,236,0.62) 35%, rgba(245,242,236,1) 80%),
+      radial-gradient(circle at 52% 20%, rgba(255,250,240,0.86), rgba(245,242,236,0.72) 38%, rgba(245,242,236,1) 82%),
       var(--bg);
-  }
-  .hero-profile::after {
-    content: "";
-    position: absolute;
-    inset: auto 0 0;
-    height: 34%;
-    background: linear-gradient(to bottom, rgba(245,242,236,0), var(--bg));
-    pointer-events: none;
   }
   .hero-profile-inner {
     position: relative;
     z-index: 2;
-    width: min(1040px, 100%);
+    width: min(980px, 100%);
     display: grid;
-    grid-template-columns: 0.82fr 1.18fr;
-    gap: 56px;
+    grid-template-columns: 0.72fr 1.28fr;
+    gap: 48px;
     align-items: center;
   }
   .hero-photo {
     position: relative;
-    width: min(360px, 78vw);
+    width: min(300px, 72vw);
     margin: 0 auto;
-    border-radius: 28px;
+    border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 26px 60px rgba(31,26,22,0.14);
+    box-shadow: 0 20px 46px rgba(31,26,22,0.12);
     border: 1px solid var(--gold-line);
     background: var(--paper);
   }
@@ -124,155 +160,129 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(255,250,240,0.04) 45%, rgba(245,242,236,0.78) 100%);
+    background: linear-gradient(to bottom, rgba(255,250,240,0.03) 48%, rgba(245,242,236,0.58) 100%);
     pointer-events: none;
   }
-  .hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; display: block; filter: sepia(9%) contrast(1.02); }
+  .hero-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; display: block; filter: sepia(8%) contrast(1.02); }
   .hero-copy { text-align: left; }
-  .hero-kicker { font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); letter-spacing: 0.34em; font-size: 14px; text-transform: uppercase; margin-bottom: 1.4rem; display: block; }
-  .hero-title { color: var(--brown); font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.55; letter-spacing: 0.16em; margin-bottom: 1.4rem; }
-  .hero-message { color: var(--ink-mid); font-size: 0.98rem; line-height: 2.35; margin-bottom: 2rem; max-width: 650px; }
-  .hero-name { display: flex; gap: 1rem; align-items: baseline; flex-wrap: wrap; color: var(--deep); margin-top: 2.2rem; }
-  .hero-name strong { font-size: 1.25rem; letter-spacing: 0.22em; font-weight: 400; }
-  .hero-name span { font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--ink-light); letter-spacing: 0.18em; }
-  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
-  .hero-tag { font-family: "Noto Sans JP", sans-serif; font-size: 0.68rem; color: var(--ink-light); border: 1px solid var(--line); border-radius: 999px; padding: 0.28rem 0.75rem; letter-spacing: 0.12em; background: rgba(255,250,240,0.42); }
+  .hero-kicker { font-family: "Cormorant Garamond", serif; font-style: italic; color: var(--gold); letter-spacing: 0.32em; font-size: 13px; text-transform: uppercase; margin-bottom: 1.2rem; display: block; }
+  .hero-title { color: var(--brown); font-size: clamp(1.4rem, 3.8vw, 2.15rem); line-height: 1.72; letter-spacing: 0.13em; margin-bottom: 0.7rem; }
+  .hero-subtitle { color: var(--deep); font-size: 0.95rem; line-height: 2.1; margin: 0.7rem 0 1.8rem; letter-spacing: 0.12em; }
+  .hero-message { color: var(--ink-mid); font-size: 0.96rem; line-height: 2.28; max-width: 650px; }
+  .hero-message p { margin-bottom: 1.18rem; }
 
   .definition-box, .story-card, .profile-card {
     max-width: 820px;
-    margin: 3.2rem auto 0;
-    padding: 38px 34px;
-    background: rgba(255,250,240,0.78);
+    margin: 3rem auto 0;
+    padding: 34px 32px;
+    background: rgba(255,250,240,0.74);
     border-left: 3px solid var(--gold);
     border-radius: 16px;
     text-align: left;
     box-shadow: var(--shadow);
   }
-  .definition-box p, .story-card p, .profile-card p { color: var(--ink-mid); line-height: 2.25; margin-bottom: 1rem; }
-  .definition-box .emphasis { color: var(--deep); font-size: 1.08rem; letter-spacing: 0.12em; }
+  .definition-box p, .story-card p, .profile-card p { color: var(--ink-mid); line-height: 2.22; margin-bottom: 1rem; }
+  .definition-box .emphasis, .story-card .emphasis { color: var(--deep); font-size: 1.02rem; letter-spacing: 0.11em; }
 
-  .value-grid, .connection-grid, .profile-grid, .gallery-grid {
+  .value-grid, .activity-grid, .profile-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-top: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 22px;
+    margin-top: 3.4rem;
   }
-  .value-item, .connection-item, .profile-item, .flow-card {
+  .value-item, .activity-item, .profile-item {
     text-align: left;
-    background: rgba(255,250,240,0.78);
-    padding: 36px 30px;
-    border-radius: 20px;
+    background: rgba(255,250,240,0.76);
+    padding: 30px 26px;
+    border-radius: 18px;
     border: 1px solid var(--gold-line);
     box-shadow: var(--shadow);
   }
-  .value-item h3, .connection-item h3, .profile-item h3, .flow-card h3 {
-    font-size: 1.05rem;
+  .value-item h3, .activity-item h3, .profile-item h3 {
+    font-size: 1rem;
     color: var(--brown);
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     display: flex;
     align-items: center;
     gap: 10px;
     line-height: 1.7;
+    letter-spacing: 0.11em;
   }
-  .value-item h3::before, .connection-item h3::before, .profile-item h3::before, .flow-card h3::before {
+  .value-item h3::before, .activity-item h3::before, .profile-item h3::before {
     content: "";
-    width: 20px;
+    width: 18px;
     height: 1px;
     background: var(--gold);
     flex-shrink: 0;
   }
-  .value-item p, .connection-item p, .profile-item p, .flow-card p, .flow-card li {
+  .value-item p, .activity-item p, .profile-item p, .profile-item li {
     font-size: 0.9rem;
     line-height: 2.05;
     color: var(--ink-mid);
   }
-  .flow-card ul { list-style: none; padding-left: 0; }
-  .flow-card li { margin-bottom: 0.5rem; }
-  .flow-card li::before { content: "・"; color: var(--gold); margin-right: 0.2rem; }
+  .profile-item ul { list-style: none; padding: 0; }
+  .profile-item li { margin-bottom: 0.4rem; }
+  .profile-item li::before { content: "・"; color: var(--gold); margin-right: 0.15rem; }
 
-  .quote-section {
-    max-width: 100%;
-    background: var(--deep);
-    color: var(--paper);
-    border-top: 1px solid rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+  .profile-overview {
+    display: grid;
+    grid-template-columns: 0.78fr 1.22fr;
+    gap: 42px;
+    align-items: start;
+    max-width: 940px;
+    margin: 3rem auto 0;
   }
-  .quote-section .section-label { color: var(--gold-l); }
-  .quote-section .section-title { color: var(--paper); }
-  .quote-section .lead { color: rgba(255,250,240,0.78); }
-  .quote-large {
-    font-size: clamp(1.18rem, 4vw, 1.85rem);
+  .profile-overview .hero-photo { width: min(260px, 72vw); }
+  .profile-copy { text-align: left; }
+  .credential-list { list-style: none; margin: 0 0 2rem; padding: 0; }
+  .credential-list li {
+    color: var(--ink-mid);
+    font-size: 0.92rem;
     line-height: 2;
-    letter-spacing: 0.16em;
-    color: var(--gold-l);
-    margin: 3rem auto;
+    border-bottom: 1px solid rgba(75,47,31,0.10);
+    padding: 0.4rem 0;
   }
+  .credential-list li::before { content: "・"; color: var(--gold); margin-right: 0.2rem; }
+  .small-note { font-family: "Noto Sans JP", sans-serif; font-size: 0.76rem; color: var(--ink-light); line-height: 2; margin-top: 1.2rem; }
 
-  .connection-table {
-    max-width: 860px;
-    margin: 3.5rem auto 0;
-    background: rgba(255,250,240,0.82);
-    border: 1px solid var(--gold-line);
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-  .connection-row { display: grid; grid-template-columns: 1fr 1fr 2fr; border-bottom: 1px solid var(--line); text-align: left; }
-  .connection-row:last-child { border-bottom: none; }
-  .connection-row > div { padding: 22px 24px; color: var(--ink-mid); font-size: 0.9rem; }
-  .connection-row .head { font-family: 'Noto Sans JP', sans-serif; color: var(--brown); background: rgba(176,138,60,0.08); letter-spacing: 0.12em; }
-  .connection-row strong { color: var(--deep); }
-
-  .gallery-grid { grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); max-width: 860px; }
-  .gallery-item { position: relative; overflow: hidden; aspect-ratio: 4/5; background: var(--bg2); }
-  .gallery-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; filter: sepia(8%) contrast(1.02); transition: transform 0.6s ease, filter 0.4s ease; }
-  .gallery-item:hover img { transform: scale(1.03); filter: sepia(0%) contrast(1.03); }
-  .gallery-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 1.4rem 1rem 0.9rem; background: linear-gradient(to top, rgba(28,26,22,0.72), transparent); color: rgba(255,250,240,0.86); font-family: "Noto Sans JP", sans-serif; font-size: 0.68rem; letter-spacing: 0.16em; text-align: left; }
-
-  .timeline { max-width: 860px; margin: 3.5rem auto 0; border: 1px solid var(--gold-line); border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); background: rgba(255,250,240,0.78); }
-  .timeline-item { display: grid; grid-template-columns: 150px 1fr; text-align: left; border-bottom: 1px solid var(--line); }
-  .timeline-item:last-child { border-bottom: none; }
-  .timeline-period { padding: 24px; color: var(--gold); font-family: "Cormorant Garamond", serif; letter-spacing: 0.14em; background: rgba(176,138,60,0.07); }
-  .timeline-body { padding: 24px; }
-  .timeline-body h3 { color: var(--brown); font-size: 0.98rem; letter-spacing: 0.1em; margin-bottom: 0.6rem; }
-  .timeline-body p { color: var(--ink-mid); font-size: 0.86rem; line-height: 2.1; }
-
-  .activity-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.55rem; margin-top: 2.4rem; }
-  .activity-tag { font-family: "Noto Sans JP", sans-serif; font-size: 0.72rem; color: var(--ink-mid); border: 1px solid var(--line); background: rgba(255,250,240,0.58); border-radius: 999px; padding: 0.35rem 0.85rem; letter-spacing: 0.1em; }
-
-  .btn-primary { display: inline-block; padding: 18px 50px; border-radius: 999px; background: var(--deep); color: var(--white); transition: 0.4s; letter-spacing: 0.18em; font-size: 14px; box-shadow: 0 12px 30px rgba(31,47,43,0.22); margin: 2rem 0.4rem 0; }
+  .cta-section { padding-bottom: 8rem; }
+  .btn-primary { display: inline-block; padding: 16px 44px; border-radius: 999px; background: var(--deep); color: var(--white); transition: 0.4s; letter-spacing: 0.18em; font-size: 13px; box-shadow: 0 12px 30px rgba(31,47,43,0.20); margin: 2rem 0.35rem 0; }
   .btn-primary:hover { background: var(--deep-l); transform: translateY(-3px); }
-  .btn-secondary { display: inline-block; padding: 17px 42px; border-radius: 999px; border: 1px solid var(--gold); color: var(--deep); transition: 0.4s; letter-spacing: 0.16em; font-size: 14px; margin: 2rem 0.4rem 0; }
+  .btn-secondary { display: inline-block; padding: 15px 38px; border-radius: 999px; border: 1px solid var(--gold); color: var(--deep); transition: 0.4s; letter-spacing: 0.16em; font-size: 13px; margin: 2rem 0.35rem 0; }
   .btn-secondary:hover { background: rgba(176,138,60,0.12); transform: translateY(-3px); }
-  .cta-note { font-family: 'Noto Sans JP', sans-serif; font-size: 0.78rem; color: var(--ink-light); line-height: 2; margin-top: 1.5rem; }
 
-  footer { padding: 80px 20px; border-top: 1px solid var(--line); text-align: center; position: relative; z-index: 1; }
+  /* ===== Footer: index.html準拠 ===== */
+  footer {
+    padding: 80px 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
   .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
-  .footer-nav a { font-size: 12px; color: var(--ink-light); letter-spacing: 0.1em; }
-  .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; }
+  .footer-nav a { font-size: 12px; color: var(--ink-light); font-family: sans-serif; letter-spacing: 0.1em; }
+  .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; font-family: sans-serif; }
 
   @media (max-width: 900px) {
-    .hero-profile-inner { grid-template-columns: 1fr; gap: 36px; }
-    .hero-copy { text-align: center; }
-    .hero-name, .hero-tags { justify-content: center; }
-    .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-profile-inner, .profile-overview { grid-template-columns: 1fr; gap: 34px; }
+    .hero-copy, .profile-copy { text-align: center; }
+    .profile-copy .text-block { text-align: left; }
+    .profile-overview .hero-photo { width: min(250px, 72vw); }
   }
   @media (max-width: 850px) {
     .header nav { padding: 12px 20px; flex-direction: column; gap: 8px; }
     .nav-menu { gap: 12px; flex-wrap: wrap; justify-content: center; }
     .nav-item { font-size: 11px; }
-    section { padding: 6rem 1.2rem; }
-    .hero-profile { padding-top: 110px; }
-    .connection-row { grid-template-columns: 1fr; }
-    .connection-row > div { padding: 16px 20px; }
-    .timeline-item { grid-template-columns: 1fr; }
-    .timeline-period { padding: 18px 22px 8px; background: transparent; }
-    .timeline-body { padding: 8px 22px 22px; }
+    section { padding: 5.8rem 1.2rem; }
+    .hero-profile { padding-top: 116px; }
+    .hero-photo { width: min(260px, 72vw); }
   }
   @media (max-width: 640px) {
-    .hero-title { letter-spacing: 0.1em; }
-    .definition-box, .story-card, .profile-card { padding: 30px 22px; }
-    .gallery-grid { grid-template-columns: 1fr; }
+    body { letter-spacing: 0.04em; }
+    .hero-title { letter-spacing: 0.09em; }
+    .section-title { letter-spacing: 0.1em; }
+    .definition-box, .story-card, .profile-card, .value-item, .activity-item, .profile-item { padding: 28px 21px; }
+    .text-block { text-align: left; }
   }
 </style>
 </head>
@@ -280,7 +290,7 @@
 
 <header class="header">
   <nav>
-    <a href="index.html" class="nav-brand">福和倭迅会<span>jizai Style.</span></a>
+    <a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
     <div class="nav-menu">
       <a href="index.html" class="nav-item">トップ</a>
       <a href="about.html" class="nav-item">目指すところ</a>
@@ -293,186 +303,195 @@
   </nav>
 </header>
 
-<section class="hero-profile" aria-label="代表紹介・プロフィール">
-  <div class="hero-profile-inner reveal">
-    <div class="hero-photo">
-      <img src="images/Image5.jpg" alt="福田ひろし">
-    </div>
-    <div class="hero-copy">
-      <span class="hero-kicker">PROFILE</span>
-      <h3 class="hero-title">福和倭迅会<br>代表：福田 ひろし</h3><p>Hiroshi Fukuta</p>
-      <p class="hero-message">何かを一方的に教えるために、福和倭迅会を始めたわけではありません。</p>
-      <p class="hero-message">身体の違和感、呼吸のしづらさ、理屈だけでは届かない納得感。<br>そうしたものを辿り続けた先に、殺陣・茶道・数秘・息道が、<br>自然と一本につながっていきました。</p>
-      <div class="hero-tags">
-        <span class="hero-tag">福和倭迅会 代表</span>
-        <span class="hero-tag">殺陣師</span>
-        <span class="hero-tag">息道 提唱者</span>
-        <span class="hero-tag">口伝数秘術 鑑定家</span>
-        <span class="hero-tag">テーブル茶道インストラクター</span>
+<main>
+  <section class="hero-profile" aria-label="代表紹介・プロフィール">
+    <div class="hero-profile-inner reveal">
+      <div class="hero-photo">
+        <img src="images/Image5.jpg" alt="福田ひろし">
+      </div>
+      <div class="hero-copy">
+        <span class="hero-kicker">PROFILE</span>
+        <p class="hero-title">自在流 殺陣・息道<br>福和倭迅会<span style="font-size:0.72em; letter-spacing:0.08em;">（ふくわわじんかい）</span> 主宰</p>
+        <h1 class="hero-title">福田 ひろし</h1>
+        <p class="hero-subtitle">殺陣とテーブル茶道のサムライ数秘術家</p>
+        <div class="hero-message">
+          <p>殺陣の人。<br>お茶の人。<br>数秘の人。</p>
+          <p>たぶん、どれも間違っていません。<br>でも、自分の中では、どれも入口です。</p>
+          <p>自分が本当に作りたいのは、場です。</p>
+          <p>詰め込みすぎない方が、<br>人って勝手に動き始める気がしています。</p>
+          <p>気づいたら、<br>それぞれが自分の役割を見つけている。</p>
+          <p><strong>「ここに居ていいんだ」</strong></p>
+          <p>そんな感覚が生まれる場所を作りたいと思っています。</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="reveal">
-  <div class="lead">
+  <section class="reveal" id="wajinkai">
     <span class="section-label">WAJINKAI</span>
-    <h2 class="section-title">福和倭迅会は、<br>感覚を思い出す入口です。</h2>
+    <h2 class="section-title">福和倭迅会には、<br>いくつかの入口があります。</h2>
     <div class="gold-line"></div>
-    <p>殺陣・テーブル茶道・口伝数秘術・息道を通して、<br>
-      <strong>感覚へ戻る、呼吸へ戻る、自分へ戻る</strong>ための場を作っています。</p>
-    <p>入口は、動くことでも、静かにお茶を点てることでも、<br>
-      言葉や数字から自分を見直すことでもかまいません。</p>
-    <p>大切にしているのは、何かを足して別人になることではなく、<br>
-      もともと身体の中にあった感覚を、もう一度思い出すことです。</p>
-  </div>
-  <div class="definition-box reveal">
-    <p class="emphasis">教える場所というより、思い出す場所。</p>
-    <p>倭迅会が目指しているのは、正解を押し付けることではありません。</p>
-    <p>その人自身が、自分の身体で納得できる感覚に出会えること。<br>
-      そのための入口を、動・静・言葉・呼吸から用意しています。</p>
-  </div>
-</section>
+    <div class="text-block">
+      <p>殺陣、テーブル茶道、口伝数秘術、息道。</p>
+      <p>刀から入る人。<br>お茶から入る人。<br>数字から入る人。<br>呼吸から入る人。</p>
+      <p>入口は、違っていてかまいません。</p>
+      <p>誰と居るかで、呼吸って結構変わる気がしています。</p>
+      <p>どんな空気の中に身を置くか。<br>それって、思っている以上に大事なんだと思います。</p>
+      <p>ここに来る人に、特別な条件はありません。</p>
+      <p>職業も、年齢も、性格も、趣味も、障害の有無も関係ない。</p>
+      <p>それぞれが、自分の得意や興味を持って来られる場所。<br>それぞれが無理をせず、補い合える場所。</p>
+    </div>
+    <div class="definition-box reveal">
+      <p class="emphasis">教える場所というより、思い出す場所。</p>
+      <p>正解はすでに、あなたの身体の中にあります。</p>
+    </div>
+  </section>
 
-<section class="soft-section reveal">
-  <div class="soft-inner">
-    <span class="section-label">SENSE OF DISCOMFORT</span>
-    <h2 class="section-title">ずっと感じていた、微かな違和感</h2>
+  <section class="soft-section reveal" id="turning-point">
+    <div class="soft-inner">
+      <span class="section-label">TURNING POINT</span>
+      <h2 class="section-title">身体の変化が、<br>呼吸を見直すきっかけになりました。</h2>
+      <div class="gold-line"></div>
+      <div class="text-block">
+        <p>胃の手術をしました。</p>
+        <p>たった3分の1が変わっただけで、<br>それまで無意識にできていた呼吸が、急に苦しくなりました。</p>
+        <p>最初に違和感が出たのは、入院中の寝巻きでした。</p>
+        <p>寝巻きのズボンのゴムが、お腹を横一文字に締める。<br>それだけで、息が入りづらい。自分でも驚きました。</p>
+        <p>逆に、帯を締めた時は違いました。</p>
+        <p>腰骨の位置で身体が安定し、息が自然に入ってくる。</p>
+        <p>その時、初めて気づきました。<br>自分は呼吸を「していた」のではなく、<br>ずっと呼吸に助けられていたのだと。</p>
+        <p>無理をしている自覚は、あまりありませんでした。</p>
+        <p>満員電車、都心の空気、決められたルールの中で<br>自分の意見を飲み込み続ける働き方。</p>
+        <p>今振り返ると、<br>あの働き方は、少しずつ呼吸を浅くしていたんだと思います。</p>
+        <p>洋装が悪いわけではありません。<br>ただ、自分の身体には合わなかった。</p>
+        <p>帯は、腹を必要以上に締め付けず、身体を支えてくれました。<br>身体は、言葉より先に知っていました。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="place">
+    <span class="section-label">PLACE</span>
+    <h2 class="section-title">「場」から、始まるもの</h2>
     <div class="gold-line"></div>
-    <div class="lead">
-      <p>幼い頃から時代劇や抹茶、数字の不思議さに惹かれてきました。</p>
-      <p>その時点では、それぞれが何かにつながっているとは思っていませんでした。</p>
-      <p>ただ、身体の使い方や場の空気、言葉になる前の感覚に、自然と目が向いていたのだと思います。</p>
+    <div class="text-block">
+      <p>ここは、誰かが強く引っ張る場所ではありません。</p>
+      <p>自分は、どちらかというと待つ側の人間です。</p>
+      <p>前に立って管理するより、<br>見て、聞いて、必要な時にだけ返す。<br>そのくらいが、ちょうどいい。</p>
+      <p>管理されすぎた場所は、少しずつ息苦しくなっていく気がします。</p>
+      <p>もちろん最低限のルールは必要です。<br>でも、禁止事項ばかり増えると、人は自然に動けなくなる。</p>
+      <p>それぞれが、自分の得意を持って来て、<br>必要な時に補い合える方がいい。</p>
+      <p>無理をして同じ形にならなくてもいい。<br>違うまま、共生できる方がいい。</p>
+      <p>多分、自分は昔から、<br>そういう場所が欲しかったんだと思います。</p>
+      <p>ここで目指しているのは、<br>「教室」というより、縁側に近い空間です。</p>
+      <p>ふらっと来てもいい。<br>ただ居るだけでもいい。<br>話したくなったら話せばいい。<br>参加したくなったら参加すればいい。</p>
+      <p>職種も、趣味も、年齢も、性格も違う人たちが、<br>自然に混ざり合っている。</p>
+      <p>気づけば、誰かの得意が、誰かを助けている。</p>
+      <p>少しギルドみたいな場所。<br>そんなものが作れたら面白いな、と思っています。</p>
     </div>
-  </div>
-</section>
+    <div class="value-grid reveal">
+      <div class="value-item">
+        <h3>出会う</h3>
+        <p>違う入口を持つ人が、自然に出会える場。</p>
+      </div>
+      <div class="value-item">
+        <h3>混ざる</h3>
+        <p>違うまま補い合い、自然に機能していく状態。</p>
+      </div>
+      <div class="value-item">
+        <h3>始まる</h3>
+        <p>帰る頃、少し呼吸が楽になっている。<br>それだけでも、十分だと思っています。</p>
+      </div>
+    </div>
+  </section>
 
-<section class="reveal">
-  <span class="section-label">BREATH</span>
-  <h2 class="section-title">無意識の呼吸を意識的に行うということ。</h2>
-  <div class="gold-line"></div>
-  <div class="lead">
-    <p>呼吸は、誰かに教わらなくても続いています。</p>
-    <p>けれど、呼吸が浅くなっていること、身体が緊張していること、<br>
-      腹まで息が届いていないことには、意外と気づきにくいものです。</p>
-    <p>舞台や殺陣の実践を重ねる中で、声、重心、間合い、<br>
-      動きのすべてが呼吸とつながっていることを、身体で知っていきました。</p>
-  </div>
-  <div class="definition-box reveal">
-    <p class="emphasis">呼吸は、身体の状態を映す鏡です。</p>
-    <p>無理に深く吸うことよりも、まず今の呼吸に気づくこと。</p>
-    <p>そこから、身体の中心へ戻る道が始まります。</p>
-  </div>
-</section>
+  <section class="soft-section reveal" id="message">
+    <div class="soft-inner">
+      <span class="section-label">MESSAGE</span>
+      <h2 class="section-title">ずっと、息が詰まっていました。</h2>
+      <div class="gold-line"></div>
+      <div class="text-block">
+        <p>でも当時の自分は、そのことに気づいていませんでした。</p>
+        <p>言いたいことを飲み込む。<br>言葉にならない。<br>「なんでもない」と笑う。</p>
+        <p>人のいい顔だけ貼り付けて、<br>なるべく自分を消そうとしていた時期があります。</p>
+        <p>自分を出すことは、誰かの迷惑になる気がしていました。</p>
+        <p>今も、全部解決したわけではありません。<br>まだ途中です。</p>
+        <p>ただ、身体が変わったことで、<br>ようやく少しずつわかってきました。</p>
+        <p>人は、無理をし続けると、<br>呼吸から先に苦しくなるのだと。</p>
+        <p>だから、変わらなくていいんです。<br>変わるのは、本人が願った時だけだから。</p>
+        <p>ただ、きっかけくらいは渡せるかもしれない。<br>そのくらいに思っています。</p>
+      </div>
+    </div>
+  </section>
 
-<section class="soft-section reveal">
-  <div class="soft-inner">
-    <span class="section-label">TURNING POINT</span>
-    <h2 class="section-title">身体が教えてくれた、帯の力</h2>
+  <section class="reveal" id="profile">
+    <span class="section-label">PROFILE</span>
+    <h2 class="section-title">福田 ひろし</h2>
     <div class="gold-line"></div>
-    <div class="lead">
-      <p>大きな転機は、胃癌の手術でした。</p>
-      <p>術後、これまでの身体の使い方が通用しなくなり、呼吸ひとつにさえ困難を感じる日々。<br>
-        その中で気付くきっかけになったのは、いつもの「和装」と「帯」の感覚でした。</p>
-      <p>帯を締めることで生まれる適度な腹圧が、浅くなっていた呼吸を安定させ、<br>
-        身体の軸を取り戻させてくれる。身体の仕組みへの静かな確信でした。</p>
-      <p>その実感が、身体感覚への認識が大きく深まった転機となり、<br>
-        息道の体系化へとつながっていきました。</p>
+    <div class="profile-overview">
+      <div class="hero-photo">
+        <img src="images/Image7.jpeg" alt="福田ひろし">
+      </div>
+      <div class="profile-copy">
+        <ul class="credential-list">
+          <li>自在流 殺陣・息道 福和倭迅会 主宰</li>
+          <li>日本俳優連合アクション部会 殺陣上級ライセンス</li>
+          <li>テーブル茶道「雪月花」インストラクター</li>
+          <li>カバラ式口伝数秘術 鑑定師</li>
+        </ul>
+        <div class="text-block">
+          <p>30年前、芝居の世界へ。<br>舞台・殺陣・身体表現を通して、<br>人の動きや呼吸、空気感を長く見続けてきました。</p>
+          <p>2023年、胃がんにより胃の上部1/3を切除。<br>これをきっかけに、呼吸と身体の関係を改めて見つめ直し始める。</p>
+          <p>身体の変化をもとに、<br>和装と身体技法を統合した「息道（そくどう）」を構築。</p>
+          <p>現在は、殺陣・テーブル茶道・数秘術・呼吸を入口として、<br>「ありたい自分同士が共鳴できる場」をテーマに活動しています。</p>
+        </div>
+      </div>
     </div>
-    <div class="value-grid">
-      <div class="value-item"><h3>呼吸しづらさ</h3><p>身体が変わったことで、呼吸の浅さや圧迫感に敏感になりました。</p></div>
-      <div class="value-item"><h3>洋装と和装</h3><p>ベルトで締める感覚と、帯で支える感覚の違いが、身体でわかるようになりました。</p></div>
-      <div class="value-item"><h3>働き方の変化</h3><p>一般的な働き方への負荷も含め、<br>自分の身体に合う在り方を見直すきっかけになりました。</p></div>
+    <div class="story-card reveal">
+      <p class="emphasis">幸結来 -サムライ-</p>
+      <p>祭りで出会った書家へ、<br>殺陣での刀の所作をお伝えした際、<br>「文字が降りてきた」と言って贈っていただいた言葉です。</p>
+      <p>幸せを結び、来たる。<br>今も大切に持ち歩いています。</p>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="reveal">
-  <span class="section-label">CONNECTION</span>
-  <h2 class="section-title">後から見れば、一本の道だった</h2>
-  <div class="gold-line"></div>
-  <div class="lead">
-    <p>殺陣での重心移動、茶道での指先の緊張と緩和、数秘が解き明かす言葉の響き。<br>
-      別々に存在していたそれらが、ある時「呼吸」という糸で一本に繋がりました。</p>
-    <p>頭で理解する（知る）のではなく、身体に落ちる（腑に落ちる）。</p>
-    <p>急がず、押し付けず、自分の身体の中で確かめていくこと。<br>
-      この感覚こそが、人が自分自身を信頼して生きていくための「基盤」になると感じたのです。</p>
-  </div>
-</section>
-
-<section class="reveal">
-  <span class="section-label">PLACE</span>
-  <h2 class="section-title">「場」から始まる、化学反応</h2>
-  <div class="gold-line"></div>
-  <div class="lead">
-    <p>倭迅会は一人の先生が、正解を与える教室ではなく。</p>
-    <p>ここに来る人が呼吸を整え、自分を取り戻し、<br>
-      別の誰かと混ざりあう、そこから新しい何かが始まる。</p>
-    <p><b>そんな「場」でありたいと考えています。</b></p>
-  </div>
-  <div class="value-grid">
-    <div class="value-item"><h3>出会う</h3><p>同じ価値観に閉じるのではなく、違う入口を持つ人同士が出会える場。</p></div>
-    <div class="value-item"><h3>混ざる</h3><p>動・静・言葉・呼吸が重なり、<br>自分一人では気づけなかった感覚が開く場。</p></div>
-    <div class="value-item"><h3>始まる</h3><p>参加したあとに、日常の呼吸や<br>姿勢、選び方が少し変わる場。</p></div>
-  </div>
-</section>
-
-<section class="soft-section reveal">
-  <div class="soft-inner">
-    <span class="section-label">MESSAGE</span>
-    <h2 class="section-title">今、伝えたいこと。</h2>
-    <div class="gold-line"></div>
-    <div class="lead">
-      <p>日本人として受け継いできた身体感覚は、今もあなたの内側に眠っています。<br>
-      <p>日本の暮らしや所作の中には、身体に無理をさせず、呼吸を助け、<br>
-        感覚を整える知恵があったのではないかと感じています。</p>
-      <p><strong>頑張って何かを習得しようとするのではなく、自分に合った感覚を思い出してほしい。</strong><br>
-        そのお手伝いができることを願っています。</p>
+  <section class="soft-section reveal" id="activity">
+    <div class="soft-inner">
+      <span class="section-label">ACTIVITY</span>
+      <h2 class="section-title">活動実績</h2>
+      <div class="gold-line"></div>
+      <div class="activity-grid">
+        <div class="activity-item">
+          <h3>さんにち市・活き活きマルシェ</h3>
+          <p>地域のマルシェで、殺陣体験・数秘術鑑定・テーブル茶道体験などを実施。</p>
+          <p>「知っているつもりだった日本文化を、改めて知れた」<br>「“あぁ、自分だな”って感じがした」</p>
+          <p>そんな声をいただいています。</p>
+        </div>
+        <div class="activity-item">
+          <h3>箱根遊船「大茶会」</h3>
+          <p>芦ノ湖の湖上、お茶をテーマにした船内でのお点前体験。</p>
+          <p>正座不要のテーブル茶道で、初めての方でも楽しめる形にしています。</p>
+          <p>静かな中に、いろいろな感覚が詰まっている時間を大切にしています。</p>
+        </div>
+        <div class="activity-item">
+          <h3>出張体験・企画相談</h3>
+          <p>会場・人数・目的に合わせて、<br>その場が一番活きる形を一緒に考えます。</p>
+          <p>まずはLINEなどから、気になったタイミングでご相談ください。</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="reveal">
-    <div class="hero-photo">
-      <img src="images/Image7.jpeg" alt="福田ひろし" class="profile-img"> 
-      <div class="profile-details">
-    </div>
-    </div>
-    <div class="hero-copy">
-  <div class="profile-card">
-      <h3>福田 ひろし<span>（Hiroshi Fukuta）</span></h3>
-      <span class="title">福和倭迅会 代表 / 殺陣師 / 息道 提唱者</span>
-      <ul class="history-list">
-        <li>日本俳優連合アクション部会 殺陣上級ライセンス</li>
-        <li>自在流 殺陣・息道 主宰</li>
-        <li>テーブル茶道「雪月花」インストラクター</li>
-        <li>カバラ式口伝数秘術 鑑定師</li>
-        <li>長年の舞台・映像出演を経て、身体表現と呼吸の相関を研究。</li>
-        <li>胃癌手術を経て、和装と身体技法を統合した「息道」を確立。</li>
-        <li>現在は神奈川県・足柄地区を拠点に、文化体験と身体感覚の再接続を伝える活動を展開。</li>
-      </ul>
-    </div>
-  </div>
-  <div class="activity-tags reveal">
-    <span class="activity-tag">さんにち市</span>
-    <span class="activity-tag">活き活きマルシェ</span>
-    <span class="activity-tag">箱根遊船「大茶会」</span>
-    <span class="activity-tag">出張体験相談可</span>
-  </div>
-</section>
-
-<section class="reveal" id="cta">
-  <div class="lead">
+  <section class="cta-section reveal" id="cta">
     <span class="section-label">CONTACT</span>
-    <h2 class="section-title">まずは、呼吸を分かち合うことから</h2>
+    <h2 class="section-title">「何かが違う」</h2>
     <div class="gold-line"></div>
-    <p>「呼吸がしづらい」「自分自身に戻りたい」<br>
-      そんな微かな感覚を大切にしてください。まずは気軽にお話ししましょう。</p>
-  </div>
-  <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-primary">お問い合わせ（LINE）</a>
-  <a href="sokudo.html" class="btn-secondary">息道ページを見る</a>
-  <p class="cta-note">初めて歓迎 / 見学・相談可能 / 体調優先 / 神奈川県西湘地区を拠点に活動<br>まずは希望内容をお知らせください。</p>
-</section>
+    <div class="lead">
+      <p>もし今、そんな感覚が少しでもあるなら、<br>その違和感を、無理に消さなくて大丈夫です。</p>
+      <p>来たくなった時は、いつでもどうぞ。<br>ここで待っています。</p>
+    </div>
+    <a href="https://lin.ee/tJDJseM" target="_blank" class="btn-primary">お問い合わせ（LINE）</a>
+    <a href="sokudo.html" class="btn-secondary">息道ページを見る</a>
+  </section>
+</main>
 
 <footer>
   <div class="footer-nav">
@@ -499,8 +518,8 @@
       }
     });
   }, { threshold: 0.1 });
+
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
