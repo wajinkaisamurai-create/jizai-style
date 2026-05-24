@@ -9,6 +9,91 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 
   <style>
+    /* ===== 共通ナビゲーション ===== */
+    .header {
+      position: fixed;
+      width: 100%; top: 0; left: 0;
+      background: rgba(245,242,236,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+      z-index: 1000;
+    }
+    .header nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 40px;
+    }
+    .nav-brand {
+      color: var(--ink);
+      font-size: 15px;
+      letter-spacing: 0.22em;
+      font-weight: 400;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-brand span {
+      display: inline-block;
+      margin-left: 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 13px;
+      color: var(--accent);
+    }
+    .nav-menu {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-item {
+      color: var(--ink-light);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      font-family: "Noto Sans JP", sans-serif;
+      font-weight: 300;
+      text-decoration: none;
+      transition: color 0.3s;
+      white-space: nowrap;
+    }
+    .nav-item:hover { color: var(--accent); }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1001;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--ink-light);
+      transition: all 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    @media (max-width: 760px) {
+      .header nav { padding: 13px 20px; }
+      .nav-menu {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(245,242,236,0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2.2rem;
+        z-index: 1000;
+      }
+      .nav-menu.open { display: flex; }
+      .nav-toggle { display: flex; }
+      .nav-item { font-size: 0.88rem; letter-spacing: 0.22em; }
+    }
+
     :root {
       --bg: #f5f2ec;
       --paper: #fffaf0;
@@ -53,20 +138,6 @@
     a { text-decoration: none; color: inherit; transition: 0.3s; }
     b, strong { font-weight: 400; color: var(--compass); }
 
-    .header {
-      position: fixed;
-      width: 100%; top: 0; left: 0;
-      background: rgba(245,242,236,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line);
-      z-index: 1000;
-    }
-    .header nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 40px; }
-    .nav-brand { color: var(--ink); font-size: 15px; letter-spacing: 0.22em; font-weight: 400; }
-    .nav-brand span { display: inline-block; margin-left: 8px; font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 13px; color: var(--accent); }
-    .nav-menu { display: flex; gap: 24px; }
-    .nav-item { color: var(--ink-light); font-size: 12px; letter-spacing: 0.16em; font-family: "Noto Sans JP", sans-serif; }
-    .nav-item:hover { color: var(--accent); }
 
     section { position: relative; z-index: 1; padding: 8rem 1.5rem; max-width: 1000px; margin: 0 auto; text-align: center; }
     .section-label { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); letter-spacing: 0.3em; font-size: 14px; display: block; margin-bottom: 1.5rem; text-transform: uppercase; }
@@ -172,9 +243,6 @@
     .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; }
 
     @media (max-width: 850px) {
-      .header nav { padding: 12px 20px; flex-direction: column; gap: 8px; }
-      .nav-menu { gap: 12px; flex-wrap: wrap; justify-content: center; }
-      .nav-item { font-size: 11px; }
       section { padding: 6rem 1.2rem; }
       .hero-passcode { min-height: auto; padding-top: 62px; }
       .hero-passcode img { height: auto; min-height: 58vh; }
@@ -189,14 +257,17 @@
 
 <header class="header">
   <nav>
-    <a href="index.html" class="nav-brand">福和倭迅会<span>jizai Style.</span></a>
-    <div class="nav-menu">
+    <a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
       <a href="index.html" class="nav-item">トップ</a>
       <a href="about.html" class="nav-item">目指すところ</a>
       <a href="sokudo.html" class="nav-item">息道</a>
       <a href="tate.html" class="nav-item">殺陣道場</a>
       <a href="tea.html" class="nav-item">テーブル茶道</a>
-      <a href="passcode.html" class="nav-item" style="color: var(--compass);">口伝数秘術</a>
+      <a href="passcode.html" class="nav-item" style="color: var(--accent);">口伝数秘術</a>
       <a href="profile.html" class="nav-item">代表紹介</a>
     </div>
   </nav>
@@ -345,8 +416,6 @@
     <a href="index.html">TOP</a>
     <a href="about.html">倭迅会の目指すところ</a>
     <a href="sokudo.html">息道</a>
-    <a href="sokudo-group.html">息道・グループ体験</a>
-    <a href="sokudo-private.html">息道・個別／法人</a>
     <a href="tate.html">殺陣道場</a>
     <a href="tea.html">テーブル茶道</a>
     <a href="passcode.html">口伝数秘術</a>
@@ -356,17 +425,35 @@
   <p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
 </footer>
 
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => { entry.target.classList.add('visible'); }, i * 150);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
+
+  <script>
+    /* ナビゲーション開閉 */
+    const _toggle = document.getElementById('navToggle');
+    const _menu   = document.getElementById('navMenu');
+    if (_toggle && _menu) {
+      _toggle.addEventListener('click', () => {
+        _toggle.classList.toggle('open');
+        _menu.classList.toggle('open');
+      });
+      /* メニュー内リンクをタップしたら閉じる */
+      _menu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          _toggle.classList.remove('open');
+          _menu.classList.remove('open');
+        });
+      });
+    }
+    /* スクロールアニメーション */
+    const _obs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 120);
+          _obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => _obs.observe(el));
+  </script>
 
 </body>
 </html>
