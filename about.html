@@ -367,13 +367,15 @@
     .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
+    /* --- Footer --- */
     footer {
-      padding: 4rem 2rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--ink-light);
+      padding: 80px 20px;
       border-top: 1px solid var(--line);
+      text-align: center;
     }
+    .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
+    .footer-nav a { font-size: 12px; color: var(--sub); font-family: sans-serif; letter-spacing: 0.1em; }
+    .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; font-family: sans-serif; }
 
     @media (max-width: 768px) {
       .hero-title { font-size: 1.8rem; }
@@ -519,7 +521,19 @@
     </div>
   </section>
 
-  <footer>
+<footer>
+  <div class="footer-nav">
+    <a href="index.html">TOP</a>
+    <a href="about.html">倭迅会の目指すところ</a>
+    <a href="sokudo.html">息道</a>
+    <a href="tate.html">殺陣道場</a>
+    <a href="tea.html">テーブル茶道</a>
+    <a href="passcode.html">口伝数秘術</a>
+    <a href="passcode-members.html">数秘｜継続サポート</a>
+    <a href="profile.html">代表紹介</a>
+    <a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
+    <a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
+  </div>
     <p>© 福和倭迅会 / Jizai Style. All rights reserved.</p>
   </footer>
 
