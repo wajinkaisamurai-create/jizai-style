@@ -85,13 +85,25 @@
         background: rgba(245,242,236,0.97);
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 2.2rem;
+        justify-content: flex-start;
+        padding-top: 80px;
+        padding-bottom: 40px;
+        gap: 0;
         z-index: 1000;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
       .nav-menu.open { display: flex; }
       .nav-toggle { display: flex; }
-      .nav-item { font-size: 0.88rem; letter-spacing: 0.22em; }
+      .nav-item {
+        font-size: 0.88rem;
+        letter-spacing: 0.22em;
+        padding: 14px 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(75,47,31,0.08);
+      }
+      .nav-item:first-child { border-top: 1px solid rgba(75,47,31,0.08); }
     }
 
     :root {
@@ -421,8 +433,6 @@
     <a href="passcode.html">口伝数秘術</a>
     <a href="passcode-members.html">数秘｜継続サポート</a>
     <a href="profile.html">代表紹介</a>
-    <a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
-    <a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
   </div>
   <p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
 </footer>
