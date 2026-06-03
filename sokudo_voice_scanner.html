@@ -145,7 +145,7 @@ const BLOCKS = [
 
 let currentStage=0, isRecording=false;
 let audioCtx=null, analyser=null, source=null, stream=null, animFrame=null;
-let currentData=null, sessionPeak=0;
+let currentData=null, sessionPeak=0, peakData=null;
 let blockPeaks=new Array(8).fill(0);
 let blockAvgs=new Array(8).fill(0);
 let saved=[];
@@ -200,7 +200,7 @@ function selectStage(id){
 }
 
 function resetSession(){
-  sessionPeak=0; blockPeaks.fill(0); blockAvgs.fill(0);
+  sessionPeak=0; peakData=null; blockPeaks.fill(0); blockAvgs.fill(0);
   document.getElementById('cScore').textContent='—';
   document.getElementById('cPeak').textContent='—';
   BLOCKS.forEach((_,i)=>{
@@ -338,7 +338,7 @@ function animate(){
   });
   const totalNow=Math.round(blockAvgs.reduce((a,b)=>a+b,0)/8);
   const totalPeak=calcTotalPeak(blockPeaks);
-  if(totalPeak>sessionPeak) sessionPeak=totalPeak;
+  if(totalPeak>sessionPeak){ sessionPeak=totalPeak; peakData=[...Array.from(data)]; }
   document.getElementById('cScore').textContent=totalNow;
   document.getElementById('cPeak').textContent=sessionPeak;
   drawWaveform(data);
@@ -352,7 +352,8 @@ function saveWaveform(){
   const now=new Date();
   const pad=n=>n.toString().padStart(2,'0');
   const timeStr=`${now.getMonth()+1}/${now.getDate()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  saved.push({id:Date.now(),name,stage:s,data:[...currentData],blockPeaks:[...blockPeaks],score:sessionPeak,time:timeStr});
+  const dataToSave = peakData || currentData;
+  saved.push({id:Date.now(),name,stage:s,data:[...dataToSave],blockPeaks:[...blockPeaks],score:sessionPeak,time:timeStr});
   renderCompare();
   document.getElementById('statusBar').textContent=`${name} — ${s.label} を保存しました（ピーク: ${sessionPeak}）`;
 }
