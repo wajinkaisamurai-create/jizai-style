@@ -3,624 +3,411 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>響声 声紋ビジュアライザー｜息道 福息実験記録</title>
+<title>響声 声紋ビジュアライザー v2｜息道 福息実験記録</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0a0a0f;
-    --bg2: #13131a;
-    --bg3: #1c1c28;
-    --text: #e8e6df;
-    --text2: #9a9890;
-    --text3: #5a5856;
-    --border: rgba(255,255,255,0.08);
-    --border2: rgba(255,255,255,0.15);
-    --accent: #534AB7;
-    --red: #E24B4A;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  header {
-    width: 100%;
-    max-width: 680px;
-    padding: 2rem 1.5rem 1rem;
-    text-align: center;
-  }
-
-  header h1 {
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 0.2em;
-    color: var(--text);
-  }
-
-  header p {
-    font-size: 12px;
-    color: var(--text3);
-    letter-spacing: 0.15em;
-    margin-top: 6px;
-  }
-
-  .divider {
-    width: 40px;
-    height: 1px;
-    background: var(--border2);
-    margin: 1rem auto;
-  }
-
-  main {
-    width: 100%;
-    max-width: 680px;
-    padding: 0 1.5rem 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  /* 段階セレクター */
-  .stage-wrap {
-    width: 100%;
-    background: var(--bg2);
-    border: 0.5px solid var(--border);
-    border-radius: 12px;
-    padding: 1rem;
-  }
-
-  .stage-label {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--text3);
-    margin-bottom: 10px;
-  }
-
-  .stage-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .stage-btn {
-    font-size: 12px;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 0.5px solid var(--border);
-    background: transparent;
-    color: var(--text2);
-    cursor: pointer;
-    transition: all 0.15s;
-    letter-spacing: 0.05em;
-  }
-
-  .stage-btn:hover {
-    border-color: var(--border2);
-    color: var(--text);
-  }
-
-  .stage-btn.active {
-    border-color: var(--border2);
-    color: var(--text);
-    background: var(--bg3);
-  }
-
-  .stage-btn .dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    margin-right: 5px;
-    vertical-align: middle;
-  }
-
-  /* キャンバスエリア */
-  .viz-wrap {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #viz {
-    display: block;
-  }
-
-  .center-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    pointer-events: none;
-  }
-
-  .center-stage-name {
-    font-size: 11px;
-    color: var(--text3);
-    letter-spacing: 0.12em;
-  }
-
-  .center-score {
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--text);
-    line-height: 1;
-    margin-top: 2px;
-  }
-
-  .center-sub {
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 4px;
-    letter-spacing: 0.08em;
-  }
-
-  /* ステータス */
-  .status {
-    font-size: 12px;
-    color: var(--text3);
-    letter-spacing: 0.08em;
-    min-height: 18px;
-    text-align: center;
-  }
-
-  .rec-indicator {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--red);
-    margin-right: 6px;
-    vertical-align: middle;
-    animation: blink 1s infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.2; }
-  }
-
-  /* コントロール */
-  .controls {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-
-  .btn-rec {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    border-radius: 8px;
-    border: 0.5px solid var(--border2);
-    background: transparent;
-    color: var(--text);
-    font-size: 14px;
-    cursor: pointer;
-    letter-spacing: 0.08em;
-    transition: all 0.15s;
-    font-family: inherit;
-  }
-
-  .btn-rec:hover {
-    background: var(--bg3);
-  }
-
-  .btn-rec.recording {
-    border-color: var(--red);
-    color: var(--red);
-  }
-
-  .btn-save {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: 0.5px solid var(--border);
-    background: transparent;
-    color: var(--text2);
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.15s;
-    font-family: inherit;
-    letter-spacing: 0.06em;
-  }
-
-  .btn-save:hover:not(:disabled) {
-    border-color: var(--border2);
-    color: var(--text);
-  }
-
-  .btn-save:disabled {
-    opacity: 0.3;
-    cursor: default;
-  }
-
-  /* 記録一覧 */
-  .saved-section {
-    width: 100%;
-  }
-
-  .saved-header {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    color: var(--text3);
-    margin-bottom: 8px;
-  }
-
-  .saved-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 14px;
-    border: 0.5px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 6px;
-    cursor: pointer;
-    transition: all 0.15s;
-    background: var(--bg2);
-  }
-
-  .saved-item:hover {
-    border-color: var(--border2);
-  }
-
-  .saved-item.selected {
-    border-color: rgba(255,255,255,0.25);
-  }
-
-  .s-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .s-info {
-    flex: 1;
-  }
-
-  .s-name {
-    font-size: 13px;
-    color: var(--text);
-  }
-
-  .s-sub {
-    font-size: 11px;
-    color: var(--text3);
-    margin-top: 2px;
-    letter-spacing: 0.05em;
-  }
-
-  .s-score {
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--text2);
-    min-width: 36px;
-    text-align: right;
-  }
-
-  .s-del {
-    background: none;
-    border: none;
-    color: var(--text3);
-    cursor: pointer;
-    font-size: 18px;
-    line-height: 1;
-    padding: 2px 4px;
-    border-radius: 4px;
-    font-family: inherit;
-    transition: color 0.15s;
-  }
-
-  .s-del:hover {
-    color: var(--red);
-  }
-
-  /* レスポンシブ */
-  @media (max-width: 480px) {
-    header { padding: 1.5rem 1rem 0.5rem; }
-    main { padding: 0 1rem 2rem; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a0f; --bg2: #13131a; --bg3: #1c1c28;
+  --text: #e8e6df; --text2: #9a9890; --text3: #5a5856;
+  --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.18);
+  --red: #E24B4A;
+}
+body { background:var(--bg); color:var(--text); font-family:'Hiragino Kaku Gothic ProN','Hiragino Sans','Yu Gothic',sans-serif; min-height:100vh; display:flex; flex-direction:column; align-items:center; }
+header { width:100%; max-width:720px; padding:2rem 1.5rem 0.5rem; text-align:center; }
+header h1 { font-size:18px; font-weight:400; letter-spacing:0.2em; }
+header p { font-size:11px; color:var(--text3); letter-spacing:0.15em; margin-top:5px; }
+.divider { width:36px; height:0.5px; background:var(--border2); margin:1rem auto; }
+main { width:100%; max-width:720px; padding:0 1.5rem 3rem; display:flex; flex-direction:column; align-items:center; gap:1.2rem; }
+.name-row { width:100%; display:flex; align-items:center; gap:10px; background:var(--bg2); border:0.5px solid var(--border); border-radius:10px; padding:12px 16px; }
+.name-row label { font-size:12px; color:var(--text3); letter-spacing:0.1em; white-space:nowrap; }
+.name-row input { flex:1; background:transparent; border:none; border-bottom:0.5px solid var(--border2); color:var(--text); font-size:14px; font-family:inherit; padding:4px 2px; outline:none; }
+.name-row input::placeholder { color:var(--text3); }
+.stage-wrap { width:100%; background:var(--bg2); border:0.5px solid var(--border); border-radius:10px; padding:12px 14px; }
+.section-label { font-size:11px; letter-spacing:0.12em; color:var(--text3); margin-bottom:8px; }
+.stage-grid { display:flex; flex-wrap:wrap; gap:6px; }
+.stage-btn { font-size:12px; padding:5px 11px; border-radius:6px; border:0.5px solid var(--border); background:transparent; color:var(--text2); cursor:pointer; transition:all 0.15s; font-family:inherit; letter-spacing:0.04em; }
+.stage-btn:hover { border-color:var(--border2); color:var(--text); }
+.stage-btn.active { border-color:var(--border2); color:var(--text); background:var(--bg3); }
+.stage-btn .dot { display:inline-block; width:6px; height:6px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+.viz-area { position:relative; display:flex; justify-content:center; align-items:center; }
+#viz { display:block; }
+.center-overlay { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; pointer-events:none; width:80px; }
+.center-stage-name { font-size:10px; color:var(--text3); letter-spacing:0.1em; }
+.center-score { font-size:32px; font-weight:300; color:var(--text); line-height:1; margin-top:2px; }
+.center-peak { font-size:11px; color:var(--text2); margin-top:3px; }
+.center-peak span { color:var(--text3); font-size:10px; }
+.status { font-size:12px; color:var(--text3); letter-spacing:0.07em; min-height:16px; text-align:center; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+.rec-dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--red); margin-right:5px; animation:blink 1s infinite; vertical-align:middle; }
+.controls { display:flex; gap:10px; align-items:center; }
+.btn-rec { display:flex; align-items:center; gap:8px; padding:11px 26px; border-radius:8px; border:0.5px solid var(--border2); background:transparent; color:var(--text); font-size:14px; cursor:pointer; letter-spacing:0.08em; transition:all 0.15s; font-family:inherit; }
+.btn-rec:hover { background:var(--bg3); }
+.btn-rec.recording { border-color:var(--red); color:var(--red); }
+.btn-save { display:flex; align-items:center; gap:6px; padding:11px 18px; border-radius:8px; border:0.5px solid var(--border); background:transparent; color:var(--text2); font-size:13px; cursor:pointer; transition:all 0.15s; font-family:inherit; letter-spacing:0.05em; }
+.btn-save:hover:not(:disabled) { border-color:var(--border2); color:var(--text); }
+.btn-save:disabled { opacity:0.3; cursor:default; }
+.block-panel { width:100%; background:var(--bg2); border:0.5px solid var(--border); border-radius:10px; padding:12px 14px; }
+.block-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-top:8px; }
+.block-cell { background:var(--bg3); border-radius:6px; padding:8px 6px; text-align:center; }
+.block-dir { font-size:10px; color:var(--text3); }
+.block-name { font-size:11px; color:var(--text2); margin:2px 0; }
+.block-avg { font-size:18px; font-weight:300; color:var(--text); }
+.block-peak { font-size:10px; color:var(--text3); margin-top:1px; }
+.block-peak em { color:var(--text2); font-style:normal; }
+.compare-section { width:100%; }
+.compare-table { width:100%; border-collapse:collapse; font-size:12px; }
+.compare-table th { text-align:left; color:var(--text3); font-weight:400; letter-spacing:0.08em; padding:6px 8px; border-bottom:0.5px solid var(--border); }
+.compare-table td { padding:10px 8px; border-bottom:0.5px solid var(--border); color:var(--text2); vertical-align:middle; }
+.compare-table tr:last-child td { border-bottom:none; }
+.compare-table tr:hover td { background:var(--bg2); }
+.td-name { color:var(--text) !important; font-size:13px; }
+.td-score { font-size:16px; font-weight:300; color:var(--text) !important; text-align:right; }
+.td-score.key-stage { color:#7F77DD !important; }
+.td-diff { font-size:11px; text-align:right; }
+.diff-up { color:#1D9E75; }
+.diff-dn { color:var(--red); }
+.stage-badge { display:inline-block; font-size:10px; padding:2px 7px; border-radius:4px; border:0.5px solid var(--border); color:var(--text3); letter-spacing:0.05em; }
+.replay-btn { background:none; border:0.5px solid var(--border); border-radius:4px; color:var(--text3); font-size:11px; padding:3px 8px; cursor:pointer; font-family:inherit; transition:all 0.15s; }
+.replay-btn:hover { border-color:var(--border2); color:var(--text); }
+.del-btn { background:none; border:none; color:var(--text3); font-size:16px; cursor:pointer; padding:2px 4px; font-family:inherit; transition:color 0.15s; }
+.del-btn:hover { color:var(--red); }
 </style>
 </head>
 <body>
-
 <header>
   <h1>響 声 声 紋</h1>
-  <p>息道 ／ 福息 実験記録ツール</p>
+  <p>息道 ／ 福息 実験記録ツール v2</p>
   <div class="divider"></div>
 </header>
-
 <main>
-
-  <!-- 段階選択 -->
+  <div class="name-row">
+    <label>参加者名</label>
+    <input type="text" id="participantName" placeholder="名前を入力してください" maxlength="20">
+  </div>
   <div class="stage-wrap">
-    <div class="stage-label">測定段階を選択</div>
+    <div class="section-label">測定段階</div>
     <div class="stage-grid" id="stageGrid"></div>
   </div>
-
-  <!-- 波形表示 -->
-  <div class="viz-wrap">
-    <canvas id="viz" width="320" height="320"></canvas>
+  <div class="viz-area">
+    <canvas id="viz" width="340" height="340"></canvas>
     <div class="center-overlay">
       <div class="center-stage-name" id="cStageName">第0段階</div>
       <div class="center-score" id="cScore">—</div>
-      <div class="center-sub" id="cSub">基準確認</div>
+      <div class="center-peak"><span>peak </span><span id="cPeak">—</span></div>
     </div>
   </div>
-
-  <!-- ステータス -->
   <div class="status" id="statusBar">マイクを許可して録音を開始してください</div>
-
-  <!-- コントロール -->
   <div class="controls">
-    <button class="btn-rec" id="btnRec" onclick="toggleRec()">
-      ● 録音開始
-    </button>
-    <button class="btn-save" id="btnSave" disabled onclick="saveWaveform()">
-      ＋ 保存
-    </button>
+    <button class="btn-rec" id="btnRec" onclick="toggleRec()">● 録音開始</button>
+    <button class="btn-save" id="btnSave" disabled onclick="saveWaveform()">＋ 保存</button>
   </div>
-
-  <!-- 記録一覧 -->
-  <div class="saved-section" id="savedSection" style="display:none">
-    <div class="saved-header">記録一覧</div>
-    <div id="savedList"></div>
+  <div class="block-panel">
+    <div class="section-label">方位別スコア（現在値 ／ ピーク）</div>
+    <div class="block-grid" id="blockGrid"></div>
   </div>
-
+  <div class="compare-section" id="compareSection" style="display:none">
+    <div class="section-label" style="margin-bottom:8px">記録一覧 — 第0・3・8段階を比較</div>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>参加者</th><th>日時</th><th>段階</th>
+          <th style="text-align:right">ピーク</th>
+          <th style="text-align:right">前回比</th>
+          <th></th><th></th>
+        </tr>
+      </thead>
+      <tbody id="compareBody"></tbody>
+    </table>
+  </div>
 </main>
-
 <script>
 const STAGES = [
-  { id: 0, label: '第0段階', sub: '基準確認',   color: '#888780' },
-  { id: 1, label: '第1段階', sub: '腹式呼吸',   color: '#1D9E75' },
-  { id: 2, label: '第2段階', sub: '腹圧式',      color: '#378ADD' },
-  { id: 3, label: '第3段階', sub: '腹背圧式',    color: '#7F77DD' },
-  { id: 4, label: '第4段階', sub: '全身の入替',  color: '#D4537E' },
-  { id: 5, label: '第5段階', sub: '足元を感じる', color: '#D85A30' },
-  { id: 6, label: '第6段階', sub: '自己の拡大',  color: '#BA7517' },
-  { id: 7, label: '第7段階', sub: '領域を広げる', color: '#639922' },
-  { id: 8, label: '第8段階', sub: '自分自身に還る', color: '#534AB7' },
+  {id:0,label:'第0段階',sub:'基準確認',color:'#888780'},
+  {id:1,label:'第1段階',sub:'腹式呼吸',color:'#1D9E75'},
+  {id:2,label:'第2段階',sub:'腹圧式',color:'#378ADD'},
+  {id:3,label:'第3段階',sub:'腹背圧式',color:'#7F77DD'},
+  {id:4,label:'第4段階',sub:'全身の入替',color:'#D4537E'},
+  {id:5,label:'第5段階',sub:'足元を感じる',color:'#D85A30'},
+  {id:6,label:'第6段階',sub:'自己の拡大',color:'#BA7517'},
+  {id:7,label:'第7段階',sub:'領域を広げる',color:'#639922'},
+  {id:8,label:'第8段階',sub:'自分自身に還る',color:'#534AB7'},
+];
+const BLOCKS = [
+  {dir:'↑', label:'腹・土台',   freqLo:80,    freqHi:200  },
+  {dir:'↗', label:'芯・輪郭',   freqLo:200,   freqHi:500  },
+  {dir:'→', label:'伝達・明瞭', freqLo:500,   freqHi:1000 },
+  {dir:'↘', label:'倍音・個性', freqLo:1000,  freqHi:2000 },
+  {dir:'↓', label:'通り・響声', freqLo:2000,  freqHi:4000 },
+  {dir:'↙', label:'息・質感',   freqLo:4000,  freqHi:6000 },
+  {dir:'←', label:'輝き・繊細', freqLo:6000,  freqHi:10000},
+  {dir:'↖', label:'余韻・倍音', freqLo:10000, freqHi:20000},
 ];
 
-let currentStage = 0;
-let isRecording = false;
-let audioCtx = null, analyser = null, source = null, stream = null;
-let animFrame = null;
-let currentData = null;
-let saved = [];
+let currentStage=0, isRecording=false;
+let audioCtx=null, analyser=null, source=null, stream=null, animFrame=null;
+let currentData=null, sessionPeak=0;
+let blockPeaks=new Array(8).fill(0);
+let blockAvgs=new Array(8).fill(0);
+let saved=[];
+let sampleRate=48000;
 
-const canvas = document.getElementById('viz');
-const ctx = canvas.getContext('2d');
-const W = canvas.width, H = canvas.height, CX = W/2, CY = H/2;
+const canvas=document.getElementById('viz');
+const ctx2d=canvas.getContext('2d');
+const W=canvas.width, H=canvas.height, CX=W/2, CY=H/2;
 
-// 段階ボタン生成
-function buildStageButtons() {
-  const grid = document.getElementById('stageGrid');
-  STAGES.forEach(s => {
-    const b = document.createElement('button');
-    b.className = 'stage-btn' + (s.id === 0 ? ' active' : '');
-    b.id = 'sb_' + s.id;
-    b.innerHTML = `<span class="dot" style="background:${s.color}"></span>${s.label}`;
-    b.onclick = () => selectStage(s.id);
+function freqToBin(freq,totalBins){ return Math.min(Math.round(freq/(sampleRate/2)*totalBins), totalBins-1); }
+
+function calcBlockAvg(data,lo,hi){
+  const bins=data.length;
+  const bLo=freqToBin(lo,bins), bHi=freqToBin(hi,bins);
+  if(bHi<=bLo) return 0;
+  let sum=0,count=0;
+  for(let i=bLo;i<=bHi;i++){sum+=data[i];count++;}
+  return count>0 ? Math.round((sum/count/255)*100) : 0;
+}
+
+function calcTotalPeak(peaks){ return Math.round(peaks.reduce((a,b)=>a+b,0)/peaks.length); }
+
+function buildStageButtons(){
+  const grid=document.getElementById('stageGrid');
+  STAGES.forEach(s=>{
+    const b=document.createElement('button');
+    b.className='stage-btn'+(s.id===0?' active':'');
+    b.id='sb_'+s.id;
+    b.innerHTML=`<span class="dot" style="background:${s.color}"></span>${s.label}`;
+    b.onclick=()=>selectStage(s.id);
     grid.appendChild(b);
   });
 }
 
-function selectStage(id) {
-  currentStage = id;
-  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('sb_' + id).classList.add('active');
-  document.getElementById('cStageName').textContent = STAGES[id].label;
-  document.getElementById('cSub').textContent = STAGES[id].sub;
-  if (!isRecording) drawIdle();
+function buildBlockPanel(){
+  const grid=document.getElementById('blockGrid');
+  BLOCKS.forEach((bl,i)=>{
+    const cell=document.createElement('div');
+    cell.className='block-cell';
+    cell.innerHTML=`<div class="block-dir">${bl.dir}</div><div class="block-name">${bl.label}</div><div class="block-avg" id="ba_${i}">—</div><div class="block-peak">peak <em id="bp_${i}">—</em></div>`;
+    grid.appendChild(cell);
+  });
 }
 
-// アイドル描画
-function drawIdle() {
-  ctx.clearRect(0, 0, W, H);
-  const s = STAGES[currentStage];
-  drawWaveform(null, s.color);
-  document.getElementById('cScore').textContent = '—';
+function selectStage(id){
+  currentStage=id;
+  document.querySelectorAll('.stage-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sb_'+id).classList.add('active');
+  document.getElementById('cStageName').textContent=STAGES[id].label;
+  resetSession();
+  if(!isRecording) drawIdle();
 }
 
-// 波形描画
-function drawWaveform(freqData, color) {
-  const segments = 180;
-  ctx.clearRect(0, 0, W, H);
-  ctx.save();
-  ctx.translate(CX, CY);
+function resetSession(){
+  sessionPeak=0; blockPeaks.fill(0); blockAvgs.fill(0);
+  document.getElementById('cScore').textContent='—';
+  document.getElementById('cPeak').textContent='—';
+  BLOCKS.forEach((_,i)=>{
+    const a=document.getElementById('ba_'+i);
+    const p=document.getElementById('bp_'+i);
+    if(a) a.textContent='—';
+    if(p) p.textContent='—';
+  });
+}
 
-  const layers = [
-    { rMin: 30, rMax: 68, freqStart: 0,   freqEnd: 0.2 },
-    { rMin: 74, rMax: 118, freqStart: 0.2, freqEnd: 0.6 },
-    { rMin: 124, rMax: 152, freqStart: 0.6, freqEnd: 1.0 },
+function drawIdle(){ ctx2d.clearRect(0,0,W,H); drawWaveform(null); }
+
+function drawWaveform(freqData){
+  ctx2d.clearRect(0,0,W,H);
+  ctx2d.save();
+  ctx2d.translate(CX,CY);
+  const segments=240;
+  const layers=[
+    {rMin:32, rMax:75,  freqLo:80,   freqHi:800  },
+    {rMin:80, rMax:125, freqLo:800,  freqHi:4000 },
+    {rMin:130,rMax:160, freqLo:4000, freqHi:20000},
   ];
-
-  layers.forEach((layer, li) => {
-    for (let i = 0; i < segments; i++) {
-      const angle = (i / segments) * Math.PI * 2 - Math.PI / 2;
-      const nextAngle = ((i + 1) / segments) * Math.PI * 2 - Math.PI / 2;
-
-      let amp = 0;
-      if (freqData) {
-        const start = Math.floor(layer.freqStart * freqData.length);
-        const end = Math.floor(layer.freqEnd * freqData.length);
-        const idx = start + Math.floor((i / segments) * (end - start));
-        amp = freqData[Math.min(idx, freqData.length - 1)] / 255;
+  layers.forEach((layer,li)=>{
+    const bins=freqData?freqData.length:128;
+    for(let i=0;i<segments;i++){
+      const angle=(i/segments)*Math.PI*2-Math.PI/2;
+      const nextAngle=((i+1)/segments)*Math.PI*2-Math.PI/2;
+      let amp=0;
+      if(freqData){
+        const binLo=freqToBin(layer.freqLo,bins);
+        const binHi=freqToBin(layer.freqHi,bins);
+        const binRange=Math.max(1,binHi-binLo);
+        const idx=binLo+Math.floor((i/segments)*binRange);
+        amp=freqData[Math.min(idx,bins-1)]/255;
       } else {
-        amp = 0.02 + Math.sin(i * 0.3 + li) * 0.02 + 0.01;
+        amp=0.02+Math.abs(Math.sin(i*0.15+li*1.2))*0.04;
       }
-
-      const span = layer.rMax - layer.rMin;
-      const rOuter = layer.rMin + span * 0.2 + amp * span * 0.8;
-
-      const hue = (i / segments) * 280 + li * 30;
-      const lightness = freqData ? 55 + amp * 15 : 30;
-      const alpha = freqData ? 0.5 + amp * 0.5 : 0.2;
-
-      ctx.beginPath();
-      ctx.moveTo(Math.cos(angle) * layer.rMin, Math.sin(angle) * layer.rMin);
-      ctx.lineTo(Math.cos(angle) * rOuter, Math.sin(angle) * rOuter);
-      ctx.arc(0, 0, rOuter, angle, nextAngle);
-      ctx.lineTo(Math.cos(nextAngle) * layer.rMin, Math.sin(nextAngle) * layer.rMin);
-      ctx.arc(0, 0, layer.rMin, nextAngle, angle, true);
-      ctx.closePath();
-      ctx.fillStyle = `hsla(${hue}, 75%, ${lightness}%, ${alpha})`;
-      ctx.fill();
+      const span=layer.rMax-layer.rMin;
+      const rOuter=layer.rMin+span*0.15+amp*span*0.85;
+      const hue=(i/segments)*300+li*25;
+      const alpha=freqData?0.45+amp*0.55:0.12;
+      const light=freqData?50+amp*18:25;
+      ctx2d.beginPath();
+      ctx2d.moveTo(Math.cos(angle)*layer.rMin,Math.sin(angle)*layer.rMin);
+      ctx2d.lineTo(Math.cos(angle)*rOuter,Math.sin(angle)*rOuter);
+      ctx2d.arc(0,0,rOuter,angle,nextAngle);
+      ctx2d.lineTo(Math.cos(nextAngle)*layer.rMin,Math.sin(nextAngle)*layer.rMin);
+      ctx2d.arc(0,0,layer.rMin,nextAngle,angle,true);
+      ctx2d.closePath();
+      ctx2d.fillStyle=`hsla(${hue},75%,${light}%,${alpha})`;
+      ctx2d.fill();
     }
   });
-
-  // 中心円
-  ctx.beginPath();
-  ctx.arc(0, 0, 26, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(10,10,15,0.85)';
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
-  ctx.lineWidth = 0.5;
-  ctx.stroke();
-
-  ctx.restore();
-}
-
-function calcScore(data) {
-  if (!data) return 0;
-  let sum = 0;
-  for (let i = 0; i < data.length; i++) sum += data[i];
-  return Math.round((sum / data.length / 255) * 100);
-}
-
-// 録音トグル
-async function toggleRec() {
-  if (isRecording) {
-    stopRec();
-  } else {
-    await startRec();
+  // 方位線
+  ctx2d.strokeStyle='rgba(255,255,255,0.06)';
+  ctx2d.lineWidth=0.5;
+  for(let i=0;i<8;i++){
+    const angle=(i/8)*Math.PI*2-Math.PI/2;
+    ctx2d.beginPath();
+    ctx2d.moveTo(Math.cos(angle)*28,Math.sin(angle)*28);
+    ctx2d.lineTo(Math.cos(angle)*162,Math.sin(angle)*162);
+    ctx2d.stroke();
   }
+  // 方位ラベル
+  ctx2d.font='9px sans-serif';
+  ctx2d.textAlign='center';
+  ctx2d.textBaseline='middle';
+  BLOCKS.forEach((bl,i)=>{
+    const angle=(i/8)*Math.PI*2-Math.PI/2;
+    const r=175;
+    ctx2d.fillStyle='rgba(140,138,130,0.65)';
+    ctx2d.fillText(bl.dir+' '+bl.label, Math.cos(angle)*r, Math.sin(angle)*r);
+  });
+  // 中心円
+  ctx2d.beginPath();
+  ctx2d.arc(0,0,28,0,Math.PI*2);
+  ctx2d.fillStyle='rgba(10,10,15,0.92)';
+  ctx2d.fill();
+  ctx2d.strokeStyle='rgba(255,255,255,0.08)';
+  ctx2d.lineWidth=0.5;
+  ctx2d.stroke();
+  ctx2d.restore();
 }
 
-async function startRec() {
-  try {
-    stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
-    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioCtx.createAnalyser();
-    analyser.fftSize = 512;
-    analyser.smoothingTimeConstant = 0.75;
-    source = audioCtx.createMediaStreamSource(stream);
-    source.connect(analyser);
+async function toggleRec(){ if(isRecording) stopRec(); else await startRec(); }
 
-    isRecording = true;
-    const btn = document.getElementById('btnRec');
-    btn.innerHTML = '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#E24B4A;margin-right:6px;animation:blink 1s infinite;vertical-align:middle"></span> 録音中...';
+async function startRec(){
+  try {
+    stream=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    sampleRate=audioCtx.sampleRate;
+    analyser=audioCtx.createAnalyser();
+    analyser.fftSize=2048;
+    analyser.smoothingTimeConstant=0.7;
+    source=audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
+    resetSession();
+    isRecording=true;
+    const btn=document.getElementById('btnRec');
+    btn.innerHTML='<span class="rec-dot"></span> 録音中...';
     btn.classList.add('recording');
-    document.getElementById('statusBar').innerHTML = '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#E24B4A;margin-right:5px;animation:blink 1s infinite;vertical-align:middle"></span> 録音中 — 声を出してください';
-    document.getElementById('btnSave').disabled = false;
+    document.getElementById('statusBar').innerHTML='<span class="rec-dot"></span> 録音中 — 声を出してください';
+    document.getElementById('btnSave').disabled=false;
     animate();
-  } catch(e) {
-    document.getElementById('statusBar').textContent = 'マイクへのアクセスを許可してください（ブラウザの設定から）';
+  } catch(e){
+    document.getElementById('statusBar').textContent='マイクへのアクセスを許可してください';
     console.error(e);
   }
 }
 
-function stopRec() {
-  isRecording = false;
-  if (animFrame) cancelAnimationFrame(animFrame);
-  if (stream) stream.getTracks().forEach(t => t.stop());
-  if (audioCtx) { audioCtx.close(); audioCtx = null; }
-
-  const btn = document.getElementById('btnRec');
-  btn.innerHTML = '● 録音開始';
+function stopRec(){
+  isRecording=false;
+  if(animFrame) cancelAnimationFrame(animFrame);
+  if(stream) stream.getTracks().forEach(t=>t.stop());
+  if(audioCtx){audioCtx.close();audioCtx=null;}
+  const btn=document.getElementById('btnRec');
+  btn.innerHTML='● 録音開始';
   btn.classList.remove('recording');
-  document.getElementById('statusBar').textContent = '録音停止 — 保存できます';
+  document.getElementById('statusBar').textContent='録音停止 — 保存できます';
 }
 
-function animate() {
-  if (!isRecording) return;
-  const data = new Uint8Array(analyser.frequencyBinCount);
+function animate(){
+  if(!isRecording) return;
+  const data=new Uint8Array(analyser.frequencyBinCount);
   analyser.getByteFrequencyData(data);
-  currentData = Array.from(data);
-
-  drawWaveform(data, STAGES[currentStage].color);
-
-  const score = calcScore(data);
-  document.getElementById('cScore').textContent = score;
-
-  animFrame = requestAnimationFrame(animate);
-}
-
-// 保存
-function saveWaveform() {
-  if (!currentData) return;
-  const s = STAGES[currentStage];
-  const now = new Date();
-  const pad = n => n.toString().padStart(2,'0');
-  const timeStr = `${now.getMonth()+1}/${now.getDate()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
-
-  saved.push({
-    stage: s,
-    data: [...currentData],
-    score: calcScore(currentData),
-    time: timeStr,
-    id: Date.now()
+  currentData=Array.from(data);
+  BLOCKS.forEach((bl,i)=>{
+    const avg=calcBlockAvg(data,bl.freqLo,bl.freqHi);
+    blockAvgs[i]=avg;
+    if(avg>blockPeaks[i]) blockPeaks[i]=avg;
+    const a=document.getElementById('ba_'+i);
+    const p=document.getElementById('bp_'+i);
+    if(a) a.textContent=avg;
+    if(p) p.textContent=blockPeaks[i];
   });
-
-  renderSaved();
-  document.getElementById('statusBar').textContent = `${s.label}（${s.sub}）を保存しました`;
+  const totalNow=Math.round(blockAvgs.reduce((a,b)=>a+b,0)/8);
+  const totalPeak=calcTotalPeak(blockPeaks);
+  if(totalPeak>sessionPeak) sessionPeak=totalPeak;
+  document.getElementById('cScore').textContent=totalNow;
+  document.getElementById('cPeak').textContent=sessionPeak;
+  drawWaveform(data);
+  animFrame=requestAnimationFrame(animate);
 }
 
-function renderSaved() {
-  const section = document.getElementById('savedSection');
-  const list = document.getElementById('savedList');
-
-  if (saved.length === 0) {
-    section.style.display = 'none';
-    return;
-  }
-
-  section.style.display = 'block';
-  list.innerHTML = saved.map((item, idx) => `
-    <div class="saved-item" id="si_${idx}" onclick="replaySnapshot(${idx})">
-      <div class="s-dot" style="background:${item.stage.color}"></div>
-      <div class="s-info">
-        <div class="s-name">${item.stage.label} <span style="color:var(--text3);font-size:11px">— ${item.stage.sub}</span></div>
-        <div class="s-sub">${item.time}</div>
-      </div>
-      <div class="s-score">${item.score}</div>
-      <button class="s-del" onclick="event.stopPropagation();deleteSaved(${idx})" title="削除">×</button>
-    </div>
-  `).join('');
+function saveWaveform(){
+  if(!currentData) return;
+  const name=document.getElementById('participantName').value.trim()||'匿名';
+  const s=STAGES[currentStage];
+  const now=new Date();
+  const pad=n=>n.toString().padStart(2,'0');
+  const timeStr=`${now.getMonth()+1}/${now.getDate()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  saved.push({id:Date.now(),name,stage:s,data:[...currentData],blockPeaks:[...blockPeaks],score:sessionPeak,time:timeStr});
+  renderCompare();
+  document.getElementById('statusBar').textContent=`${name} — ${s.label} を保存しました（ピーク: ${sessionPeak}）`;
 }
 
-function replaySnapshot(idx) {
-  if (isRecording) stopRec();
-  const item = saved[idx];
-  currentData = item.data;
+function renderCompare(){
+  const section=document.getElementById('compareSection');
+  const body=document.getElementById('compareBody');
+  if(saved.length===0){section.style.display='none';return;}
+  section.style.display='block';
+  body.innerHTML=saved.map((item,idx)=>{
+    const isKey=[0,3,8].includes(item.stage.id);
+    let diffHtml='—';
+    const prev=saved.slice(0,idx).reverse().find(r=>r.name===item.name&&r.stage.id===item.stage.id);
+    if(prev){
+      const diff=item.score-prev.score;
+      if(diff>0) diffHtml=`<span class="diff-up">＋${diff}</span>`;
+      else if(diff<0) diffHtml=`<span class="diff-dn">${diff}</span>`;
+      else diffHtml='±0';
+    }
+    return `<tr>
+      <td class="td-name">${item.name}</td>
+      <td>${item.time}</td>
+      <td><span class="stage-badge" style="border-color:${item.stage.color};color:${item.stage.color}">${item.stage.label}</span></td>
+      <td class="td-score ${isKey?'key-stage':''}">${item.score}</td>
+      <td class="td-diff">${diffHtml}</td>
+      <td><button class="replay-btn" onclick="replaySnapshot(${idx})">再表示</button></td>
+      <td><button class="del-btn" onclick="deleteSaved(${idx})">×</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function replaySnapshot(idx){
+  if(isRecording) stopRec();
+  const item=saved[idx];
+  currentData=item.data;
+  blockPeaks=[...item.blockPeaks];
+  sessionPeak=item.score;
   selectStage(item.stage.id);
-  drawWaveform(new Uint8Array(item.data), item.stage.color);
-  document.getElementById('cScore').textContent = item.score;
-  document.getElementById('statusBar').textContent = `${item.stage.label} の記録を表示中（${item.time}）`;
-  document.querySelectorAll('.saved-item').forEach((el, i) => el.classList.toggle('selected', i === idx));
+  BLOCKS.forEach((_,i)=>{
+    const avg=calcBlockAvg(new Uint8Array(item.data),BLOCKS[i].freqLo,BLOCKS[i].freqHi);
+    const a=document.getElementById('ba_'+i);
+    const p=document.getElementById('bp_'+i);
+    if(a) a.textContent=avg;
+    if(p) p.textContent=item.blockPeaks[i];
+  });
+  document.getElementById('cScore').textContent=item.score;
+  document.getElementById('cPeak').textContent=item.score;
+  drawWaveform(new Uint8Array(item.data));
+  document.getElementById('statusBar').textContent=`${item.name} — ${item.stage.label} の記録を表示中（${item.time}）`;
 }
 
-function deleteSaved(idx) {
-  saved.splice(idx, 1);
-  renderSaved();
-}
+function deleteSaved(idx){ saved.splice(idx,1); renderCompare(); }
 
-// 初期化
 buildStageButtons();
+buildBlockPanel();
 drawIdle();
 </script>
 </body>
