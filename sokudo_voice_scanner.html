@@ -219,9 +219,9 @@ function drawWaveform(freqData){
   ctx2d.translate(CX,CY);
   const segments=240;
   const layers=[
-    {rMin:32, rMax:75,  freqLo:80,   freqHi:800  },
+    {rMin:130,rMax:160, freqLo:80,   freqHi:800  },
     {rMin:80, rMax:125, freqLo:800,  freqHi:4000 },
-    {rMin:130,rMax:160, freqLo:4000, freqHi:20000},
+    {rMin:32, rMax:75,  freqLo:4000, freqHi:20000},
   ];
   layers.forEach((layer,li)=>{
     const bins=freqData?freqData.length:128;
