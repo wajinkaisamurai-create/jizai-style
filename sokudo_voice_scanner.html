@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>響声 声紋ビジュアライザー｜息道 福息実験記録</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #13131a;
+    --bg3: #1c1c28;
+    --text: #e8e6df;
+    --text2: #9a9890;
+    --text3: #5a5856;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --accent: #534AB7;
+    --red: #E24B4A;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  header {
+    width: 100%;
+    max-width: 680px;
+    padding: 2rem 1.5rem 1rem;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: var(--text);
+  }
+
+  header p {
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: 0.15em;
+    margin-top: 6px;
+  }
+
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: var(--border2);
+    margin: 1rem auto;
+  }
+
+  main {
+    width: 100%;
+    max-width: 680px;
+    padding: 0 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* 段階セレクター */
+  .stage-wrap {
+    width: 100%;
+    background: var(--bg2);
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem;
+  }
+
+  .stage-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text3);
+    margin-bottom: 10px;
+  }
+
+  .stage-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .stage-btn {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+    letter-spacing: 0.05em;
+  }
+
+  .stage-btn:hover {
+    border-color: var(--border2);
+    color: var(--text);
+  }
+
+  .stage-btn.active {
+    border-color: var(--border2);
+    color: var(--text);
+    background: var(--bg3);
+  }
+
+  .stage-btn .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+
+  /* キャンバスエリア */
+  .viz-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #viz {
+    display: block;
+  }
+
+  .center-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .center-stage-name {
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.12em;
+  }
+
+  .center-score {
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--text);
+    line-height: 1;
+    margin-top: 2px;
+  }
+
+  .center-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 4px;
+    letter-spacing: 0.08em;
+  }
+
+  /* ステータス */
+  .status {
+    font-size: 12px;
+    color: var(--text3);
+    letter-spacing: 0.08em;
+    min-height: 18px;
+    text-align: center;
+  }
+
+  .rec-indicator {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: blink 1s infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  /* コントロール */
+  .controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn-rec {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border2);
+    background: transparent;
+    color: var(--text);
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+
+  .btn-rec:hover {
+    background: var(--bg3);
+  }
+
+  .btn-rec.recording {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .btn-save {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 0.5px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+    letter-spacing: 0.06em;
+  }
+
+  .btn-save:hover:not(:disabled) {
+    border-color: var(--border2);
+    color: var(--text);
+  }
+
+  .btn-save:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  /* 記録一覧 */
+  .saved-section {
+    width: 100%;
+  }
+
+  .saved-header {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .saved-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--bg2);
+  }
+
+  .saved-item:hover {
+    border-color: var(--border2);
+  }
+
+  .saved-item.selected {
+    border-color: rgba(255,255,255,0.25);
+  }
+
+  .s-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .s-info {
+    flex: 1;
+  }
+
+  .s-name {
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  .s-sub {
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  .s-score {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text2);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .s-del {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 1;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: inherit;
+    transition: color 0.15s;
+  }
+
+  .s-del:hover {
+    color: var(--red);
+  }
+
+  /* レスポンシブ */
+  @media (max-width: 480px) {
+    header { padding: 1.5rem 1rem 0.5rem; }
+    main { padding: 0 1rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>響 声 声 紋</h1>
+  <p>息道 ／ 福息 実験記録ツール</p>
+  <div class="divider"></div>
+</header>
+
+<main>
+
+  <!-- 段階選択 -->
+  <div class="stage-wrap">
+    <div class="stage-label">測定段階を選択</div>
+    <div class="stage-grid" id="stageGrid"></div>
+  </div>
+
+  <!-- 波形表示 -->
+  <div class="viz-wrap">
+    <canvas id="viz" width="320" height="320"></canvas>
+    <div class="center-overlay">
+      <div class="center-stage-name" id="cStageName">第0段階</div>
+      <div class="center-score" id="cScore">—</div>
+      <div class="center-sub" id="cSub">基準確認</div>
+    </div>
+  </div>
+
+  <!-- ステータス -->
+  <div class="status" id="statusBar">マイクを許可して録音を開始してください</div>
+
+  <!-- コントロール -->
+  <div class="controls">
+    <button class="btn-rec" id="btnRec" onclick="toggleRec()">
+      ● 録音開始
+    </button>
+    <button class="btn-save" id="btnSave" disabled onclick="saveWaveform()">
+      ＋ 保存
+    </button>
+  </div>
+
+  <!-- 記録一覧 -->
+  <div class="saved-section" id="savedSection" style="display:none">
+    <div class="saved-header">記録一覧</div>
+    <div id="savedList"></div>
+  </div>
+
+</main>
+
+<script>
+const STAGES = [
+  { id: 0, label: '第0段階', sub: '基準確認',   color: '#888780' },
+  { id: 1, label: '第1段階', sub: '腹式呼吸',   color: '#1D9E75' },
+  { id: 2, label: '第2段階', sub: '腹圧式',      color: '#378ADD' },
+  { id: 3, label: '第3段階', sub: '腹背圧式',    color: '#7F77DD' },
+  { id: 4, label: '第4段階', sub: '全身の入替',  color: '#D4537E' },
+  { id: 5, label: '第5段階', sub: '足元を感じる', color: '#D85A30' },
+  { id: 6, label: '第6段階', sub: '自己の拡大',  color: '#BA7517' },
+  { id: 7, label: '第7段階', sub: '領域を広げる', color: '#639922' },
+  { id: 8, label: '第8段階', sub: '自分自身に還る', color: '#534AB7' },
+];
+
+let currentStage = 0;
+let isRecording = false;
+let audioCtx = null, analyser = null, source = null, stream = null;
+let animFrame = null;
+let currentData = null;
+let saved = [];
+
+const canvas = document.getElementById('viz');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height, CX = W/2, CY = H/2;
+
+// 段階ボタン生成
+function buildStageButtons() {
+  const grid = document.getElementById('stageGrid');
+  STAGES.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'stage-btn' + (s.id === 0 ? ' active' : '');
+    b.id = 'sb_' + s.id;
+    b.innerHTML = `<span class="dot" style="background:${s.color}"></span>${s.label}`;
+    b.onclick = () => selectStage(s.id);
+    grid.appendChild(b);
+  });
+}
+
+function selectStage(id) {
+  currentStage = id;
+  document.querySelectorAll('.stage-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sb_' + id).classList.add('active');
+  document.getElementById('cStageName').textContent = STAGES[id].label;
+  document.getElementById('cSub').textContent = STAGES[id].sub;
+  if (!isRecording) drawIdle();
+}
+
+// アイドル描画
+function drawIdle() {
+  ctx.clearRect(0, 0, W, H);
+  const s = STAGES[currentStage];
+  drawWaveform(null, s.color);
+  document.getElementById('cScore').textContent = '—';
+}
+
+// 波形描画
+function drawWaveform(freqData, color) {
+  const segments = 180;
+  ctx.clearRect(0, 0, W, H);
+  ctx.save();
+  ctx.translate(CX, CY);
+
+  const layers = [
+    { rMin: 30, rMax: 68, freqStart: 0,   freqEnd: 0.2 },
+    { rMin: 74, rMax: 118, freqStart: 0.2, freqEnd: 0.6 },
+    { rMin: 124, rMax: 152, freqStart: 0.6, freqEnd: 1.0 },
+  ];
+
+  layers.forEach((layer, li) => {
+    for (let i = 0; i < segments; i++) {
+      const angle = (i / segments) * Math.PI * 2 - Math.PI / 2;
+      const nextAngle = ((i + 1) / segments) * Math.PI * 2 - Math.PI / 2;
+
+      let amp = 0;
+      if (freqData) {
+        const start = Math.floor(layer.freqStart * freqData.length);
+        const end = Math.floor(layer.freqEnd * freqData.length);
+        const idx = start + Math.floor((i / segments) * (end - start));
+        amp = freqData[Math.min(idx, freqData.length - 1)] / 255;
+      } else {
+        amp = 0.02 + Math.sin(i * 0.3 + li) * 0.02 + 0.01;
+      }
+
+      const span = layer.rMax - layer.rMin;
+      const rOuter = layer.rMin + span * 0.2 + amp * span * 0.8;
+
+      const hue = (i / segments) * 280 + li * 30;
+      const lightness = freqData ? 55 + amp * 15 : 30;
+      const alpha = freqData ? 0.5 + amp * 0.5 : 0.2;
+
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(angle) * layer.rMin, Math.sin(angle) * layer.rMin);
+      ctx.lineTo(Math.cos(angle) * rOuter, Math.sin(angle) * rOuter);
+      ctx.arc(0, 0, rOuter, angle, nextAngle);
+      ctx.lineTo(Math.cos(nextAngle) * layer.rMin, Math.sin(nextAngle) * layer.rMin);
+      ctx.arc(0, 0, layer.rMin, nextAngle, angle, true);
+      ctx.closePath();
+      ctx.fillStyle = `hsla(${hue}, 75%, ${lightness}%, ${alpha})`;
+      ctx.fill();
+    }
+  });
+
+  // 中心円
+  ctx.beginPath();
+  ctx.arc(0, 0, 26, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(10,10,15,0.85)';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+
+  ctx.restore();
+}
+
+function calcScore(data) {
+  if (!data) return 0;
+  let sum = 0;
+  for (let i = 0; i < data.length; i++) sum += data[i];
+  return Math.round((sum / data.length / 255) * 100);
+}
+
+// 録音トグル
+async function toggleRec() {
+  if (isRecording) {
+    stopRec();
+  } else {
+    await startRec();
+  }
+}
+
+async function startRec() {
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 512;
+    analyser.smoothingTimeConstant = 0.75;
+    source = audioCtx.createMediaStreamSource(stream);
+    source.connect(analyser);
+
+    isRecording = true;
+    const btn = document.getElementById('btnRec');
+    btn.innerHTML = '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#E24B4A;margin-right:6px;animation:blink 1s infinite;vertical-align:middle"></span> 録音中...';
+    btn.classList.add('recording');
+    document.getElementById('statusBar').innerHTML = '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#E24B4A;margin-right:5px;animation:blink 1s infinite;vertical-align:middle"></span> 録音中 — 声を出してください';
+    document.getElementById('btnSave').disabled = false;
+    animate();
+  } catch(e) {
+    document.getElementById('statusBar').textContent = 'マイクへのアクセスを許可してください（ブラウザの設定から）';
+    console.error(e);
+  }
+}
+
+function stopRec() {
+  isRecording = false;
+  if (animFrame) cancelAnimationFrame(animFrame);
+  if (stream) stream.getTracks().forEach(t => t.stop());
+  if (audioCtx) { audioCtx.close(); audioCtx = null; }
+
+  const btn = document.getElementById('btnRec');
+  btn.innerHTML = '● 録音開始';
+  btn.classList.remove('recording');
+  document.getElementById('statusBar').textContent = '録音停止 — 保存できます';
+}
+
+function animate() {
+  if (!isRecording) return;
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  analyser.getByteFrequencyData(data);
+  currentData = Array.from(data);
+
+  drawWaveform(data, STAGES[currentStage].color);
+
+  const score = calcScore(data);
+  document.getElementById('cScore').textContent = score;
+
+  animFrame = requestAnimationFrame(animate);
+}
+
+// 保存
+function saveWaveform() {
+  if (!currentData) return;
+  const s = STAGES[currentStage];
+  const now = new Date();
+  const pad = n => n.toString().padStart(2,'0');
+  const timeStr = `${now.getMonth()+1}/${now.getDate()} ${pad(now.getHours())}:${pad(now.getMinutes())}`;
+
+  saved.push({
+    stage: s,
+    data: [...currentData],
+    score: calcScore(currentData),
+    time: timeStr,
+    id: Date.now()
+  });
+
+  renderSaved();
+  document.getElementById('statusBar').textContent = `${s.label}（${s.sub}）を保存しました`;
+}
+
+function renderSaved() {
+  const section = document.getElementById('savedSection');
+  const list = document.getElementById('savedList');
+
+  if (saved.length === 0) {
+    section.style.display = 'none';
+    return;
+  }
+
+  section.style.display = 'block';
+  list.innerHTML = saved.map((item, idx) => `
+    <div class="saved-item" id="si_${idx}" onclick="replaySnapshot(${idx})">
+      <div class="s-dot" style="background:${item.stage.color}"></div>
+      <div class="s-info">
+        <div class="s-name">${item.stage.label} <span style="color:var(--text3);font-size:11px">— ${item.stage.sub}</span></div>
+        <div class="s-sub">${item.time}</div>
+      </div>
+      <div class="s-score">${item.score}</div>
+      <button class="s-del" onclick="event.stopPropagation();deleteSaved(${idx})" title="削除">×</button>
+    </div>
+  `).join('');
+}
+
+function replaySnapshot(idx) {
+  if (isRecording) stopRec();
+  const item = saved[idx];
+  currentData = item.data;
+  selectStage(item.stage.id);
+  drawWaveform(new Uint8Array(item.data), item.stage.color);
+  document.getElementById('cScore').textContent = item.score;
+  document.getElementById('statusBar').textContent = `${item.stage.label} の記録を表示中（${item.time}）`;
+  document.querySelectorAll('.saved-item').forEach((el, i) => el.classList.toggle('selected', i === idx));
+}
+
+function deleteSaved(idx) {
+  saved.splice(idx, 1);
+  renderSaved();
+}
+
+// 初期化
+buildStageButtons();
+drawIdle();
+</script>
+</body>
+</html>
