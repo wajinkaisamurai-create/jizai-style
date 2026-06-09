@@ -162,10 +162,13 @@
       padding: 120px 24px 90px;
       overflow: hidden;
       text-align: center;
-      background:
+      background-image:
         linear-gradient(rgba(245,242,236,0.28), rgba(245,242,236,0.72)),
-        radial-gradient(circle at center, #7b5a36, #1f1a16);
-        url('images/Image14.png') center 42%/cover no-repeat;
+        radial-gradient(circle at center, #7b5a36, #1f1a16),
+        url('images/Image14.png');
+      background-position: center, center, center 42%;
+      background-size: cover, cover, cover;
+      background-repeat: no-repeat;
     }
     .about-hero::before {
       content: ""; position: absolute; width: min(560px, 82vw); height: min(560px, 82vw);
@@ -395,6 +398,8 @@
       .section-wrap { padding: 4rem 1.5rem; }
     }  
   </style>
+  <link rel="stylesheet" href="assets/site-common.css">
+  <link rel="icon" href="images/rogo.jpg" type="image/jpeg">
 </head>
 
 <body>
@@ -583,5 +588,6 @@
     document.querySelectorAll('.reveal').forEach(el => _obs.observe(el));
   </script>
 
+  <script src="assets/site-common.js"></script>
 </body>
 </html>

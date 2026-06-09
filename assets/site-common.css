@@ -1,0 +1,349 @@
+/* Shared site chrome: header, footer, and mobile navigation. */
+.header {
+  background: rgba(245, 242, 236, 0.94);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(75, 47, 31, 0.08);
+}
+
+.header nav {
+  max-width: 1180px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.nav-brand {
+  line-height: 1.25;
+}
+
+.nav-menu {
+  box-sizing: border-box;
+}
+
+.nav-item {
+  position: relative;
+  text-decoration: none;
+}
+
+.nav-item:hover,
+.nav-item.is-active,
+.nav-item[aria-current="page"] {
+  color: var(--accent);
+}
+
+.nav-item.is-active::after,
+.nav-item[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  transform: translateX(-50%);
+  opacity: 0.7;
+}
+
+.nav-toggle {
+  min-width: 36px;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+}
+
+.nav-toggle:focus-visible {
+  outline: 2px solid var(--gold, #b08a3c);
+  outline-offset: 3px;
+}
+
+footer {
+  background: var(--paper, #fffaf0);
+  border-top: 1px solid var(--line, rgba(75, 47, 31, 0.18));
+  box-sizing: border-box;
+  color: var(--ink-light, #8a8278);
+  font-family: "Noto Sans JP", sans-serif;
+  padding: 76px 20px 68px;
+  position: relative;
+  text-align: center;
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 24px;
+  justify-content: center;
+  margin: 0 auto 34px;
+  max-width: 920px;
+}
+
+.footer-nav a {
+  color: var(--ink-light, #8a8278);
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--accent, #7a6248);
+}
+
+.copyright {
+  color: var(--ink-light, #8a8278);
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* Keep top visuals responsive and consistent across the static pages. */
+.hero,
+.about-hero,
+.hero-sokudo,
+.hero-tate,
+.hero-tea,
+.hero-passcode {
+  min-height: 100svh;
+}
+
+.hero-sokudo,
+.hero-tate,
+.hero-passcode {
+  height: auto;
+}
+
+.hero-sokudo img,
+.hero-tate img,
+.hero-passcode img {
+  width: 100%;
+  height: 100svh;
+  min-height: 620px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about-hero,
+.hero-tea {
+  background-position: center 42%;
+  background-size: cover;
+}
+
+@media (max-width: 760px) {
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  body.nav-open::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 9, 7, 0.58);
+    z-index: 998;
+  }
+
+  .header {
+    background: rgba(245, 242, 236, 0.9);
+  }
+
+  .header nav {
+    min-height: 58px;
+    padding: 11px 18px;
+  }
+
+  .nav-brand {
+    color: rgba(28, 26, 22, 0.9);
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    max-width: calc(100vw - 84px);
+  }
+
+  .nav-brand span {
+    display: block;
+    margin: 3px 0 0;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-toggle {
+    display: flex;
+    position: relative;
+    z-index: 1002;
+    background: rgba(255, 250, 240, 0.72);
+    border-color: rgba(176, 138, 60, 0.42);
+  }
+
+  .nav-toggle.open {
+    position: fixed;
+    top: 17px;
+    left: 17px;
+    background: transparent;
+    border-color: rgba(255, 250, 240, 0.22);
+  }
+
+  .nav-toggle.open span {
+    background: rgba(255, 250, 240, 0.92);
+  }
+
+  .nav-menu {
+    display: flex;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: auto;
+    width: min(78vw, 310px);
+    min-height: 100vh;
+    padding: 96px 0 42px;
+    background: #171511;
+    border-right: 1px solid rgba(255, 250, 240, 0.1);
+    box-shadow: 24px 0 44px rgba(0, 0, 0, 0.24);
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    z-index: 1001;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-104%);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav-menu.open {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+  }
+
+  .nav-menu::before {
+    content: "福和倭迅会";
+    position: absolute;
+    top: 31px;
+    left: 68px;
+    color: rgba(255, 250, 240, 0.9);
+    font-family: "Noto Serif JP", serif;
+    font-size: 13px;
+    letter-spacing: 0.22em;
+  }
+
+  .nav-item {
+    width: auto;
+    margin: 0 24px;
+    padding: 17px 16px;
+    border-bottom: 1px solid rgba(255, 250, 240, 0.1);
+    color: rgba(255, 250, 240, 0.74);
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    line-height: 1.45;
+    text-align: left;
+  }
+
+  .nav-item:first-child {
+    border-top: 1px solid rgba(255, 250, 240, 0.1);
+  }
+
+  .nav-item:hover,
+  .nav-item.is-active,
+  .nav-item[aria-current="page"] {
+    color: #fffaf0;
+  }
+
+  .nav-item.is-active::after,
+  .nav-item[aria-current="page"]::after {
+    left: 0;
+    top: 50%;
+    bottom: auto;
+    width: 3px;
+    height: 24px;
+    background: var(--gold, #b08a3c);
+    transform: translateY(-50%);
+    opacity: 1;
+  }
+
+  footer {
+    padding: 56px 22px 48px;
+  }
+
+  .footer-nav {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-bottom: 30px;
+    max-width: 320px;
+  }
+
+  .footer-nav a {
+    border-bottom: 1px solid rgba(75, 47, 31, 0.1);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    padding: 12px 0;
+  }
+
+  .footer-nav a:first-child {
+    border-top: 1px solid rgba(75, 47, 31, 0.1);
+  }
+
+  .hero,
+  .about-hero,
+  .hero-sokudo,
+  .hero-tate,
+  .hero-tea,
+  .hero-passcode {
+    min-height: 100svh;
+  }
+
+  .hero-sokudo img,
+  .hero-tate img,
+  .hero-passcode img {
+    height: auto;
+    min-height: 58svh;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .hero-sokudo,
+  .hero-tate,
+  .hero-passcode {
+    min-height: auto;
+    padding-top: 62px;
+  }
+
+  .hero-sokudo {
+    display: block;
+    overflow: visible;
+    background: var(--bg, #f5f2ec);
+  }
+
+  .hero-sokudo::after {
+    opacity: 0.45;
+  }
+
+  .hero-sokudo .hero-text-area {
+    position: static;
+    width: auto;
+    padding: 2.2rem 1.5rem 2.8rem;
+  }
+
+  .hero-sokudo .hero-h1,
+  .hero-sokudo .hero-sub {
+    color: var(--ink, #1c1a16);
+    text-shadow: none;
+  }
+
+  .about-hero,
+  .hero-tea {
+    background-size: cover;
+    background-position: center 42%;
+  }
+}
