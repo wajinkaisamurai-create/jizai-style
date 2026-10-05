@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数秘周期 × 和路大運</title>
+<style>
+  :root {
+    --ink: #2b2622; --sub: #6f665d; --gold: #b8894a; --gold-soft: #f4ead9; --line: #d9cfc0;
+    --paper: #ffffff; --bg: #efe9df; --warn-bg: #fff4dc; --warn-line: #e0b55a; --brown: #4a2a14; --navy: #34508f; --navy-soft: #eaf0fb;
+    --mincho: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "MS PMincho", serif;
+    --gothic: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", "Meiryo", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--mincho); line-height: 1.7; }
+
+  /* ---------- 入力パネル ---------- */
+  .app-head { text-align: center; padding: 28px 16px 8px; }
+  .app-head h1 { font-size: 24px; letter-spacing: .2em; margin: 0; font-weight: 600; }
+  .app-head p { margin: 6px 0 0; color: var(--sub); font-size: 13px; letter-spacing: .1em; }
+  .panel { max-width: 794px; margin: 16px auto; background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; font-family: var(--gothic); }
+  .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+  .field { min-width: 0; }
+  .field > label, .field > .lab { display: block; font-size: 12px; color: var(--sub); margin-bottom: 4px; letter-spacing: .05em; }
+  .field input[type=text], .field input[type=number], .field input[type=date], .field input[type=time] {
+    width: 100%; font: inherit; font-size: 15px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; color: var(--ink);
+  }
+  .ymd { display: flex; gap: 6px; align-items: center; }
+  .ymd input { text-align: right; }
+  .ymd span { font-size: 13px; color: var(--sub); flex: none; }
+  .radio { display: flex; gap: 8px; }
+  .radio label { flex: 1; border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; text-align: center; cursor: pointer; font-size: 15px; }
+  .radio input { position: absolute; opacity: 0; }
+  .radio label:has(input:checked) { border-color: var(--gold); background: var(--gold-soft); font-weight: 600; }
+  .radio label:has(input:focus-visible) { outline: 2px solid var(--gold); }
+  .hint { font-size: 11.5px; color: var(--sub); margin-top: 4px; line-height: 1.55; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+  button { font: inherit; font-size: 15px; padding: 10px 20px; border-radius: 6px; border: 1px solid var(--gold); background: #fff; color: var(--ink); cursor: pointer; }
+  button.primary { background: var(--ink); border-color: var(--ink); color: #fff; letter-spacing: .15em; }
+  button:disabled { opacity: .45; cursor: default; }
+  .msg { margin-top: 14px; padding: 10px 14px; border-radius: 6px; font-size: 13.5px; }
+  .msg.err { background: #fde8e6; border: 1px solid #e3a09a; }
+  .msg.warn { background: var(--warn-bg); border: 1px solid var(--warn-line); }
+  .msg.info { background: #f4f1ec; border: 1px solid var(--line); }
+  .msg .radio { margin-top: 8px; max-width: 520px; }
+  .msg .radio label { font-size: 13.5px; background: #fff; }
+  details.kw { margin-top: 18px; border-top: 1px solid var(--line); padding-top: 12px; }
+  details.kw summary { cursor: pointer; font-size: 13.5px; }
+  .kwgrid { display: grid; grid-template-columns: 92px 1fr; gap: 6px 8px; align-items: center; margin-top: 10px; }
+  .kwgrid label { font-size: 12px; color: var(--sub); }
+  .kwgrid label b { font-size: 16px; color: var(--ink); margin-right: 6px; }
+  .kwgrid textarea { font: inherit; font-size: 14px; line-height: 1.5; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; width: 100%; resize: vertical; }
+
+  /* ---------- ページ（A4） ---------- */
+  #pages { margin: 20px auto 30px; width: 794px; }
+  .page { width: 794px; height: 1123px; background: var(--paper); margin: 0 auto 24px; padding: 52px 56px 44px; position: relative; overflow: hidden; box-shadow: 0 2px 14px rgba(60, 40, 10, .13); }
+  .pno { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 10px; color: var(--sub); letter-spacing: .1em; }
+  h2.ptitle { text-align: center; color: var(--gold); font-weight: 500; font-size: 22px; letter-spacing: .3em; margin: 0 0 4px; }
+  .psubtitle { text-align: center; font-size: 12px; color: var(--sub); letter-spacing: .08em; margin-bottom: 14px; }
+  h3.sec { font-size: 14.5px; font-weight: 600; letter-spacing: .16em; margin: 16px 0 8px; padding-left: 10px; border-left: 3px solid var(--gold); }
+  h3.sec small { font-size: 11px; color: var(--sub); letter-spacing: .04em; font-weight: 400; margin-left: 8px; }
+  .note { font-size: 11px; color: var(--sub); line-height: 1.6; }
+  table { border-collapse: collapse; width: 100%; }
+  .kwd { font-family: var(--gothic); font-size: 11px; line-height: 1.45; color: #4b453f; }
+
+  /* 数字カード */
+  .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .card { border: 1px solid var(--gold); border-radius: 10px; padding: 8px 12px 10px; }
+  .card .lab { font-size: 12px; color: var(--sub); letter-spacing: .06em; }
+  .card .lab b { color: var(--ink); font-size: 14px; margin-right: 6px; letter-spacing: 0; }
+  .card .num { font-size: 30px; font-weight: 700; color: var(--brown); line-height: 1.2; }
+  .card .num small { font-size: 14px; margin-left: 8px; }
+  .card.navy { border-color: var(--navy); }
+  .card.navy .num { color: var(--navy); }
+  .card.now { background: var(--gold-soft); }
+  .card.navy.now { background: var(--navy-soft); }
+  .card .span { font-size: 11px; color: var(--sub); font-family: var(--gothic); }
+  .badge { display: inline-block; background: var(--ink); color: #fff; font-size: 10.5px; padding: 0 8px; border-radius: 10px; margin-left: 6px; letter-spacing: .08em; vertical-align: 2px; font-weight: 400; font-family: var(--gothic); }
+
+  /* 和路大運の要約 */
+  .bline { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 12.5px; border: 1px solid var(--gold); border-radius: 8px; padding: 7px 14px; }
+  .bline b { color: var(--gold); font-weight: 600; margin-right: 6px; letter-spacing: .08em; }
+  .nowsea { display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: start; margin-top: 10px; }
+  .nowsea p { margin: 0 0 4px; font-size: 12.5px; line-height: 1.65; }
+  .nowsea p b { color: var(--gold); margin-right: 6px; }
+  .ban { --c: 44px; --m: 24px; display: inline-grid; grid-template-columns: var(--m) repeat(3, var(--c)) var(--m); grid-template-rows: var(--m) repeat(3, var(--c)) var(--m); font-weight: 600; }
+  .ban .cell { border: 1.5px solid var(--ink); margin: -.75px; display: flex; align-items: center; justify-content: center; font-size: calc(var(--c) * .46); background: #fbfaf8; position: relative; }
+  .ban .cell.me::after { content: ""; position: absolute; inset: 3px; border: 1.5px solid #4a63c9; border-radius: 50%; }
+  .ban .cell.me { background: #f1f3ff; }
+  .ban .mk { display: flex; align-items: center; justify-content: center; font-size: calc(var(--m) * .72); }
+
+  /* 表 */
+  .tbl th, .tbl td { border: 1px solid var(--ink); padding: 4px 7px; font-size: 12px; vertical-align: middle; line-height: 1.5; }
+  .tbl th { background: #e4e0db; font-size: 11.5px; letter-spacing: .06em; font-weight: 600; }
+  .tbl td.c { text-align: center; white-space: nowrap; }
+  .tbl td.c small { display: block; color: var(--sub); font-size: 10px; }
+  .tbl tr.now td { background: var(--gold-soft); }
+  .tbl .nn { display: flex; align-items: baseline; gap: 8px; }
+  .tbl .nn b { flex: none; font-size: 17px; min-width: 1.4em; text-align: center; }
+  .tbl .nn.navy b { color: var(--navy); }
+  .tbl .nn.brown b { color: var(--brown); }
+  .tbl .split { font-size: 10.5px; color: var(--sub); }
+  .tbl.dense th, .tbl.dense td { padding: 2px 6px; font-size: 11px; }
+  .tbl.dense .nn b { font-size: 15px; }
+
+  /* 十二支大運 */
+  .jt td.l .el { font-weight: 600; }
+  .jt td.l .el i { font-style: normal; border: 1px solid var(--ink); border-radius: 3px; font-size: 10.5px; padding: 0 5px; margin-right: 6px; }
+  .jt td.l .el i.ha { background: var(--ink); color: #fff; }
+  .jt td.l .wr { font-size: 10.5px; color: #4b453f; line-height: 1.45; }
+  .jt th, .jt td { padding-top: 2px; padding-bottom: 2px; }
+  .jt td.l .el { font-size: 11.5px; line-height: 1.45; }
+  .jt td.l .wr b { color: var(--gold); font-weight: 600; }
+
+  /* カレンダー */
+  .calnav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .calnav button { font-size: 13px; padding: 4px 12px; }
+  .cal { table-layout: fixed; }
+  .cal th { border: 1px solid var(--ink); background: #e4e0db; font-size: 12px; padding: 3px 0; }
+  .cal th.sun, .cal td.sun .d { color: #b03a2e; }
+  .cal th.sat, .cal td.sat .d { color: #2f5aa8; }
+  .cal td { border: 1px solid var(--ink); height: 98px; vertical-align: top; padding: 4px 6px; position: relative; }
+  .cal td.out { background: #f5f2ee; }
+  .cal td.today { background: var(--gold-soft); }
+  .cal .d { font-size: 13px; font-weight: 600; }
+  .cal .pd { font-size: 26px; font-weight: 700; color: var(--brown); text-align: center; line-height: 1.25; margin-top: 2px; }
+  .cal .k1 { font-family: var(--gothic); font-size: 10px; text-align: center; color: #4b453f; line-height: 1.35; }
+  .cal .ud { position: absolute; top: 5px; right: 6px; font-size: 10.5px; color: var(--navy); font-family: var(--gothic); }
+  .cal .bd { font-size: 9.5px; color: #b03a2e; text-align: center; font-family: var(--gothic); }
+
+  /* メッセージ */
+  .msgbox { border: 1px solid var(--gold); border-radius: 10px; padding: 6px 12px; background: #fdfaf4; }
+  .mrow { display: flex; gap: 10px; align-items: flex-start; padding: 3px 0; font-size: 11.5px; line-height: 1.5; }
+  .mrow + .mrow { border-top: 1px dashed var(--line); }
+  .mrow .mnum { flex: none; width: 70px; font-weight: 600; color: var(--brown); font-size: 11.5px; line-height: 1.35; padding-top: 1px; }
+  .mrow.bd .mnum { color: #b03a2e; }
+  .calmsg { margin-bottom: 8px; }
+  .mrow.cur { background: var(--gold-soft); margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
+  .ygrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+  .ygrid .mrow { border-top: none !important; flex-direction: column; gap: 0; }
+  .ygrid .mrow .mnum { width: auto; }
+  .ygrid .mrow .mnum br { display: none; }
+  .ygrid .mrow.cur { margin: 0; padding: 3px 6px; border-radius: 6px; }
+  .mrow .mnum small { font-weight: 400; color: var(--sub); }
+  .mper { display: block; font-size: 10.5px; color: var(--sub); font-family: var(--gothic); }
+  .mmonth { border: 1px solid var(--line); border-radius: 10px; padding: 2px 12px; margin-bottom: 5px; }
+  .mmonth.cur { border-color: var(--gold); background: #fdfaf4; }
+  .mmonth .mh { font-size: 13px; font-weight: 600; padding: 1px 0; border-bottom: 1px solid var(--line); }
+  .mmonth .mh .mu { float: right; font-size: 11.5px; font-weight: 400; color: var(--navy); }
+  .badge.bdb { background: #b03a2e; }
+  .mmonth .mrow, .ygrid .mrow { font-size: 11px; line-height: 1.48; padding: 2px 0; }
+  .mmonth .mrow .mnum { font-size: 11px; }
+  .ymsg { font-size: 11px; line-height: 1.5; color: var(--brown); margin-top: 3px; border-top: 1px dotted var(--line); padding-top: 3px; }
+  .mtbl tr.grp td { background: #f3efe9; font-size: 11px; font-weight: 600; letter-spacing: .2em; padding: 1px 8px; }
+  .mtbl tr.msgrow td { font-size: 11px; line-height: 1.55; color: #3d3833; padding: 3px 10px 5px; border-top: none; }
+  .mtbl tr.msgrow td b { color: var(--brown); }
+  .mtbl tr.msgrow td .bdm { color: #b03a2e; }
+  .mtbl tr.now + tr.msgrow td, .mtbl tr.msgrow.now td { background: var(--gold-soft); }
+  details.msgset { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+  details.msgset summary { cursor: pointer; font-size: 13.5px; }
+
+  /* 計算の内訳（画面のみ） */
+  #calcpanel[hidden] { display: none; }
+  #calcpanel h2 { font-family: var(--mincho); font-size: 18px; letter-spacing: .2em; margin: 0 0 2px; font-weight: 600; }
+  .calc th, .calc td { border: 1px solid var(--ink); padding: 4px 8px; font-size: 12.5px; }
+  .calc th { background: #e4e0db; font-size: 12px; white-space: nowrap; }
+  .calc td.n { text-align: center; font-size: 16px; font-weight: 700; white-space: nowrap; font-family: var(--mincho); }
+  .calc td.f { overflow-wrap: anywhere; }
+
+  /* ---------- 画面幅で切り替え ---------- */
+  @media screen and (max-width: 699px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .panel { margin: 12px; padding: 18px 16px; }
+    .app-head h1 { font-size: 19px; letter-spacing: .1em; }
+    body:not(.capturing) #pages { width: auto; margin: 12px 0 20px; }
+    body:not(.capturing) .page { width: auto; height: auto; overflow: visible; margin: 0 12px 14px; padding: 22px 14px 30px; border-radius: 10px; }
+    body:not(.capturing) .cards { grid-template-columns: 1fr 1fr; }
+    body:not(.capturing) .cards .card.wide { grid-column: 1 / -1; }
+    body:not(.capturing) .nowsea { grid-template-columns: 1fr; justify-items: center; }
+    body:not(.capturing) .nowsea > div:last-child { justify-self: stretch; }
+    body:not(.capturing) .tbl th, body:not(.capturing) .tbl td { padding: 3px 4px; }
+    body:not(.capturing) .tbl .nn { flex-direction: column; gap: 0; align-items: center; text-align: center; }
+    body:not(.capturing) .tbl .nn .kwd { font-size: 10px; }
+    /* 和路大運の周期表はカード状に積む */
+    body:not(.capturing) .stack tr:first-child { display: none; }
+    body:not(.capturing) .stack, body:not(.capturing) .stack tbody, body:not(.capturing) .stack tr, body:not(.capturing) .stack td { display: block; width: auto; }
+    body:not(.capturing) .stack tr { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; padding: 6px 10px; }
+    body:not(.capturing) .stack td { border: none; padding: 1px 0; text-align: left; white-space: normal; font-size: 12.5px; }
+    body:not(.capturing) .stack td[data-l]::before { content: attr(data-l); color: var(--gold); font-weight: 600; margin-right: 8px; }
+    body:not(.capturing) .stack td.c small { display: inline; margin-left: 8px; }
+    body:not(.capturing) .cal td { height: 64px; padding: 2px 3px; }
+    body:not(.capturing) .mrow { flex-direction: column; gap: 2px; }
+    body:not(.capturing) .mrow .mnum { width: auto; }
+    body:not(.capturing) .mrow .mnum br { display: none; }
+    body:not(.capturing) .ygrid { grid-template-columns: 1fr; }
+    body:not(.capturing) .mmonth .mh .mu { float: none; margin-left: 8px; }
+    body:not(.capturing) .cal .pd { font-size: 19px; }
+    body:not(.capturing) .cal .k1, body:not(.capturing) .cal .bd { display: none; }
+    body:not(.capturing) .cal .ud { position: static; display: block; text-align: center; font-size: 9.5px; }
+    body:not(.capturing) .jsvg svg { width: 100%; height: auto; }
+    body:not(.capturing) .pno { display: none; }
+  }
+  body.capturing #pages { zoom: 1 !important; width: 794px; }
+  body.capturing .page { box-shadow: none; }
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: #fff; }
+    .noprint { display: none !important; }
+    #pages { margin: 0; zoom: 1 !important; width: auto; }
+    .page { box-shadow: none; margin: 0; width: 210mm; height: 297mm; break-after: page; page-break-after: always; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-head noprint">
+  <h1>数秘周期 × 和路大運</h1>
+  <p>生年月日から、数秘の年・月・日の周期と和路大運の周期をまとめて算出します</p>
+</header>
+
+<section class="panel noprint">
+  <form id="form" autocomplete="off">
+    <div class="form-grid">
+      <div class="field">
+        <label for="name">お名前（表示用・任意）</label>
+        <input type="text" id="name" placeholder="例：山田 花子">
+      </div>
+      <div class="field">
+        <span class="lab">性別（和路大運の順逆に使用）</span>
+        <div class="radio">
+          <label><input type="radio" name="sex" value="男" checked>男性</label>
+          <label><input type="radio" name="sex" value="女">女性</label>
+        </div>
+      </div>
+      <div class="field">
+        <span class="lab">生年月日（西暦）</span>
+        <div class="ymd">
+          <input type="number" id="by" min="1900" max="2100" placeholder="1975" aria-label="生まれ年"><span>年</span>
+          <input type="number" id="bm" min="1" max="12" placeholder="8" aria-label="生まれ月"><span>月</span>
+          <input type="number" id="bd" min="1" max="31" placeholder="3" aria-label="生まれ日"><span>日</span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="btime">出生時刻（任意・日本時間）</label>
+        <input type="time" id="btime">
+        <div class="hint">和路大運の節入り判定に使います。不明なら空欄で構いません。</div>
+      </div>
+      <div class="field">
+        <label for="kdate">鑑定日（この日を「今」として算出）</label>
+        <input type="date" id="kdate">
+      </div>
+      <div class="field">
+        <span class="lab">年のメッセージ</span>
+        <label style="display:flex;gap:8px;align-items:center;font-size:14px;color:var(--ink);cursor:pointer"><input type="checkbox" id="yearMsg">個人年の欄にもメッセージを表示する</label>
+        <div class="hint">誕生月タブの文から「〇の年：」以降を「月のメッセージ」ページの先頭に添えます。月のメッセージは常に表示します。</div>
+      </div>
+    </div>
+    <div class="actions">
+      <button type="submit" class="primary">算出する</button>
+      <button type="button" id="btnPdf" disabled>PDFをダウンロード</button>
+      <button type="button" id="btnPrint" disabled>印刷する</button>
+    </div>
+  </form>
+  <div id="messages"></div>
+  <details class="msgset">
+    <summary>月・誕生月メッセージ（スプレッドシートから更新できます）</summary>
+    <div class="hint">メッセージはスプレッドシート「アプリ化（MY SOUL PASSCODE）」の「月メッセージ」タブ（paidText）と「誕生月」タブから引いています。アプリには作成時点の写しが入っています。スプレッドシートを書き換えたら「スプレッドシートから更新」を押すと、最新の内容を読み込んでこのブラウザに保存します（インターネット接続と、リンクを知っている人が閲覧できる共有設定が必要です）。</div>
+    <div class="actions" style="margin-top:10px"><button type="button" id="msgFetch">スプレッドシートから更新</button><button type="button" id="msgReset">作成時点の内容に戻す</button></div>
+    <div class="hint" id="msgStatus"></div>
+  </details>
+  <details class="kw">
+    <summary>数字のキーワード設定（追記・編集できます）</summary>
+    <div class="hint">言葉を「、」で区切って入力します。算出するたびに、各項目へこの中から3つをランダムに表示します（カレンダーは1つ）。編集した内容はこのブラウザに保存されます。別のパソコンやスマホでも同じ内容を使うときは「書き出す」で保存したファイルを、そちらで「読み込む」から取り込んでください。</div>
+    <div class="kwgrid" id="kwgrid"></div>
+    <div class="actions" style="margin-top:12px"><button type="button" id="kwExport">書き出す</button><button type="button" id="kwImport">読み込む</button><button type="button" id="kwReset">初期値に戻す</button><input type="file" id="kwFile" accept=".json,application/json" hidden></div>
+  </details>
+</section>
+
+<main id="pages"></main>
+<section id="calcpanel" class="panel noprint" hidden></section>
+
+<script>
+(function () {
+'use strict';
+
+/* =========================================================
+   基礎データ
+   ========================================================= */
+const SHI = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+const KAN = ['','一','二','三','四','五','六','七','八','九'];
+const STAR = ['','一白水星','二黒土星','三碧木星','四緑木星','五黄土星','六白金星','七赤金星','八白土星','九紫火星'];
+const GOGYO = ['','水','土','木','木','土','金','金','土','火'];
+const TAIYOSU = { 水: 6, 火: 7, 木: 8, 金: 9, 土: 10 };            // 体用数（周期の年数）
+const SEKKI = ['立春','啓蟄','清明','立夏','芒種','小暑','立秋','白露','寒露','立冬','大雪','小寒']; // 寅月〜丑月の節入り
+
+// 十二支ごとの 天道・三合・二合 の位置（子=0 … 亥=11）。破れは対冲（+6）。
+const TENDO = [4, 9, 6, 7, 0, 9, 10, 3, 0, 1, 6, 3];
+const SANGO = [8, 5, 10, 11, 8, 1, 2, 11, 4, 5, 2, 7];
+const NIGO  = [1, 0, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
+
+// 9マス盤（南が上）の外周における十二支の位置 [辺, 番号]  t=上 b=下 l=左 r=右
+const POS = [['b',1],['b',0],['l',2],['l',1],['l',0],['t',0],['t',1],['t',2],['r',0],['r',1],['r',2],['b',2]];
+// 五が中心の盤（定位）
+const BASE = [[4,9,2],[3,5,7],[8,1,6]];
+
+const MARK_TEXT = {
+  shi: ['十二支', '思考と肉体のバランスがよい好調期。'],
+  san: ['三合', '集中力があり、自分の力が増す好調期。'],
+  ten: ['天道', '周りから良い働きかけがあるラッキー時期。'],
+  ni:  ['二合', '二人三脚で歩む相手や良きライバルが現れる時期。'],
+  ha:  ['破れ', '馬力が出ない底辺期。想定や予想に反する想像と反対のことが起こりやすい時期。いつものパターンが通用しない時。（対策：期待や決め付けをせず、必要なことだけを行う。）']
+};
+
+// 9マスそれぞれの意味（定位の数字で引く）
+const MASU = {
+  1: {
+    lead: '慎重にすべき時。あらゆる事柄が冷え込みやすい。',
+    into: '一番初めの状態で整っていないため運気は弱い。何事も慎重にすべき時。あらゆる事柄が冷え込みやすく病気にもなりやすい。無くしもの忘れ物や下半身に注意。柔軟な対応ができる。先々への基礎作りや計画、アイデア出し、勉強やスキルアップには良い時期。',
+    zen: '原点回帰。人知れず裏側で苦労しやすい。やめることが起きやすい。',
+    kou: '表面上は良い流れを感じる。始まることが起きやすい。',
+    act: '健康も仕事も冷え込む時。体調管理を強化すること。',
+    mind: 'どんな集まりでもスムーズに入れる柔軟性が高まる。冷静な視点で物事を捉えることができる。長期的な計画をするのには適している。',
+    sum: 'これまでの悩みに対して向き合い、本格的に改善を図っていく時。体や心のメンテナンスを積極的に行うことで、今後の準備となる。冷静に先々の計画を立てるには適した時。',
+    work: '見た目と中身が異なり、理解されるのに時間がかかることがあります。仕事はコリ性になりすぎると時間がなくなってしまう場合があるので、タイムスケジュールを気にしながら取り組むと良いでしょう。表面的にはソフトに見えていたとしても、心の中では、相手に厳しい目を向けている場合があります。うまくいかないと投げ出してしまう傾向がありますが、1つのことを貫くことで大きな仕事を成し遂げることができます。職人的な感覚が生じやすいので、個性的な仕事を選ぶと成功しやすいです。',
+    job: '小料理屋、酒類販売業、水産業・水産物加工業、販売業、繊維関連業者、幼児関連商品製造販売業者、温泉・銭湯経営、クリーニング業者（衣類、ハウス）、歓楽街、飲み屋、医師、カウンセラー、裏方の仕事'
+  },
+  2: {
+    lead: '現実的な判断ができる。心境の変化が起きる。',
+    into: '現実的な判断ができる。心境の変化が起きる。優柔不断で決断が遅れチャンスを逃しやすい。世話役やサブ的役割だと長所を出しやすい。計画していた事の準備に適切な時。本領発揮できる時ではないので無理は禁物ですが自分の持つ力を発揮すると恵まれる時です。',
+    zen: '計画のために必要なものを揃える。内面の変化。気持ちを切り替える。',
+    kou: '準備の具体的行動に移り始める。肉体を使った作業が増える。',
+    act: '黙々と作業をすることが増える。学びや研究に熱心。世話役に回る。',
+    mind: '平凡で味気ないが安定的。母や目上の女性との縁が深まる。現実的判断をする。いろいろと遅れやすい。心境の変化がある。',
+    sum: '堅実に努力するタイミング。次の飛躍のために準備を整える時。自分のことよりも周りの人のために奉仕する精神を持つと良い循環が生まれる。',
+    work: '仕事面では2番手が適切です。先頭に立ち人を引っ張っていくと言うよりも、与えられた仕事を真面目に確実にこなす能力が一番優れています。情に深くなりやすく、対人面では利用されてしまうこともあるので、クールさを学ぶことも大切です。境界線をはっきりとした関係性を構築しましょう。人の面倒を見るだけ見て何も得られないと言うふうにならないように気をつけてください。',
+    job: '雑貨類販売や卸業、骨董商、リサイクル業者、中古品販売、小口金融業者、土木技術士、農業、不動産業、葬儀関連の業種、繊維関連業、看護師、教師、塾講師、教育者、小児科医師、製造販売業、サポート役'
+  },
+  3: {
+    lead: '心機一転。不明瞭だった事が明確に見えてくる。',
+    into: '心機一転。不明瞭だった事が明確に見えてくる時。アイデアや準備してきた事を行動にうつすタイミング。アクションを起こすのが早く行動派。深く考えていないため途中で変更が出やすい。言葉が多くなりやすい。言動を落ち着かせると良いバランスを保てます。',
+    zen: '曖昧なことが明確になる。希望を感じられる。行動意欲が湧いてくる。',
+    kou: '新しい分野や関係性との縁が深まる。明るく開けた雰囲気になる。',
+    act: '新しい動きが起こる。昇進、発展、判明、発見。新領域に踏み入れる。',
+    mind: '活気があるが動く前には確認が必須項目。若々しい事に縁が生まれる。アイデアが豊富。準備してきた計画を実行に移す時。言葉が多くなりやすい。',
+    sum: '活気があり勢い良く進んでいく。積極的で急に忙しくなることがある。状況が見えてきて、先々のことを想像しやすくなる。',
+    work: '瞬発的に仕事こなすようになるので、長期計画は苦手になりやすいです。明るく社交的で負けず嫌いになり、若い時期であれば仕事で活躍する場合が多いです。ただ長期的な計画に取り組む事は避けたほうが良いです。その時のノリや勢いで一気に押し通すと言うような方法で仕事ができるとベスト。人に頭を下げる職業は不向き。対人面では敏感になり、潔癖症のようになることもあります。敵味方をはっきり分けたくなるかもしれませんが、あまりそのような面を前に出さないようにしたほうがいいです。',
+    job: '放送関連（テレビ・ラジオ・YouTubeなど）、新聞雑誌・マスコミ・広告関連、発信・配信関連、IT業、営業職、司会者、音楽関連、オーディオ関連、電気器具の販売修理、後継者、新規立ち上げ、アイデア、発明者'
+  },
+  4: {
+    lead: '社交的かつ洗練された感覚。平和主義。',
+    into: '社交的かつ洗練された感覚。平和主義で争いを嫌います。目上の人からの引き立てや突然の幸運に恵まれる事があります。人脈は宝と思い人間関係を大切に。優柔不断な面があり大事なところで決断に迷いがち。常に物事を冷静にみる目を養いましょう。',
+    zen: '人との縁が繋がって行く。不安定な部分に注目する。',
+    kou: '物事が整い安定する。縁が具体的なカタチになっていく。',
+    act: '縁談、結婚、商談がまとまりやすい。海外との縁が増える。',
+    mind: '人から信頼を得ることが多い。優柔不断。バランサー役。心身を動かして平和を作っていく。',
+    sum: '順調に進み、精神的な余裕や経済的なゆとりができやすい。未来への夢が膨らみ想像力が働く。曖昧だった事は整っていく。無理はせず、等身大の自分であることが運を持続させるためのコツ。',
+    work: '平和主義者で信用を得られるようになりやすいです。しかし、八方美人になりすぎてしまうと騙されることもあるので注意が必要です。無謀な事はせず、適切な方法を行っていけば、社会的に安定した地位や名誉や収入が得られる時期です。国内だけにとどまらず、世界を相手にするくらいの広い視野を持つと活躍の幅が広がります。',
+    job: '麺類製造、麺類飲食店、船舶業・船舶製造販売業、運輸業、製紙業、繊維業、観光レジャー業、旅行業、建築資材・材木業、情報産業、インターネットケーブル、通信機器、IT技術者、掃除業者、夢想家、バランサー'
+  },
+  5: {
+    lead: '過去と未来の更新期。アップダウンが大きい。',
+    into: '過去と未来の更新期。アップダウンが大きく頂点と底辺を経験する時。情が入ると悪い縁を掴み失敗しがち。大事な約束事はとても慎重する必要があるときです。人からの指摘に反発しやすく頭を下げられないかも。伸び悩んだら人の意見を聞きましょう。',
+    zen: '経験のまとめ。それまでに悪い状態が続いていた人は逆に良くなる。',
+    kou: '改善や向上のための対策。情報収集した上での取捨選択をする。',
+    act: 'さまざまな出来事への対応。更新し、さらに良くするための実行。',
+    mind: '考えがまとまりにくい。人からの指摘に反発しがち。やる気はあるが、自ら考えて行動したことは後で裏目に出やすい。アドバイスを聞き入れよう。',
+    sum: '新陳代謝を促し、変化を受け入れることが大切。小休止をして過去と未来を含めた全体像を見渡した考え方で進めよう。',
+    work: '野心家精神が旺盛になり、ピンチをチャンスに変える運の強さを得ます。自己顕示欲を強く出しすぎて、何が何でも自分のものにしたいと言う極端な面が出るとトラブルの元になります。対人面では相手を支配しようと思わず、共存する関係を守ることが大切になります。リーダー的立場になりやすく、人に頼られる時期です。',
+    job: '著者、識者、文化人、政治家、教育者、思想哲学者、創業者、創始者'
+  },
+  6: {
+    lead: 'マイペースで自己中心的。正直で責任感が強い。',
+    into: 'マイペースで自己中心的。正直で責任感が強く負けず嫌い。人間関係では特に協調性を持ち優しく接しましょう。九星の中でもっとも目上との繋がりが強く引き立て運が大事。止まらず動いて循環させる事が大切。慢心せず己の心を抑えられれば大きな成果を得ます。',
+    zen: '社会的に責任感が高まる。忙しくなる。マイペースに進めたくなる。',
+    kou: '向上心が旺盛になる。正義感が高まる。効率化を追求する。',
+    act: '活動的になる。指揮する事が増える。規模が大きい動きになりやすい。',
+    mind: '正直になりすぎる。高級志向になる。目上の人とのつながりが深まる。循環を意識する。人のペースに合わせるのが大変に感じる。',
+    sum: '自己中心的でマイペースな行動になりやすい。強気に出る事は他人との摩擦を起こすため抑えめにする必要がある。責任のある立場についたり、仕事の内容が変わることもある。',
+    work: '責任感が強くなり仕事に熱心で頑張り屋になる。正義感も強まり、自分の信念や思想に忠実で、独自の方法論にこだわりを見せすぎると、上司や目上の存在と衝突することがあります。男女ともに戦略や人付き合いを学ぶと、その後、道が開けていきます。自分のステイタスやステージを自慢するのではなく、相手のレベルや価値観に合わせる目線を持ち、融通性を忘れずに対応することで円満な関係性を築けます。',
+    job: '社長業、政治家、政党職員、弁護士、検察官、銀行業、証券業、自衛官、警察官、精密機械製造、自動車修理・販売、バイク修理・販売、航空機関連、教育者、僧侶、思想哲学者、エンジニア、貴金属業、石加工業'
+  },
+  7: {
+    lead: '面白くて楽しいことに意識が向く時。パワフル。',
+    into: '面白くて楽しいことに意識が向く時。比較的パワフルで栄養満点。癒しの力が高まります。落ち着いて行動でき安定感のある思考ができます。多才でコミュニケーション力が高い特徴があり人間関係が華やか。お酒やイベント事や異性との縁が深まる時です。',
+    zen: '期が熟した事柄への対応。自分の心地良さを追求。流れが落ち着く。',
+    kou: '新たな段階に向けて精度の高い選択をする。笑顔が増える。',
+    act: 'お金に関する事柄が多い。異性との縁が深まる。話をまとめて説明を行うことが増える。口論が増える。慌ただしさや忙しさがある。',
+    mind: '癒しと安定感。面白さや楽しさの探求。嬉しい事や華やかさがある。',
+    sum: '仕事をする時間より遊ぶ時間が多くなり、出費が増えることがある。気力や体力が衰えやる気がなくなっていくこともあり。',
+    work: '相手のふところ（プライベートエリア）に入り込むのがうまくなり、対人運が一番優れる時期です。柔らかい印象を与えるため、周りからは頼りなく思われたり、お人好しと言うイメージが持たれることがありますが、人当たりの良さは成功への道に必要なスキルです。器用な分、小さな成功に甘んじてしまう傾向があります。小さくまとまらずに大きな夢を持ちましょう。副業運は良いので、2つの仕事を同時にこなすセンスに恵まれます。',
+    job: '言葉を使った仕事（歌手、アナウンサー・タレント・芸人・翻訳家）、映画・ビデオ関連、飲食関連（レストラン、居酒屋、バー）、歯科医、外科医、食品加工業、金属・製鉄関連、貴金属・宝石関連、レジャー産業関連、遊園地、銀行員、税務、経理関連'
+  },
+  8: {
+    lead: '物理的な側面の変化。家族やチームとの縁。',
+    into: '物理的な側面の変化。家族やチームとの縁があります。努力と野心、希望や欲望が溢れます。実直で人情に厚い傾向。継続ごとの変化や思わぬところで不意に変化が訪れることもありこの転換期には気を引き締めるようにしましょう。細心の注意で挑めば安心です。',
+    zen: '終えることがある。環境や外部に物理的な変化が起こりやすい。',
+    kou: '始めることがある。家族との縁が深まりやすい。',
+    act: '相続や引き継ぎを行う。転換期になりやすい。',
+    mind: '努力家。チャレンジ精神が芽生える。野心や希望が増える。人情に厚くなる。',
+    sum: '心境の変化。反省をし整理改革を進めざるを得ないことになりやすい。現状の効率化や簡略化をし、不要な部分は切り捨て合理化をしていこう。引き継ぎやバトンタッチをすることがある。イメージチェンジをするタイミング。',
+    work: 'チャレンジ精神が高まる時期です。常に新しいやり方を試したり、思いつきでやってみる事が増えます。しっかりと準備をした上で行動すれば成功を掴めますが、それがないと自分で失敗を招くことになります。対人面では感情的で、自己主張が強くなったり、話が長くなったり、欲を出しすぎることで敵を作ることもあるので注意が必要です。堅実な硬い部分と大らかな柔らかい部分を使い分ける身のこなしがあれば大きな成功につながります。',
+    job: '不動産業、林業、土地管理、建築業、土木業、機械工場関連、警備員、デパート・スーパー経営、ホテル・旅館経営、金融業、弁護士、宗教家、神秘家、資産家、古物商、家族に関するもの、子供向け施設'
+  },
+  9: {
+    lead: '感性や直感力があり、聡明さと社交性が高い。',
+    into: '感性や直感力があり、聡明さと社交性が高い。あきらめの良さがある点が爽やか。意外にも寂しがり屋で意地っ張りな部分が出る場合もあります。問題発生時にはその場しのぎではなく抜本的な解決をはかること。注目され褒められる時。奉仕的な精神も高まります。',
+    zen: 'これまでの努力や奉仕活動の適切な評価を受け取る。',
+    kou: '周囲から注目を浴び表舞台に出て行く。見栄えを良くする。',
+    act: '自分とは何かの明確化。社交的になり外部との交流が増える。',
+    mind: '抜本的解決。奉仕精神力。離合集散。白黒はっきりさせる。決断力に冴え直感力が高まる。',
+    sum: '今まで行ってきたことの採点・結果を受け取る。隠れて行っていた良い行いは世に認められる。都合の悪い事は表面化してバレる。一時的に燃え上がったものは消え去るのも早い。',
+    work: '才能に恵まれるため、自分で才能を伸ばす意識を持ち続けるか、誰かに才能を引き出してもらうことで成功に至る時期です。分析力、企画力、構成力など論理的な思考でうまくいくことがあります。感情の起伏が激しくなるとプライドが高くなったり人と離れるようなことになりやすいです。同世代にも上司にも目下の存在にも敬意を払うような接し方をするとうまくいきやすいです。仕事は自由が利くものを選ぶと良いでしょう。',
+    job: '作家、芸術家、俳優、デザイナー、ファッション関係、モデル業、薬剤師、医薬品メーカー、政治家、教師、警官、自衛官、弁護士や裁判官などの司法関係、出版関係、証券業、会計士、眼科医師、教育者、コンサル'
+  }
+};
+
+/* =========================================================
+   暦の計算（太陽黄経から節入りを求める）
+   ========================================================= */
+const RAD = Math.PI / 180;
+const mod = (a, n) => ((a % n) + n) % n;
+
+function deltaT(year) { // TT-UT（秒）の近似
+  const t = [[1900,-2.8],[1910,10.5],[1920,21.2],[1930,24.0],[1940,24.3],[1950,29.1],[1960,33.1],[1970,40.2],[1980,50.5],[1990,56.9],[2000,63.8],[2010,66.1],[2020,69.4],[2050,75],[2100,95]];
+  if (year <= t[0][0]) return t[0][1];
+  for (let i = 1; i < t.length; i++) {
+    if (year <= t[i][0]) { const a = t[i-1], b = t[i]; return a[1] + (b[1]-a[1]) * (year-a[0]) / (b[0]-a[0]); }
+  }
+  return t[t.length-1][1];
+}
+function jdFromJST(y, mo, d, h, mi) { return Date.UTC(y, mo-1, d, h-9, mi) / 86400000 + 2440587.5; }
+function jstFromJd(jd) {
+  const dt = new Date(Math.round((jd - 2440587.5) * 86400000 / 60000) * 60000 + 9 * 3600000);
+  return { y: dt.getUTCFullYear(), m: dt.getUTCMonth()+1, d: dt.getUTCDate(), h: dt.getUTCHours(), mi: dt.getUTCMinutes() };
+}
+// 太陽の視黄経（度）。jd は世界時のユリウス日。
+function sunLon(jd) {
+  const year = 2000 + (jd - 2451545) / 365.25;
+  const jde = jd + deltaT(year) / 86400;
+  const T = (jde - 2451545) / 36525;
+  const L0 = 280.46646 + 36000.76983*T + 0.0003032*T*T;
+  const M = (357.52911 + 35999.05029*T - 0.0001537*T*T) * RAD;
+  const C = (1.914602 - 0.004817*T - 0.000014*T*T) * Math.sin(M) + (0.019993 - 0.000101*T) * Math.sin(2*M) + 0.000289 * Math.sin(3*M);
+  // 惑星・月による摂動（主要項）
+  const T1 = (jde - 2415020) / 36525;
+  const pert = 0.00134 * Math.cos((153.23 + 22518.7541*T1) * RAD)
+             + 0.00154 * Math.cos((216.57 + 45037.5082*T1) * RAD)
+             + 0.00200 * Math.cos((312.69 + 32964.3577*T1) * RAD)
+             + 0.00179 * Math.sin((350.74 + 445267.1142*T1 - 0.00144*T1*T1) * RAD)
+             + 0.00178 * Math.sin((231.19 + 20.20*T1) * RAD);
+  const om = (125.04 - 1934.136*T) * RAD;
+  return mod(L0 + C + pert - 0.00569 - 0.00478 * Math.sin(om), 360);
+}
+// 節月の番号（0=寅月 … 10=子月, 11=丑月）
+function setsuIndex(jd) { return Math.floor(mod(sunLon(jd) - 315, 360) / 30); }
+// 指定した節月の節入り時刻（jd 以前で直近のもの）
+function setsuStart(jd, idx) {
+  const target = mod(315 + 30 * idx, 360);
+  const f = t => mod(sunLon(t) - target + 180, 360) - 180;
+  let hi = jd, lo = jd - 33;
+  for (let i = 0; i < 48; i++) { const mid = (lo + hi) / 2; if (f(mid) >= 0) hi = mid; else lo = mid; }
+  return hi;
+}
+
+/* =========================================================
+   命式（四要素）と大運の算出
+   ========================================================= */
+function calcMeishiki(y, mo, d, time, choice) {
+  const out = { boundary: null, near: false };
+  let idx, refJd;
+  if (time) {
+    refJd = jdFromJST(y, mo, d, time.h, time.mi);
+    idx = setsuIndex(refJd);
+    const w = 15 / 1440;
+    if (setsuIndex(refJd - w) !== setsuIndex(refJd + w)) out.near = true;
+  } else {
+    // 計算誤差（数分）を見込み、日付の前後15分も節入り日として扱う
+    const jd0 = jdFromJST(y, mo, d, 0, -15), jd1 = jdFromJST(y, mo, d, 24, 15);
+    const i0 = setsuIndex(jd0), i1 = setsuIndex(jd1);
+    if (i0 !== i1) {
+      out.boundary = { before: i0, after: i1, jd: setsuStart(jd1, i1) };
+      idx = choice === 'before' ? i0 : i1;
+      refJd = choice === 'before' ? jd0 : jd1;
+    } else { idx = i0; refJd = jdFromJST(y, mo, d, 12, 0); }
+  }
+  const Y = (mo <= 2 && idx >= 10) ? y - 1 : y;         // 立春前は前年扱い
+  out.setsuIdx = idx;
+  out.setsuJd = setsuStart(refJd, idx);
+  out.solarYear = Y;
+  out.yearShi = mod(Y - 4, 12);
+  out.monthShi = mod(idx + 2, 12);
+  out.yearStar = mod(10 - mod(Y, 9), 9) + 1;
+  const tora = [0, 8, 2, 5][mod(out.yearStar - 1, 3) + 1];  // 寅月の九星：一四七年=八、二五八年=二、三六九年=五
+  out.monthStar = mod(tora - idx - 1, 9) + 1;
+  return out;
+}
+
+function banNumbers(center) { return BASE.map(r => r.map(v => mod(v + center - 6, 9) + 1)); }
+function banMarks(shi) {
+  return [
+    { type: 'shi', shi: shi, label: SHI[shi] },
+    { type: 'ha',  shi: mod(shi + 6, 12), label: '破' },
+    { type: 'ten', shi: TENDO[shi], label: '天' },
+    { type: 'san', shi: SANGO[shi], label: '三' }
+  ];
+}
+function cellOfShi(shi) { const [s, i] = POS[shi]; return s === 't' ? [0, i] : s === 'b' ? [2, i] : s === 'l' ? [i, 0] : [i, 2]; }
+
+function calcAll(inp) {
+  const m = calcMeishiki(inp.y, inp.mo, inp.d, inp.time, inp.choice);
+  const yang = m.yearShi % 2 === 0;
+  const jun = (yang && inp.sex === '男') || (!yang && inp.sex === '女');
+  const gogyo = GOGYO[m.yearStar];
+  const cycle = TAIYOSU[gogyo];
+
+  // 鑑定日時点の満年齢
+  const k = inp.kdate;
+  let age = k.y - inp.y; if (k.mo < inp.mo || (k.mo === inp.mo && k.d < inp.d)) age--;
+  const curIdx = age >= 0 ? Math.floor(age / cycle) : -1;
+  let rows = inp.rows === 100 ? Math.ceil(100 / cycle) : 10;
+  rows = Math.max(rows, curIdx + 1);
+
+  const periods = [];
+  for (let i = 0; i < rows; i++) {
+    const shi = mod(m.monthShi + (jun ? i : -i), 12);
+    const star = mod(m.monthStar - 1 + (jun ? -i : i), 9) + 1;
+    const nums = banNumbers(star), marks = banMarks(shi);
+    let pos = null;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) if (nums[r][c] === m.yearStar) pos = [r, c];
+    const masu = BASE[pos[0]][pos[1]];
+    const hit = marks.filter(mk => { const cc = cellOfShi(mk.shi); return masu !== 5 && cc[0] === pos[0] && cc[1] === pos[1]; });
+    const a0 = i * cycle, a1 = a0 + cycle - 1, y0 = inp.y + a0, y1 = inp.y + a1;
+    let half;
+    if (cycle % 2 === 0) {
+      const h = cycle / 2;
+      half = { zen: `${y0}年〜${y0+h-1}年`, kou: `${y0+h}年〜${y1}年`, zenAge: `${a0}〜${a0+h-1}才`, kouAge: `${a0+h}〜${a1}才` };
+    } else {
+      const h = (cycle - 1) / 2;
+      half = { zen: `${y0}年〜${y0+h}年半ば`, kou: `${y0+h}年半ば〜${y1}年`, zenAge: `${a0}〜${a0+h}.5才`, kouAge: `${a0+h}.5〜${a1}才` };
+    }
+    periods.push({ i, shi, star, nums, marks, pos, masu, hit, a0, a1, y0, y1, half, now: i === curIdx });
+  }
+
+  // 九星大運（本命盤と年齢一覧）
+  const honmei = banNumbers(m.yearStar);
+  const kyusei = [];
+  for (let n = 1; n <= 9; n++) {
+    const a0 = (n - 1) * 9 + 1, a1 = n * 9, star = mod(n + m.yearStar - 6, 9) + 1;
+    const ca = age >= 1 ? mod(age - 1, 81) + 1 : -1;
+    kyusei.push({ n, a0, a1, star, now: ca >= a0 && ca <= a1 });
+  }
+  // 十二支大運
+  const junishi = [];
+  const ja = age > 60 ? mod(age - 1, 60) + 1 : age;
+  for (let i = 0; i < 12; i++) {
+    const shi = mod(m.yearShi + i, 12), a0 = i === 0 ? 0 : i * 5 + 1, a1 = i * 5 + 5;
+    let type = null;
+    if (i === 0) type = 'shi';
+    else if (shi === mod(m.yearShi + 6, 12)) type = 'ha';
+    else if (shi === TENDO[m.yearShi]) type = 'ten';
+    else if (shi === SANGO[m.yearShi]) type = 'san';
+    else if (shi === NIGO[m.yearShi]) type = 'ni';
+    junishi.push({ shi, a0, a1, type, now: ja >= a0 && ja <= a1 });
+  }
+  return { inp, m, yang, jun, gogyo, cycle, age, curIdx, periods, honmei, kyusei, junishi };
+}
+
+
+
+/* =========================================================
+   数秘の計算
+   ========================================================= */
+const MASTERS = [11, 22, 33, 44];
+const ALL_NUMS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 22, 33, 44];
+const KW_NAME = { 1: '太陽数', 2: '太陰数', 3: '統合数', 4: '安定数', 5: '自由数', 6: '調和数', 7: '探求数', 8: '成功数', 9: '完結数', 11: '天使数', 22: '大天使数', 33: '宇宙神数', 44: '創造神数' };
+// キーワードの初期値（画面の「数字のキーワード設定」で追記・編集できる）
+const KW_DEFAULT = {
+  1: ['リーダーシップ', '男性性', '太陽の力', '上向きの矢印↑', '始まり', '自立'],
+  2: ['協調', '女性性', '受容', '太陰の力', '内向的', 'サポート'],
+  3: ['クリエイティブ', '発信', '陰陽統合', '産まれる力', '表現', '創造', '楽しさ'],
+  4: ['安定', '堅実', '基盤', 'バランスの力', '四角', '継続'],
+  5: ['自由', '変化', 'アンバランスの力', '五芒星', '行動'],
+  6: ['愛', '調和', '絶対的バランス', 'ダビデの星', '責任'],
+  7: ['探求', '内省', '分析', '超越する力', '北斗七星'],
+  8: ['成功', 'パワー', '無限の力', '末広がり', '実現力', '豊かさ', '統率'],
+  9: ['完結', '博愛', '賢者', '統括の力', '1〜8を全て知る', '共感', '手放し'],
+  11: ['直感', 'インスピレーション', '橋渡し', '天使の力', '双子・二本柱', 'ひらめき', '伝達'],
+  22: ['大規模', '実現', '使命', '大天使の力', '大いなる建築家', '構築', '現実化'],
+  33: ['無償の愛', '奉仕', '大調和', '宇宙神の力', '常識の範疇外', '癒し'],
+  44: ['神がかり的実現', '意向に沿う願い', '創造神の力', '8の上位の広がり', '堅固な土台', '大きな責任', '具現化']
+};
+function normKW(o) { const r = {}; ALL_NUMS.forEach(n => { const v = o && o[n]; r[n] = Array.isArray(v) ? v.map(x => String(x).trim()).filter(Boolean) : KW_DEFAULT[n].slice(); }); return r; }
+let KW = normKW(KW_DEFAULT);
+// 項目ごとに3つをランダムに選ぶ（1回の算出の中では同じ項目に同じ3つを使う）
+let PICK = {};
+function picks(key, n) {
+  const id = key + ':' + n;
+  if (!PICK[id]) {
+    const a = (KW[n] || []).slice();
+    for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); const t = a[i]; a[i] = a[j]; a[j] = t; }
+    PICK[id] = a.slice(0, 3);
+  }
+  return PICK[id];
+}
+
+/* ---------- メッセージ（スプレッドシート「アプリ化（MY SOUL PASSCODE）」の写し） ---------- */
+const SHEET_ID = '1WTZ8heMD4urF4GOIv8uSUkPB76sxJXxci8Hve1aqAkU';
+const BD_HEAD = '今月誕生日であるあなた、誕生日から運気の流れが変わります。\n';
+const MSG_DEFAULT = {
+  // 「月メッセージ」タブの paidText（個人月の数字で引く）
+  month: {
+    1: '【スタート・種まき】 新しいサイクルの始まりです。やりたかったことに着手する絶好のタイミング。直感を信じて一歩踏み出しましょう。\n「帆を広げ、動く」',
+    2: '【調和・繋がり】 周囲との協力やバランスが鍵となる月。自分一人で頑張りすぎず、他者との対話やサポートを大切にすると道が開けます。\n「寄り添う事で、流れを産む」',
+    3: '【創造・楽しむ】 表現力が豊かになる時期。クリエイティブな活動や、心から楽しめることに時間を使ってください。笑顔が幸運を呼びます。\n「出した分だけ、現実が動く」',
+    4: '【安定・土台作り】 足元を固める月。ルーティンを整えたり、身近な環境の掃除や整理をすることで、将来への強い基盤が作られます。\n「積み重ねが、力になる」',
+    5: '【変化・挑戦】 スピード感のある月。変化を恐れず、新しい環境や未知の体験に飛び込んでみてください。フットワークの軽さが大切です。\n「普段と違う事、変化を恐れない」',
+    6: '【愛情・奉仕】 身近な人への愛を深める時期。家族や友人のために動くことで、巡り巡ってあなた自身も大きな癒やしを得られます。\n「人と向き合い、調和する」',
+    7: '【内省・学び】 自分自身と深く向き合う月。読書や瞑想、専門的な学びに集中するのに適しています。一人の時間を豊かに過ごしましょう。\n「内側の声が、答えに導く」',
+    8: '【豊かさ・達成】 これまでの努力が形になる収穫の月。情熱を持ってエネルギーを外へ放出すれば、相応の成果や豊かさが手に入ります。\n「追い風を受け、迷わず進め」',
+    9: '【完結・手放し】 一つのサイクルが終わる月。不要なものを整理し、次のサイクルに向けて身軽になりましょう。感謝と共に手放すのが吉。\n「不要になった荷を捨て、軽くなる」',
+    11: '【直感・メッセンジャー】 鋭い感性が冴え渡る月。ふとした閃きが周囲への希望に繋がります。心の声をキャッチし、それを言葉にしてみてください。\n「閃きと煌めき、感じた瞬間に動く」',
+    22: '【大きな理想の具現化】 高い志を現実に落とし込む月。個人的な成功を超え、社会や誰かのために大きな仕組みを動かす力に満ち溢れています。\n「理想を、設計に落とし込む」',
+    33: '【無償の愛と変革】 規格外の慈愛がテーマ。常識に囚われず、宇宙的な視点で多くの人を包み込むような行動が、予想外の奇跡を呼び込みます。\n「与えたものが、増幅する」',
+    44: '【極致の安定と繁栄】 精神性と現実性の両立を極める月。強い精神力で困難を乗り越え、目に見える大きな成果を安定して築き上げることができます。\n「理想と現実が繋がる、現実化の時」'
+  },
+  // 「誕生月」タブ（誕生日から始まる個人年の数字で引く）
+  bday: {
+    1: BD_HEAD + '「1」の年：【開拓】 新たな9年サイクルの幕開け。種まきの年。',
+    2: BD_HEAD + '「2」の年：【共生】 焦らず種に水をやる時期。人との縁を育む。',
+    3: BD_HEAD + '「3」の年：【開花】 楽しみが広がる年。感性のままに動いて吉。',
+    4: BD_HEAD + '「4」の年：【構築】 地道な努力が実を結ぶ。基礎を固める年。',
+    5: BD_HEAD + '「5」の年：【躍動】 変化の波が来る年。殻を破り、外の世界へ。',
+    6: BD_HEAD + '「6」の年：【献身】 責任と愛の年。身近な人や自分を慈しむ。',
+    7: BD_HEAD + '「7」の年：【静止】 精神性を高める年。休息と自己探求を。',
+    8: BD_HEAD + '「8」の年：【充実】 豊かさが循環する年。攻めの姿勢が成功の鍵。',
+    9: BD_HEAD + '「9」の年：【統合】 浄化と準備の年。次のステージへ向けて整理。',
+    11: BD_HEAD + '「11」の年：【革新・直感の年】 精神的な目覚めや、鋭いインスピレーションが降り注ぐ1年です。常識に縛られず、自分の内側から湧き出る「声」に従って動くことで、人生に劇的な変化が訪れます。',
+    22: BD_HEAD + '「22」の年：【大成・具現化の年】 夢物語で終わらせず、大きな理想を現実の形にするパワフルな1年です。スケールの大きな計画を実行に移すのに最適で、あなたの行動が社会や周囲に長期的な影響を与えることになります。',
+    33: BD_HEAD + '「33」の年：【菩薩・激動の年】 個人的な利害を超え、大きな愛で世界を包み込むような経験をする1年です。想定外の出来事も増えますが、すべてを肯定し、宇宙的なリズムに身を任せることで、魂が大きく飛躍します。',
+    44: BD_HEAD + '「44」の年：【盤石・使命の年】 精神的な強さと現実的な実行力の両方が最高潮に達する1年です。非常に困難に見える壁も、不屈の精神で乗り越え、揺るぎない繁栄の基盤を築き上げることができます。'
+  },
+  updated: ''
+};
+let MSG = JSON.parse(JSON.stringify(MSG_DEFAULT));
+const msgMonth = n => MSG.month[n] || '';
+const msgBday = n => MSG.bday[n] || '';
+// 誕生月メッセージから「〇の年：」以降だけを取り出す（年の欄に添える短い版）
+const msgYear = n => { const t = msgBday(n), m = t.match(/の年：\s*([\s\S]*)$/); return m ? m[1].trim() : t; };
+const msgHTML = t => esc(t).replace(/\n/g, '<br>');
+
+const dsum = n => String(n).split('').reduce((a, c) => a + +c, 0);
+// マスターナンバーが出たら止め、それ以外は1桁になるまで還元する
+function chain(n) { const a = [n]; while (n > 9 && !MASTERS.includes(n)) { n = dsum(n); a.push(n); } return a; }
+function calcOf(parts) { const sum = parts.reduce((a, b) => a + b, 0), c = chain(sum); return { parts, sum, chain: c, val: c[c.length - 1], formula: (parts.length > 1 ? parts.join('+') + '=' : '') + c.join(' → ') }; }
+// 年は1桁ずつ。月・日の 11／22 は分解しない
+const yP = y => String(y).split('').map(Number);
+const mP = m => m === 11 ? [11] : [Math.floor(m / 10), m % 10];
+const dP = d => (d === 11 || d === 22) ? [d] : [Math.floor(d / 10), d % 10];
+
+// 生年月日だけで出る3要素
+function birthNums(b) {
+  const LP = calcOf(yP(b.y).concat(mP(b.mo), dP(b.d)));
+  if (MASTERS.includes(LP.val)) {                          // 裏LP：年・月・日を別々に還元して足す
+    const a = calcOf(yP(b.y)), m = calcOf(mP(b.mo)), d = calcOf(dP(b.d)), t = calcOf([a.val, m.val, d.val]);
+    LP.ura = { val: t.val, formula: `年 ${a.formula}／月 ${m.formula}／日 ${d.formula} ⇒ ${t.formula}` };
+  }
+  return { LP, B: calcOf(dP(b.d)), M1: calcOf(mP(b.mo).concat(dP(b.d))) };
+}
+// 全体周期（年明けで切り替わり）
+const UY = Y => calcOf(yP(Y));
+const UM = (Y, M) => calcOf(yP(Y).concat(mP(M)));
+const UD = (Y, M, D) => calcOf(yP(Y).concat(mP(M), dP(D)));
+// 個人周期（誕生日で切り替わり。誕生日前は前年の数字）
+const PY = (Y, b) => calcOf(yP(Y).concat(mP(b.mo), dP(b.d)));
+const PM = (py, M) => calcOf([py].concat(mP(M)));
+const PDn = (pm, D) => calcOf([pm].concat(dP(D)));
+const pyYearAt = (Y, M, D, b) => (M < b.mo || (M === b.mo && D < b.d)) ? Y - 1 : Y;
+function personalDay(Y, M, D, b) { const py = PY(pyYearAt(Y, M, D, b), b), pm = PM(py.val, M), pd = PDn(pm.val, D); return { py, pm, pd }; }
+function addMonths(Y, M, k) { const t = Y * 12 + (M - 1) + k; return { Y: Math.floor(t / 12), M: t % 12 + 1 }; }
+const daysIn = (Y, M) => new Date(Date.UTC(Y, M, 0)).getUTCDate();
+function dayBefore(Y, M, D) { const t = new Date(Date.UTC(Y, M - 1, D - 1)); return { y: t.getUTCFullYear(), mo: t.getUTCMonth() + 1, d: t.getUTCDate() }; }
+
+function calcCycles(b, k) {
+  const out = { b, k };
+  out.birth = birthNums(b);
+  out.uy = [UY(k.y), UY(k.y + 1)];
+  // 個人年：いま流れている年と、その次の年。誕生日前なら前年の数字が流れている
+  const cur = pyYearAt(k.y, k.mo, k.d, b);
+  out.pyRows = [];
+  if (cur < k.y) out.pyRows.push({ Y: cur, label: '現在', now: true });
+  out.pyRows.push({ Y: k.y, label: '今年', now: cur === k.y });
+  out.pyRows.push({ Y: k.y + 1, label: '来年', now: false });
+  out.pyRows.forEach(r => { r.py = PY(r.Y, b); r.from = { y: r.Y, mo: b.mo, d: b.d }; r.to = dayBefore(r.Y + 1, b.mo, b.d); });
+  // 短期周期：当月を含む前3ヶ月（2ヶ月前〜当月）と後3ヶ月（翌月〜3ヶ月後）
+  out.months = [];
+  for (let i = -2; i <= 3; i++) {
+    const { Y, M } = addMonths(k.y, k.mo, i);
+    const row = { Y, M, um: UM(Y, M), now: i === 0, half: i <= 0 ? '前' : '後' };
+    if (M === b.mo && b.d > 1) { row.pmBefore = PM(PY(Y - 1, b).val, M); row.pmAfter = PM(PY(Y, b).val, M); }
+    else row.pm = PM(PY(pyYearAt(Y, M, 1, b), b).val, M);
+    out.months.push(row);
+  }
+  out.today = { ud: UD(k.y, k.mo, k.d), ...personalDay(k.y, k.mo, k.d, b) };
+  return out;
+}
+
+/* =========================================================
+   描画
+   ========================================================= */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+const fmtDate = o => `${o.y}年${o.mo}月${o.d}日`;
+const fmtShort = o => `${o.y}/${o.mo}/${o.d}`;
+const kw = (key, n) => esc(picks(key, n).join('／'));
+const kw1 = (key, n) => esc(picks(key, n)[0] || '');
+const nn = (key, n, cls) => `<div class="nn ${cls || ''}"><b>${n}</b><span class="kwd">${kw(key, n)}</span></div>`;
+
+function banHTML(nums, marks, me) {
+  const g = [], at = (r, c) => `grid-row:${r+1};grid-column:${c+1}`;
+  for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) g.push(`<div class="cell${me && nums[r][c] === me ? ' me' : ''}" style="${at(r+1, c+1)}">${KAN[nums[r][c]]}</div>`);
+  (marks || []).forEach(mk => {
+    const [s, i] = POS[mk.shi];
+    const rc = s === 't' ? [0, i+1] : s === 'b' ? [4, i+1] : s === 'l' ? [i+1, 0] : [i+1, 4];
+    g.push(`<div class="mk" style="${at(rc[0], rc[1])}">${mk.label}</div>`);
+  });
+  return `<div class="ban">${g.join('')}</div>`;
+}
+function blineHTML(R) {
+  const m = R.m;
+  return `<div class="bline"><span><b>本命（年）</b>${SHI[m.yearShi]}・${STAR[m.yearStar]}</span><span><b>月命（月）</b>${SHI[m.monthShi]}・${STAR[m.monthStar]}</span><span><b>順逆・周期</b>${R.jun ? '順' : '逆'}・${R.cycle}年</span><span><b>開始時</b>${SHI[m.monthShi]}${STAR[m.monthStar]}</span></div>`;
+}
+const hitLabel = p => p.hit.length ? p.hit.map(h => MARK_TEXT[h.type][0]).join('・') : '—';
+// 年齢 a が和路大運のどの周期の前半・後半にあたるか
+function waroAt(R, a) {
+  const p = R.periods.find(q => a >= q.a0 && a <= q.a1);
+  if (!p) return null;
+  const t = a - p.a0, c = R.cycle;
+  const half = c % 2 === 0 ? (t < c / 2 ? '前半' : '後半') : (t < (c - 1) / 2 ? '前半' : t === (c - 1) / 2 ? '前半→後半' : '後半');
+  return { p, half };
+}
+
+// 1ヶ月分のメッセージ行（誕生月なら誕生日の前後と、誕生月メッセージも添える）
+function monthMsgRows(r, b) {
+  const parts = [];
+  if (r.pm) parts.push(`<div class="mrow"><span class="mnum">個人月 ${r.pm.val}</span><div>${msgHTML(msgMonth(r.pm.val))}</div></div>`);
+  else {
+    parts.push(`<div class="mrow"><span class="mnum">〜${r.M}/${b.d - 1}<br>個人月 ${r.pmBefore.val}</span><div>${msgHTML(msgMonth(r.pmBefore.val))}</div></div>`);
+    parts.push(`<div class="mrow"><span class="mnum">${r.M}/${b.d}〜<br>個人月 ${r.pmAfter.val}</span><div>${msgHTML(msgMonth(r.pmAfter.val))}</div></div>`);
+  }
+  if (r.M === b.mo) parts.push(`<div class="mrow bd"><span class="mnum">誕生月<br>個人年 ${PY(r.Y, b).val}</span><div>${msgHTML(msgBday(PY(r.Y, b).val))}</div></div>`);
+  return parts.join('');
+}
+
+// メッセージのページ（スプレッドシートの月メッセージ・誕生月タブ）
+function pageMessages(inp, R, C) {
+  const b = C.b;
+  const year = inp.yearMsg ? `<h3 class="sec">年のメッセージ<small>個人年（誕生日から次の誕生日の前日まで）</small></h3>
+    <div class="msgbox ygrid">${C.pyRows.map(r => `<div class="mrow${r.now ? ' cur' : ''}"><span class="mnum">個人年 ${r.py.val}<br><small>${r.label === '現在' ? '誕生日まで' : r.label}</small></span><div><span class="mper">${fmtShort(r.from)}〜${fmtShort(r.to)}</span>${msgHTML(msgYear(r.py.val))}</div></div>`).join('')}</div>` : '';
+  return `<section class="page">
+    <h2 class="ptitle">月のメッセージ</h2>
+    <div class="psubtitle">鑑定日 ${fmtDate(C.k)} を中心にした6ヶ月　／　個人月の数字で引いています</div>
+    ${year}
+    <h3 class="sec">短期周期（6ヶ月）のメッセージ<small>当月を含む前3ヶ月と、その後の3ヶ月</small></h3>
+    ${C.months.map(r => `<div class="mmonth${r.now ? ' cur' : ''}"><div class="mh">${r.Y}年${r.M}月${r.now ? '<span class="badge">当月</span>' : ''}${r.M === b.mo ? '<span class="badge bdb">誕生月</span>' : ''}<span class="mu">全体月 ${r.um.val}</span></div>${monthMsgRows(r, b)}</div>`).join('')}
+    <p class="note" style="margin-top:8px">メッセージは「月メッセージ」タブ（個人月の数字）と「誕生月」タブ（誕生日から始まる個人年の数字）から引いています。</p>
+  </section>`;
+}
+
+// 1ページ目：基本情報と現在地
+function pageSummary(inp, R, C) {
+  const B = C.birth, k = C.k;
+  const lpCard = `<div class="card"><div class="lab"><b>LP</b>運命数・船の特徴</div><div class="num">${B.LP.val}${B.LP.ura ? `<small>裏 ${B.LP.ura.val}</small>` : ''}</div><div class="kwd">${kw('LP', B.LP.val)}${B.LP.ura && B.LP.ura.val !== B.LP.val ? '<br>裏：' + kw('LPura', B.LP.ura.val) : ''}</div></div>`;
+  const card = (sym, lab, v, key) => `<div class="card"><div class="lab"><b>${sym}</b>${lab}</div><div class="num">${v}</div><div class="kwd">${kw(key, v)}</div></div>`;
+  const cur = R.curIdx >= 0 ? R.periods[R.curIdx] : null;
+  let sea = '';
+  if (cur) {
+    const M = MASU[cur.masu], w = waroAt(R, R.age);
+    sea = `<h3 class="sec">和路大運の現在地<small>${cur.a0}〜${cur.a1}才（${cur.y0}〜${cur.y1}年）</small></h3>
+      ${blineHTML(R)}
+      <div class="nowsea">
+        <div style="text-align:center">${banHTML(cur.nums, cur.marks, R.m.yearStar)}<div class="note">${SHI[cur.shi]}${STAR[cur.star]}・本命星は${KAN[cur.masu]}のマス</div></div>
+        <div>
+          <p><b>いま</b>${w.half === '前半→後半' ? '前半から後半へ切り替わる年' : w.half + '（' + (w.half === '前半' ? 'インプット期' : 'アウトプット期') + '）'}</p>
+          <p><b>前半</b><span class="note">${cur.half.zen}</span>　${M.zen}</p>
+          <p><b>後半</b><span class="note">${cur.half.kou}</span>　${M.kou}</p>
+          <p><b>行動</b>${M.act}</p>
+          <p><b>意識</b>${M.mind}</p>
+          ${cur.hit.length ? `<p><b>十二支</b>${cur.hit.map(h => MARK_TEXT[h.type][0] + '：' + MARK_TEXT[h.type][1]).join('　')}</p>` : ''}
+        </div>
+      </div>`;
+  }
+  return `<section class="page">
+    <h2 class="ptitle">数秘周期 × 和路大運</h2>
+    <div class="psubtitle">${inp.name ? esc(inp.name) + '　／　' : ''}${fmtDate(inp)}生　／　鑑定日 ${fmtDate(k)}（${R.age}才）</div>
+    <h3 class="sec">生年月日から出る数字</h3>
+    <div class="cards">${lpCard}${card('B', '宿命数・得意なこと', B.B.val, 'B')}${card('M-1', '使命数・目指す島', B.M1.val, 'M1')}</div>
+    <h3 class="sec">今年と来年の周期<small>全体周期は年明け、個人周期は誕生日で切り替わり</small></h3>
+    <div class="cards">
+      <div class="card navy now"><div class="lab"><b>全体年</b>${k.y}年<span class="badge">現在</span></div><div class="num">${C.uy[0].val}</div><div class="kwd">${kw('UY0', C.uy[0].val)}</div></div>
+      <div class="card navy"><div class="lab"><b>全体年</b>${k.y + 1}年</div><div class="num">${C.uy[1].val}</div><div class="kwd">${kw('UY1', C.uy[1].val)}</div></div>
+      <div class="card now"><div class="lab"><b>今日</b>${k.mo}月${k.d}日</div><div class="num" style="font-size:22px">個人日 ${C.today.pd.val}<small>全体日 ${C.today.ud.val}</small></div><div class="kwd">${kw('PDtoday', C.today.pd.val)}</div></div>
+      ${C.pyRows.map(r => `<div class="card${r.now ? ' now' : ''}"><div class="lab"><b>個人年</b>${r.label === '現在' ? '誕生日まで' : r.label}${r.now ? '<span class="badge">現在</span>' : ''}</div><div class="num">${r.py.val}</div><div class="span">${fmtShort(r.from)}〜${fmtShort(r.to)}</div><div class="kwd">${kw('PY' + r.Y, r.py.val)}</div></div>`).join('')}
+    </div>
+    ${sea}
+  </section>`;
+}
+
+// 2ページ目：数秘の短期周期（6ヶ月）
+function pageMonths(inp, R, C) {
+  const k = C.k, b = C.b;
+  const pmCell = r => r.pm ? nn('PM' + r.Y + '-' + r.M, r.pm.val, 'brown')
+    : `<div class="split">〜${r.M}月${b.d - 1}日</div>${nn('PMb' + r.Y + '-' + r.M, r.pmBefore.val, 'brown')}<div class="split">${r.M}月${b.d}日〜（誕生日）</div>${nn('PMa' + r.Y + '-' + r.M, r.pmAfter.val, 'brown')}`;
+  return `<section class="page">
+    <h2 class="ptitle">数秘の周期表</h2>
+    <div class="psubtitle">鑑定日 ${fmtDate(k)} を中心にした年と月の周期</div>
+    <h3 class="sec">年の周期</h3>
+    <table class="tbl">
+      <tr><th style="width:22%">区分</th><th style="width:30%">期間</th><th>数字とキーワード</th></tr>
+      ${C.uy.map((u, i) => `<tr class="${i === 0 ? 'now' : ''}"><td class="c">全体年</td><td class="c">${k.y + i}年1月1日〜12月31日</td><td>${nn('UY' + i, u.val, 'navy')}</td></tr>`).join('')}
+      ${C.pyRows.map(r => `<tr class="${r.now ? 'now' : ''}"><td class="c">個人年<small>${r.label === '現在' ? '誕生日まで' : r.label}</small></td><td class="c">${fmtShort(r.from)}〜${fmtShort(r.to)}</td><td>${nn('PY' + r.Y, r.py.val, 'brown')}</td></tr>`).join('')}
+    </table>
+    <h3 class="sec">短期周期（6ヶ月）<small>当月を含む前3ヶ月と、その後の3ヶ月</small></h3>
+    <table class="tbl mtbl">
+      <tr><th style="width:17%">月</th><th style="width:38%">全体月</th><th>個人月</th></tr>
+      ${C.months.map((r, i) => `${i === 0 || i === 3 ? `<tr class="grp"><td colspan="3">${r.half}3ヶ月</td></tr>` : ''}<tr class="${r.now ? 'now' : ''}"><td class="c">${r.Y}年${r.M}月${r.now ? '<small>当月</small>' : ''}${r.M === b.mo ? '<small>誕生月</small>' : ''}</td><td>${nn('UM' + r.Y + '-' + r.M, r.um.val, 'navy')}</td><td>${pmCell(r)}</td></tr>`).join('')}
+    </table>
+    <p class="note" style="margin-top:8px">全体周期は年明けで切り替わり、全員に共通して流れる数字です。個人周期は誕生日で切り替わり、誕生日の前日までは前年の数字が流れます。各月のメッセージは次のページにまとめています。マスターナンバー（11・22・33・44）は還元せずに採用しています。</p>
+  </section>`;
+}
+
+// 3ページ目：和路大運と数秘の年表
+function pageTimeline(inp, R, C) {
+  if (R.curIdx < 0) return '';
+  const cur = R.periods[R.curIdx], next = R.periods[R.curIdx + 1];
+  const rows = [];
+  for (let a = cur.a0; a <= (next ? next.a1 : cur.a1); a++) {
+    const Y = inp.y + a, w = waroAt(R, a);
+    rows.push(`<tr class="${a === R.age ? 'now' : ''}"><td class="c">${Y}年<small>${a}才</small></td><td class="c">${w ? SHI[w.p.shi] + STAR[w.p.star] : '—'}<small>${w ? KAN[w.p.masu] + 'のマス・' + w.half : ''}</small></td><td>${nn('TY' + Y, UY(Y).val, 'navy')}</td><td>${nn('TP' + Y, PY(Y, C.b).val, 'brown')}</td></tr>`);
+  }
+  return `<section class="page">
+    <h2 class="ptitle">年表</h2>
+    <div class="psubtitle">和路大運の現在と次の周期に、数秘の年の周期を重ねたもの</div>
+    <table class="tbl${rows.length > 16 ? ' dense' : ''}">
+      <tr><th style="width:14%">西暦<br>年齢</th><th style="width:20%">和路大運<br>（海域・マス・前後半）</th><th>全体年</th><th>個人年（誕生日から）</th></tr>
+      ${rows.join('')}
+    </table>
+    <p class="note" style="margin-top:8px">年齢は、その年の誕生日に迎える年齢です。個人年はその年の誕生日から次の誕生日の前日まで流れます。和路大運の周期が切り替わる前後の年は、次の海域に関わる出来事が起こりやすい時期です。</p>
+  </section>`;
+}
+
+// 4ページ目：和路大運の周期表
+function pageWaro(inp, R) {
+  const m = R.m, s = jstFromJd(m.setsuJd);
+  const show = R.periods.slice(0, Math.max(10, R.curIdx + 2));
+  return `<section class="page">
+    <h2 class="ptitle">和路大運の周期表</h2>
+    <div class="psubtitle">${R.cycle}年周期　／　鑑定日 ${fmtDate(inp.kdate)}（${R.age}才）</div>
+    ${blineHTML(R)}
+    <table class="tbl stack${show.length > 11 ? ' dense' : ''}" style="margin-top:10px">
+      <tr><th style="width:12%">年齢<br>西暦</th><th style="width:13%">海域<br>（大運盤）</th><th style="width:7%">マス</th><th>前半（インプット期）</th><th>後半（アウトプット期）</th><th style="width:9%">十二支<br>の影響</th></tr>
+      ${show.map(p => { const M = MASU[p.masu]; return `<tr class="${p.now ? 'now' : ''}"><td class="c">${p.a0}〜${p.a1}才<small>${p.y0}〜${p.y1}年</small></td><td class="c" data-l="海域">${SHI[p.shi]}${STAR[p.star]}${p.now ? '<small>◀ 現在</small>' : ''}</td><td class="c" data-l="マス">${KAN[p.masu]}</td><td data-l="前半">${M.zen}</td><td data-l="後半">${M.kou}</td><td class="c" data-l="十二支">${hitLabel(p)}</td></tr>`; }).join('')}
+    </table>
+    <p class="note" style="margin-top:8px">「マス」は、その周期の盤の中で本命星（${KAN[m.yearStar]}）が入る位置です。生まれた月は ${SEKKI[m.setsuIdx]}（${s.y}年${s.m}月${s.d}日 ${s.h}時${String(s.mi).padStart(2,'0')}分頃）からの${SHI[m.monthShi]}月、年は立春を区切りとして${m.solarYear}年で算出しています。</p>
+  </section>`;
+}
+
+// 5ページ目：十二支大運（要素の意味と、同じ年齢の和路大運の大運盤を二段で表示）
+function junishiSVG(R) {
+  const cx = 260, cy = 205, r = 140, parts = [];
+  const pt = (deg, rad) => [cx + rad * Math.sin(deg * RAD), cy - rad * Math.cos(deg * RAD)];
+  R.junishi.forEach(j => {
+    const a = (j.shi - 6) * 30;
+    const [x1, y1] = pt(a - 15, r), [x2, y2] = pt(a + 15, r);
+    parts.push(`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${r},${r} 0 0 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${j.now ? '#f4ead9' : '#fff'}" stroke="#2b2622" stroke-width="1.3"/>`);
+    const [bx, by] = pt(a, 116), [mx, my] = pt(a, 82), [ax, ay] = pt(a, 170);
+    parts.push(`<text x="${bx.toFixed(1)}" y="${by.toFixed(1)}" font-size="21" font-weight="600" text-anchor="middle" dominant-baseline="central">${SHI[j.shi]}</text>`);
+    if (j.type && j.type !== 'shi') parts.push(`<text x="${mx.toFixed(1)}" y="${my.toFixed(1)}" font-size="12" text-anchor="middle" dominant-baseline="central">${MARK_TEXT[j.type][0]}</text>`);
+    parts.push(`<text x="${ax.toFixed(1)}" y="${ay.toFixed(1)}" font-size="14" text-anchor="middle" dominant-baseline="central"${j.now ? ' font-weight="700"' : ''}>${j.a0}〜${j.a1}</text>`);
+  });
+  return `<svg viewBox="0 0 520 400" width="390" height="300" role="img" aria-label="十二支大運の円盤" style="font-family:inherit;fill:#2b2622">${parts.join('')}</svg>`;
+}
+function waroLines(R, a0, a1) {
+  const ps = R.periods.filter(p => p.a1 >= a0 && p.a0 <= a1);
+  if (!ps.length) return '<div class="wr">—</div>';
+  return ps.map(p => `<div class="wr"><b>${ps.length > 1 ? Math.max(p.a0, a0) + '才〜 ' : ''}${SHI[p.shi]}${STAR[p.star]}・${KAN[p.masu]}のマス</b>　${MASU[p.masu].lead}</div>`).join('');
+}
+function pageJunishi(inp, R) {
+  return `<section class="page">
+    <h2 class="ptitle">十二支大運</h2>
+    <div class="psubtitle">本命十二支（${SHI[R.m.yearShi]}）を0〜5才とし、5年ごとに進む60年周期</div>
+    <div class="jsvg" style="text-align:center">${junishiSVG(R)}</div>
+    <table class="tbl jt" style="margin-top:6px">
+      <tr><th style="width:12%">年齢</th><th style="width:8%">十二支</th><th>意味（上段：十二支の要素／下段：同じ年齢の和路大運）</th></tr>
+      ${R.junishi.map(j => `<tr class="${j.now ? 'now' : ''}"><td class="c">${j.a0}〜${j.a1}${j.now ? '<small>現在</small>' : ''}</td><td class="c">${SHI[j.shi]}</td><td class="l">${j.type ? `<div class="el"><i class="${j.type}">${MARK_TEXT[j.type][0]}</i>${MARK_TEXT[j.type][1].replace(/（対策：.*）/, '')}</div>` : ''}${waroLines(R, j.a0, j.a1)}</td></tr>`).join('')}
+    </table>
+    <p class="note" style="margin-top:6px">破れの対策：期待や決め付けをせず、必要なことだけを行う。61才からは初めに戻ります。</p>
+  </section>`;
+}
+
+// 6ページ目：カレンダー（個人日）
+function pageCalendar(inp, C, Y, M) {
+  const b = C.b, k = C.k, first = new Date(Date.UTC(Y, M - 1, 1)).getUTCDay(), n = daysIn(Y, M);
+  const cells = [];
+  for (let i = 0; i < first; i++) cells.push('<td class="out"></td>');
+  for (let d = 1; d <= n; d++) {
+    const w = (first + d - 1) % 7, x = personalDay(Y, M, d, b), ud = UD(Y, M, d).val;
+    const today = Y === k.y && M === k.mo && d === k.d, bday = M === b.mo && d === b.d;
+    cells.push(`<td class="${w === 0 ? 'sun' : w === 6 ? 'sat' : ''}${today ? ' today' : ''}"><div class="d">${d}</div><span class="ud">全体${ud}</span><div class="pd">${x.pd.val}</div><div class="k1">${kw1('CD' + Y + '-' + M + '-' + d, x.pd.val)}</div>${bday ? '<div class="bd">誕生日</div>' : ''}</td>`);
+  }
+  while (cells.length % 7) cells.push('<td class="out"></td>');
+  const weeks = []; for (let i = 0; i < cells.length; i += 7) weeks.push('<tr>' + cells.slice(i, i + 7).join('') + '</tr>');
+  const mid = M === b.mo && b.d > 1;
+  const pm1 = personalDay(Y, M, 1, b).pm.val, pmL = personalDay(Y, M, n, b).pm.val;
+  return `<section class="page">
+    <div class="calnav" data-html2canvas-ignore><button type="button" data-cal="-1">◀ 前の月</button><button type="button" data-cal="1">次の月 ▶</button></div>
+    <h2 class="ptitle">${Y}年${M}月のカレンダー</h2>
+    <div class="psubtitle">大きな数字が個人日、右上が全体日　／　全体月 ${UM(Y, M).val}　／　個人月 ${mid && pm1 !== pmL ? `${pm1}（〜${M}/${b.d - 1}）→ ${pmL}（${M}/${b.d}〜）` : pmL}</div>
+    <div class="msgbox calmsg">${mid ? `<div class="mrow"><span class="mnum">〜${M}/${b.d - 1}<br>個人月 ${pm1}</span><div>${msgHTML(msgMonth(pm1))}</div></div><div class="mrow"><span class="mnum">${M}/${b.d}〜<br>個人月 ${pmL}</span><div>${msgHTML(msgMonth(pmL))}</div></div>` : `<div class="mrow"><span class="mnum">個人月 ${pmL}</span><div>${msgHTML(msgMonth(pmL))}</div></div>`}${M === b.mo ? `<div class="mrow bd"><span class="mnum">誕生月<br>個人年 ${PY(Y, b).val}</span><div>${msgHTML(msgBday(PY(Y, b).val))}</div></div>` : ''}</div>
+    <table class="cal">
+      <tr>${['日','月','火','水','木','金','土'].map((w, i) => `<th class="${i === 0 ? 'sun' : i === 6 ? 'sat' : ''}">${w}</th>`).join('')}</tr>
+      ${weeks.join('')}
+    </table>
+    <p class="note" style="margin-top:8px">個人日＝個人月＋日、全体日＝年・月・日の数字をすべて足したもの。いずれもマスターナンバーは還元せずに採用しています。数字の下の言葉は、登録したキーワードから1つを表示しています。</p>
+  </section>`;
+}
+
+function calcPanelHTML(inp, C) {
+  const B = C.birth, k = C.k, t = C.today;
+  const row = (a, v, f) => `<tr><th>${a}</th><td class="n">${v}</td><td class="f">${f}</td></tr>`;
+  return `<h2>計算の内訳</h2>
+    <div class="hint">検算用です。この欄はPDFと印刷には含まれません。</div>
+    <table class="calc" style="margin-top:10px">
+      <tr><th>項目</th><th>数字</th><th>計算</th></tr>
+      ${row('LP', B.LP.val + (B.LP.ura ? '<br><span style="font-size:12px;font-weight:400">裏 </span>' + B.LP.ura.val : ''), '生年月日 ' + B.LP.formula + (B.LP.ura ? '<br>裏LP：' + B.LP.ura.formula : ''))}
+      ${row('B', B.B.val, '生まれた日 ' + B.B.formula)}
+      ${row('M-1', B.M1.val, '月＋日 ' + B.M1.formula)}
+      ${row('全体年', C.uy[0].val, `${k.y}年 ${C.uy[0].formula}`)}
+      ${row('全体年', C.uy[1].val, `${k.y + 1}年 ${C.uy[1].formula}`)}
+      ${C.pyRows.map(r => row('個人年', r.py.val, `${r.Y}年＋生月日 ${r.py.formula}`)).join('')}
+      ${row('全体月', C.months[2].um.val, `${k.y}年${k.mo}月 ${C.months[2].um.formula}`)}
+      ${row('個人月', t.pm.val, `個人年＋${k.mo}月 ${t.pm.formula}`)}
+      ${row('個人日', t.pd.val, `個人月＋${k.d}日 ${t.pd.formula}`)}
+      ${row('全体日', t.ud.val, `${fmtShort(k)} ${t.ud.formula}`)}
+    </table>
+    <div class="hint" style="margin-top:10px">年は1桁ずつ、月・日の11・22は分解せずに足しています。マスターナンバー（11・22・33・44）が出た時点で還元を止めています。</div>`;
+}
+
+function render() {
+  const { inp, R, C } = state;
+  if (!state.cal) state.cal = { Y: inp.kdate.y, M: inp.kdate.mo };
+  const pages = [pageSummary(inp, R, C), pageMonths(inp, R, C), pageMessages(inp, R, C), pageTimeline(inp, R, C), pageWaro(inp, R), pageJunishi(inp, R), pageCalendar(inp, C, state.cal.Y, state.cal.M)].filter(Boolean);
+  const el = document.getElementById('pages');
+  el.innerHTML = pages.join('');
+  el.querySelectorAll('.page').forEach((pg, i, all) => pg.insertAdjacentHTML('beforeend', `<div class="pno">${i + 1} / ${all.length}</div>`));
+  el.querySelectorAll('[data-cal]').forEach(bt => bt.addEventListener('click', () => { const t = addMonths(state.cal.Y, state.cal.M, +bt.dataset.cal); state.cal = { Y: t.Y, M: t.M }; render(); }));
+  const cp = document.getElementById('calcpanel');
+  cp.innerHTML = calcPanelHTML(inp, C); cp.hidden = false;
+  fit();
+}
+// 700px未満はスマホ用の縦型表示（CSSで切り替え）、それ以上はA4（幅が足りなければ縮小）
+function fit() {
+  const w = document.documentElement.clientWidth;
+  document.getElementById('pages').style.zoom = (w >= 700 && w - 24 < 794) ? (w - 24) / 794 : '';
+}
+window.addEventListener('resize', fit);
+
+/* =========================================================
+   入力と操作
+   ========================================================= */
+const $ = id => document.getElementById(id);
+let state = { choice: 'after', done: false };
+
+const KW_KEY = 'msp_keywords_v2';
+const parseKW = t => t.split(/[、,，\n]+/).map(x => x.trim()).filter(Boolean);
+function loadKW() { try { const o = JSON.parse(localStorage.getItem(KW_KEY) || 'null'); if (o) KW = normKW(o); } catch (e) {} }
+function saveKW() { try { localStorage.setItem(KW_KEY, JSON.stringify(KW)); } catch (e) {} }
+function buildKW() {
+  $('kwgrid').innerHTML = ALL_NUMS.map(n => `<label for="kw${n}"><b>${n}</b>${KW_NAME[n]}</label><textarea id="kw${n}" data-n="${n}" rows="2">${esc(KW[n].join('、'))}</textarea>`).join('');
+  $('kwgrid').querySelectorAll('textarea').forEach(i => i.addEventListener('change', () => { KW[i.dataset.n] = parseKW(i.value); i.value = KW[i.dataset.n].join('、'); saveKW(); if (state.done) { PICK = {}; render(); } }));
+}
+
+function showMessages(list) {
+  $('messages').innerHTML = list.map(m => `<div class="msg ${m.type}">${m.html}</div>`).join('');
+  document.querySelectorAll('input[name=choice]').forEach(x => x.addEventListener('change', () => { state.choice = x.value; run(); }));
+}
+
+function readInput() {
+  const y = +$('by').value, mo = +$('bm').value, d = +$('bd').value;
+  if (!$('by').value || !$('bm').value || !$('bd').value) return { error: '生年月日を入力してください。' };
+  if (!Number.isInteger(y) || y < 1900 || y > 2100) return { error: '生まれ年は1900〜2100年の範囲で入力してください。' };
+  const chk = new Date(Date.UTC(y, mo - 1, d));
+  if (!Number.isInteger(mo) || !Number.isInteger(d) || chk.getUTCFullYear() !== y || chk.getUTCMonth() !== mo - 1 || chk.getUTCDate() !== d) return { error: '生年月日が正しい日付ではありません。' };
+  let time = null;
+  if ($('btime').value) { const t = $('btime').value.split(':'); time = { h: +t[0], mi: +t[1] }; }
+  if (!$('kdate').value) return { error: '鑑定日を入力してください。' };
+  const kp = $('kdate').value.split('-').map(Number), kdate = { y: kp[0], mo: kp[1], d: kp[2] };
+  if (kdate.y < y || (kdate.y === y && (kdate.mo < mo || (kdate.mo === mo && kdate.d < d)))) return { error: '鑑定日が生年月日より前になっています。' };
+  return { y, mo, d, time, kdate, sex: document.querySelector('input[name=sex]:checked').value, name: $('name').value.trim(), rows: 100, choice: state.choice, yearMsg: $('yearMsg').checked };
+}
+
+function run() {
+  const inp = readInput();
+  if (inp.error) { showMessages([{ type: 'err', html: esc(inp.error) }]); return; }
+  const R = calcAll(inp), C = calcCycles({ y: inp.y, mo: inp.mo, d: inp.d }, inp.kdate);
+  state.done = true; state.inp = inp; state.R = R; state.C = C; PICK = {};
+  const msgs = [], b = R.m.boundary;
+  if (b) {
+    const t = jstFromJd(b.jd), hm = `${t.h}時${String(t.mi).padStart(2,'0')}分頃`;
+    msgs.push({ type: 'warn', html: `この日は節入り日（${SEKKI[b.after]}・${hm}）です。出生時刻によって和路大運の月${b.after === 0 ? 'と年' : ''}の区切りが変わります。出生時刻を入力するか、どちらで算出するかを選んでください。
+      <div class="radio"><label><input type="radio" name="choice" value="before"${state.choice === 'before' ? ' checked' : ''}>${hm}より前（${SHI[mod(b.before + 2, 12)]}月）</label>
+      <label><input type="radio" name="choice" value="after"${state.choice !== 'before' ? ' checked' : ''}>${hm}以降（${SHI[mod(b.after + 2, 12)]}月）</label></div>` });
+  }
+  if (R.m.near) msgs.push({ type: 'warn', html: '出生時刻が節入りの時刻とほぼ同じです（前後15分以内）。万年暦でもご確認ください。' });
+  const B = C.birth, pyNow = C.pyRows.find(r => r.now);
+  msgs.push({ type: 'info', html: `LP ${B.LP.val}${B.LP.ura ? '（裏 ' + B.LP.ura.val + '）' : ''}／B ${B.B.val}／M-1 ${B.M1.val}<br>全体年 ${C.uy[0].val}→${C.uy[1].val}／個人年（現在）${pyNow.py.val}／個人月 ${C.today.pm.val}／個人日 ${C.today.pd.val}<br>和路大運：${R.jun ? '順行' : '逆行'}・${R.cycle}年周期／鑑定日時点 ${R.age}才` });
+  showMessages(msgs);
+  render();
+  $('btnPdf').disabled = false; $('btnPrint').disabled = false;
+}
+
+function loadScript(src) {
+  return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = () => rej(new Error('load failed: ' + src)); document.head.appendChild(s); });
+}
+async function buildPdf() {
+  if (!window.html2canvas) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+  if (!window.jspdf) await loadScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+  document.body.classList.add('capturing');
+  try {
+    const list = document.querySelectorAll('#pages .page');
+    const pdf = new window.jspdf.jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait', compress: true });
+    for (let i = 0; i < list.length; i++) {
+      const canvas = await window.html2canvas(list[i], { scale: 2, backgroundColor: '#ffffff', logging: false, windowWidth: 1300 });
+      if (i > 0) pdf.addPage();
+      pdf.addImage(canvas.toDataURL('image/jpeg', 0.92), 'JPEG', 0, 0, 210, 297);
+    }
+    return pdf;
+  } finally { document.body.classList.remove('capturing'); }
+}
+function pdfName() {
+  const i = state.inp, p = n => String(n).padStart(2, '0');
+  return `数秘周期と和路大運_${i.name ? i.name.replace(/[\\/:*?"<>|\s]+/g, '') + '_' : ''}${i.kdate.y}${p(i.kdate.mo)}${p(i.kdate.d)}.pdf`;
+}
+
+$('form').addEventListener('submit', e => { e.preventDefault(); state.choice = 'after'; state.cal = null; run(); });
+$('kwReset').addEventListener('click', () => { if (!confirm('キーワードを初期値に戻します。編集した内容は消えます。よろしいですか？')) return; KW = normKW(KW_DEFAULT); saveKW(); buildKW(); if (state.done) { PICK = {}; render(); } });
+$('kwExport').addEventListener('click', () => {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(KW, null, 2)], { type: 'application/json' }));
+  a.download = '数秘キーワード.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+});
+$('kwImport').addEventListener('click', () => $('kwFile').click());
+$('kwFile').addEventListener('change', () => {
+  const f = $('kwFile').files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => { try { KW = normKW(JSON.parse(rd.result)); saveKW(); buildKW(); if (state.done) { PICK = {}; render(); } } catch (e) { alert('キーワードのファイルを読み込めませんでした。'); } $('kwFile').value = ''; };
+  rd.readAsText(f);
+});
+$('btnPrint').addEventListener('click', () => window.print());
+$('btnPdf').addEventListener('click', async () => {
+  const btn = $('btnPdf'), label = btn.textContent;
+  btn.disabled = true; btn.textContent = 'PDFを作成中…';
+  try { (await buildPdf()).save(pdfName()); }
+  catch (err) {
+    alert('PDFの作成に必要な部品を読み込めませんでした（インターネット接続が必要です）。\n印刷画面を開きますので、送信先で「PDFに保存」を選んでください。');
+    window.print();
+  }
+  finally { btn.disabled = false; btn.textContent = label; }
+});
+
+/* ---------- メッセージの読み込み・保存 ---------- */
+const MSG_KEY = 'msp_messages_v1';
+function loadMSG() { try { const o = JSON.parse(localStorage.getItem(MSG_KEY) || 'null'); if (o && o.month && o.bday) MSG = o; } catch (e) {} }
+function saveMSG() { try { localStorage.setItem(MSG_KEY, JSON.stringify(MSG)); } catch (e) {} }
+function msgStatus() { $('msgStatus').textContent = MSG.updated ? `スプレッドシートから読み込んだ内容を使用中（${MSG.updated}）` : 'アプリ作成時点の内容を使用中'; }
+// スプレッドシートの公開クエリ（gviz）を script タグで読み込む。fetch はCORSで弾かれるため
+let jsonpSeq = 0;
+function fetchSheet(name) {
+  return new Promise((resolve, reject) => {
+    const cb = '__mspSheet' + (++jsonpSeq), sc = document.createElement('script');
+    const done = () => { delete window[cb]; sc.remove(); clearTimeout(timer); };
+    const timer = setTimeout(() => { done(); reject(new Error(name + ': 応答がありません')); }, 15000);
+    window[cb] = res => {
+      done();
+      if (!res || res.status !== 'ok') { reject(new Error(name + ': ' + (res && res.status))); return; }
+      resolve(res.table.rows.map(r => (r.c || []).map(c => c && c.v != null ? String(c.v) : '')));
+    };
+    sc.onerror = () => { done(); reject(new Error(name + ': 読み込みに失敗')); };
+    sc.src = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${cb}&headers=1&sheet=${encodeURIComponent(name)}`;
+    document.head.appendChild(sc);
+  });
+}
+$('msgFetch').addEventListener('click', async () => {
+  const btn = $('msgFetch'); btn.disabled = true; $('msgStatus').textContent = '読み込み中…';
+  try {
+    const mrows = await fetchSheet('月メッセージ'), brows = await fetchSheet('誕生月');
+    const month = {}, bday = {};
+    mrows.forEach(r => { const n = parseInt(r[0], 10); if (ALL_NUMS.includes(n) && (r[3] || '').trim()) month[n] = r[3].trim(); });
+    brows.forEach(r => { const n = parseInt(r[0], 10); if (ALL_NUMS.includes(n) && (r[1] || '').trim()) bday[n] = r[1].trim(); });
+    if (Object.keys(month).length < 9 || Object.keys(bday).length < 9) throw new Error('必要な行が見つかりません');
+    const d = new Date(), p = v => String(v).padStart(2, '0');
+    MSG = { month: Object.assign({}, MSG_DEFAULT.month, month), bday: Object.assign({}, MSG_DEFAULT.bday, bday), updated: `${d.getFullYear()}/${p(d.getMonth() + 1)}/${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}` };
+    saveMSG(); msgStatus(); if (state.done) render();
+  } catch (e) {
+    $('msgStatus').textContent = 'スプレッドシートを読み込めませんでした。インターネット接続と共有設定（リンクを知っている全員が閲覧可）を確認してください。（' + e.message + '）';
+  } finally { btn.disabled = false; }
+});
+$('msgReset').addEventListener('click', () => { MSG = JSON.parse(JSON.stringify(MSG_DEFAULT)); try { localStorage.removeItem(MSG_KEY); } catch (e) {} msgStatus(); if (state.done) render(); });
+$('yearMsg').addEventListener('change', () => { if (state.done) run(); });
+
+(function init() {
+  const n = new Date(), p = v => String(v).padStart(2, '0');
+  $('kdate').value = `${n.getFullYear()}-${p(n.getMonth() + 1)}-${p(n.getDate())}`;
+  loadKW(); buildKW(); loadMSG(); msgStatus();
+})();
+
+// 検算用
+window.NC = { MSG: () => MSG, fetchSheet, UY, UM, UD, PY, PM, PDn, personalDay, birthNums, calcCycles, calcAll, buildPdf };
+})();
+</script>
+</body>
+</html>
