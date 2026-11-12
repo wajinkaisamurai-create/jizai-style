@@ -16,14 +16,15 @@ section{padding:44px 0;}
 h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
 p{margin-bottom:14px;}
 .hero{padding:0 0 40px;}
-.hero img{width:100%;display:block;}
-.hero.wrap{padding-top:28px;text-align:center;}
-.hero.date{color:var(--navy);font-weight:bold;letter-spacing:.05em;}
-.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:40px;color:var(--navy);line-height:1.35;margin:14px 0;}
-.hero.sub{font-size:17px;}
+.hero-visual{background:linear-gradient(180deg,rgba(20,26,43,.04) 35%,rgba(20,26,43,.58)),url("images/yugawara-hero-torso.jpg") center/cover no-repeat;min-height:320px;height:min(60vh,460px);display:flex;align-items:flex-end;justify-content:center;}
+.hero-title{width:100%;text-align:center;padding:20px 16px 24px;}
+.hero-title .date{color:#fff;font-weight:bold;letter-spacing:.05em;text-shadow:0 1px 6px rgba(0,0,0,.5);}
+.hero-title h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:34px;color:#fff;line-height:1.35;margin:10px 0 6px;text-shadow:0 1px 8px rgba(0,0,0,.55);}
+.hero-title .sub{color:#fff;font-size:16px;margin:0;text-shadow:0 1px 6px rgba(0,0,0,.5);}
+.hero-body{padding-top:26px;text-align:center;}
 .btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
 .btn-note{text-align:center;font-size:13px;color:#666;}
-  .sns{display:flex;gap:12px;justify:center;flex-wrap:wrap;margin-top:10px;}
+.sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
   .btn-sub{display:inline-block;border:2px solid var(--navy);color:var(--navy);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
 .ask li{margin:0 0 6px 1.2em;}
 .voice{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:24px 22px;}
@@ -54,11 +55,14 @@ footer{padding:28px 0 40px;text-align:center;font-size:13px;color:#777;}
 
 <!-- SECTION 01 ファーストビュー -->
 <header class="hero">
-<img src="images/lp-yugawara-hero.jpg" alt="着物姿で立つ福田ひろし">
-<div class="wrap">
+<div class="hero-visual">
+<div class="hero-title">
 <p class="date">2026年12月5日（土）・6日（日）<br>湯河原・八亀庵</p>
 <h1>呼吸だけで、軸が通る。</h1>
 <p class="sub">殺陣師の視点から伝える、<br>日本古来の呼吸法と歩き方の体験会</p>
+</div>
+</div>
+<div class="wrap hero-body">
 <p>呼吸を感じ、立ち方を見つめ、歩き方を変えてみる。<br>
 いつもの身体に、少しだけ意識を向けてみませんか？<br>
 自分の中心を感じる、新しい身体の発見。</p>
