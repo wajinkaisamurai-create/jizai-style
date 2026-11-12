@@ -3,171 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>呼吸だけで、軸が通る。 | 福和倭迅会</title>
-<meta name="description" content="殺陣師の視点から伝える、日本古来の呼吸法と歩き方の体験会。2026年12月5日（土）・12月6日（日）、八亀庵（湯河原町）にて開催。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Shippori+Mincho:wght@600;700&family=Zen+Old+Mincho:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site-common.css">
+<title>呼吸だけで、軸が通る。｜体験会（湯河原・八亀庵）</title>
 <style>
-:root {
-  --bg: #f4f1ea;
-  --card: #fff;
-  --navy: #19293d;
-  --navy-2: #22314a;
-  --green: #234f45;
-  --accent: #c9a45c;
-  --ink: #2a2f33;
-  --muted: #6d6f72;
+:root{
+--paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
 }
-* { box-sizing: border-box; }
-body { margin: 0; font-family: 'Noto Serif JP', serif; background: var(--bg); color: var(--ink); line-height: 1.8; }
-a { color: inherit; }
-img { max-width: 100%; display: block; }
-.site-header { position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border-bottom: 1px solid #e5e0d5; }
-.site-nav { max-width: 1080px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--navy); font-weight: 700; }
-.brand img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid #e7ddc8; }
-.brand span { font-family: 'Shippori Mincho', serif; font-size: 20px; letter-spacing: .06em; }
-.nav-toggle { display: none; background: none; border: 0; font-size: 26px; line-height: 1; padding: 6px 10px; cursor: pointer; color: var(--navy); }
-.nav-menu { display: flex; gap: 20px; align-items: center; margin: 0; padding: 0; list-style: none; }
-.nav-menu a { text-decoration: none; color: #3f4449; font-size: 14px; padding: 6px 2px; border-bottom: 2px solid transparent; }
-.nav-menu a:hover { color: var(--navy); border-bottom-color: var(--accent); }
-.nav-menu a.is-active { color: var(--navy); border-bottom-color: var(--accent); font-weight: 700; }
-.hero { position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; min-height: 92vh; padding: 80px 20px; background: linear-gradient(180deg, rgba(18,28,38,.25), rgba(18,28,38,.45)), url("images/lp-yugawara-hero.jpg") center / cover no-repeat, linear-gradient(160deg, #22314a 0%, #234f45 100%); }
-.hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,28,38,.10), rgba(18,28,38,.35)); }
-.hero-content { position: relative; max-width: 880px; }
-.hero-eyebrow { margin: 0 0 14px; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: #e8dcc0; }
-.hero-title { margin: 0; font-family: 'Shippori Mincho', serif; font-weight: 700; font-size: clamp(32px, 6vw, 58px); line-height: 1.35; text-shadow: 0 2px 20px rgba(0,0,0,.45); }
-.hero-sub { margin: 18px auto 0; max-width: 640px; font-size: 17px; line-height: 2; color: #f0eadb; }
-main { max-width: 960px; margin: 0 auto; padding: 8px 20px 96px; }
-section { margin-top: 56px; }
-.section-title { margin: 0 0 8px; font-family: 'Shippori Mincho', serif; font-size: 26px; color: var(--navy); }
-.section-title::after { content: ""; display: block; width: 54px; height: 2px; margin-top: 12px; background: var(--accent); }
-.lead { margin: 0; font-size: 16px; line-height: 2; }
-.card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
-.card { background: var(--card); border: 1px solid #e7e0d0; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(30,40,55,.07); }
-.card-body { padding: 20px; }
-.card h3 { margin: 0 0 8px; font-family: 'Shippori Mincho', serif; font-size: 19px; color: var(--navy); }
-.card p { margin: 0; font-size: 14px; line-height: 1.9; color: #4a4f55; }
-.detail-list { margin: 22px 0 0; padding: 0; list-style: none; background: var(--card); border: 1px solid #e7e0d0; border-radius: 14px; overflow: hidden; }
-.detail-list > div { display: flex; gap: 14px; padding: 16px 20px; border-top: 1px solid #eee7d7; }
-.detail-list > div:first-child { border-top: 0; }
-.detail-list dt { font-weight: 700; color: var(--navy); min-width: 92px; }
-.detail-list dd { margin: 0; }
-.flow-list { margin: 22px 0 0; padding-left: 22px; }
-.flow-list li { margin: 10px 0; font-size: 16px; }
-.flow-list strong { color: var(--navy); }
-.price { margin: 18px 0 0; font-family: 'Shippori Mincho', serif; font-size: 22px; color: var(--green); }
-.note { margin-top: 16px; font-size: 14px; line-height: 1.9; color: #60656b; }
-.apply { text-align: center; }
-.apply .section-title::after { margin-left: auto; margin-right: auto; }
-.apply .note { text-align: left; }
-.btn-primary { display: inline-block; margin-top: 22px; padding: 16px 40px; background: var(--accent); color: #12203a; text-decoration: none; font-weight: 700; letter-spacing: .08em; border-radius: 999px; border: none; cursor: pointer; font-size: 18px; } .hero .btn-primary { margin-top: 26px; } .cta { text-align: center; } .cta .btn-primary { margin-top: 0; } .faq { background: var(--card); border: 1px solid #e7e0d0; border-radius: 14px; padding: 22px 24px; } .faq h3 { margin: 18px 0 4px; font-size: 16px; color: var(--navy); } .faq h3:first-of-type { margin-top: 12px; } .faq p { margin: 0; font-size: 15px; line-height: 1.9; }
-footer { background: var(--navy); color: #dfe3e8; padding: 40px 20px 32px; text-align: center; }
-.footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin: 0 0 18px; }
-.footer-nav a { color: #dfe3e8; text-decoration: none; font-size: 14px; }
-.footer-nav a:hover { color: #fff; text-decoration: underline; }
-footer small { color: #aeb6bf; }
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
-.reveal.visible { opacity: 1; transform: none; }
-@media (max-width: 760px) {
-  .nav-toggle { display: block; }
-  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 0; background: #fff; border-bottom: 1px solid #e5e0d5; padding: 8px 20px 14px; }
-  .nav-menu.open { display: flex; }
-  .nav-menu li { width: 100%; }
-  .nav-menu a { display: block; padding: 10px 2px; }
-  .hero { min-height: 78vh; }
-  .card-grid { grid-template-columns: 1fr; }
-  section { margin-top: 42px; }
-  main { padding-bottom: 72px; }
-  .detail-list > div { flex-direction: column; gap: 4px; }
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+section{padding:44px 0;}
+h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+p{margin-bottom:14px;}
+.hero{padding:0 0 40px;}
+.hero-visual{background:linear-gradient(180deg,rgba(20,26,43,.04) 35%,rgba(20,26,43,.58)),url("images/yugawara-hero-torso.jpg") center/cover no-repeat;min-height:320px;height:min(60vh,460px);display:flex;align-items:flex-end;justify-content:center;}
+.hero-title{width:100%;text-align:center;padding:20px 16px 24px;}
+.hero-title .date{color:#fff;font-weight:bold;letter-spacing:.05em;text-shadow:0 1px 6px rgba(0,0,0,.5);}
+.hero-title h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:34px;color:#fff;line-height:1.35;margin:10px 0 6px;text-shadow:0 1px 8px rgba(0,0,0,.55);}
+.hero-title .sub{color:#fff;font-size:16px;margin:0;text-shadow:0 1px 6px rgba(0,0,0,.5);}
+.hero-body{padding-top:26px;text-align:center;}
+.btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
+.btn-note{text-align:center;font-size:13px;color:#666;}
+.sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
+.btn-sub{display:inline-block;border:2px solid var(--navy);color:var(--navy);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
+.ask li{margin:0 0 6px 1.2em;}
+.voice{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:24px 22px;}
+.voice.quote{font-size:19px;font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;color:var(--navy);}
+.voices{display:grid;gap:12px;margin-top:6px;}
+@media(min-width:640px){.voices{grid-template-columns:1fr 1fr;}}
+.vcard{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;box-shadow:0 2px 8px rgba(29,42,74,.06);}
+.vcard p{margin:0;font-size:15px;}
+.cards{display:grid;gap:18px;}
+@media(min-width:640px){.cards{grid-template-columns:repeat(3,1fr);}}
+.card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(29,42,74,.08);}
+.card img{width:100%;height:180px;object-fit:cover;display:block;}
+.card.body{padding:16px;}
+.card h3{color:var(--navy);font-size:18px;margin-bottom:8px;}
+.card p{font-size:14px;margin:0;}
+.overview{background:var(--card);border-radius:12px;padding:24px 22px;}
+.overview dl{display:grid;grid-template-columns:5.5em 1fr;row-gap:10px;}
+.overview dt{color:var(--gold);font-weight:bold;}
+.overview dd{margin:0;}
+.faq dt{font-weight:bold;color:var(--navy);margin-top:16px;}
+.faq dd{margin:4px 0 0;}
+.final{text-align:center;}
+.final h2{font-size:28px;}
+footer{padding:28px 0 40px;text-align:center;font-size:13px;color:#777;}
 </style>
 </head>
 <body>
-<header class="site-header">
-  <nav class="site-nav" aria-label="メインメニュー">
-    <a class="brand" href="index.html"><img src="images/rogo.jpg" alt="福和倭迅会 ロゴ"><span>福和倭迅会</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-expanded="false">☰</button>
-    <ul class="nav-menu" id="navMenu">
-      <li><a href="index.html">TOP</a></li>
-      <li><a href="about.html">和倭迅について</a></li>
-      <li><a href="sokudo.html">速読</a></li>
-      <li><a href="tate.html">殺陣</a></li>
-      <li><a href="tea.html">テーブル茶道</a></li>
-      <li><a href="profile.html">プロフィール</a></li>
-      <li><a href="index.html#contact">お問い合わせ</a></li>
-    </ul>
-  </nav>
+
+<!-- SECTION 01 ファーストビュー -->
+<header class="hero">
+<div class="hero-visual">
+<div class="hero-title">
+<p class="date">2026年12月5日（土）・6日（日）<br>湯河原・八亀庵</p>
+<h1>呼吸だけで、軸が通る。</h1>
+<p class="sub">殺陣師の視点から伝える、<br>日本古来の呼吸法と歩き方の体験会</p>
+</div>
+</div>
+<div class="wrap hero-body">
+<p>呼吸を感じ、立ち方を見つめ、歩き方を変えてみる。<br>
+いつもの身体に、少しだけ意識を向けてみませんか？<br>
+自分の中心を感じる、新しい身体の発見。</p>
+<p>初心者歓迎・運動経験不問<br>
+お一人様 3,000円<br>
+12月5日（土）・6日（日）13:00〜14:00（各日60分）</p>
+<a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform">体験会に申し込む</a>
+</div>
 </header>
-<section class="hero">
-  <div class="hero-content">
-    <p class="hero-eyebrow">2026年12月5日（土）・12月6日（日）／八亀庵（湯河原町）</p>
-    <h1 class="hero-title">呼吸だけで、軸が通る。</h1>
-    <p class="hero-sub">殺陣師の視点から伝える、日本古来の呼吸法と歩き方の体験会</p> <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform" target="_blank" rel="noopener">申込フォームはこちら</a>
-  </div>
+
+<!-- SECTION 02 身体の感覚への問いかけ -->
+<section>
+<div class="wrap">
+<h2>あなたは、自分の身体のことを<br>どれくらい知っていますか？</h2>
+<p>毎日、当たり前のように行っている呼吸。</p>
+<p>何気なく立ち、歩いている身体。</p>
+<p>普段は意識することの少ない、その一つひとつに目を向けてみると、意外な発見があるかもしれません。</p>
+<ul class="ask">
+<li>呼吸をするとき、身体はどのように動いているだろう？</li>
+<li>立っているとき、自分の重心はどこにあるだろう？</li>
+<li>歩くとき、身体全体をどのように使っているだろう？</li>
+</ul>
+<p>特別な道具も、難しい技術も必要ありません。</p>
+<p>まずは、自分自身の呼吸と身体を感じるところから始めてみましょう。</p>
+</div>
 </section>
-<main>
-  <section class="reveal">
-    <p class="lead">呼吸が変わると、身体が変わる。そして、日常が変わる。</p>
-  </section>
-  <section class="reveal">
-     <h2 class="section-title">開催概要</h2>
-    <dl class="detail-list">
-      <div><dt>日時</dt><dd>2026年12月5日（土）・12月6日（日）13:00〜14:00（各日60分）</dd></div>
-      <div><dt>会場</dt><dd>八亀庵（湯河原町）</dd></div>
-      <div><dt>参加費</dt><dd>お一人様 3,000円（各日）</dd></div>
-      <div><dt>服装</dt><dd>動きやすい普段着でお越しください</dd></div>
-      <div><dt>対象</dt><dd>初心者の方も、運動経験のない方も歓迎です</dd></div>
-    </dl><p class="note">※基本的に立位での呼吸・身体操作・歩行を行います</p>
-  </section>
-  <section class="reveal">
-    <h2 class="section-title">内容</h2>
-    <p class="lead">呼吸を感じ、立ち方を見つめ、歩き方を変えてみる60分です。殺陣師として培ってきた身体の使い方を通して、日本古来の呼吸や身体の使い方を体験します。いつもの呼吸や歩き方を少し意識することで、身体の感覚はどう変わるのか。自分の中心を感じながら、日常にも活かせる和の身体づかいを体験してみませんか。</p> <p class="lead" style="margin-top: 16px;">主催者・福田のこれまでの実施では、参加者の8割以上の方が、その場で軸の通りを実感されています。残りの方も、体の芯が落ち着くような変化を感じられています。これは、主催者・福田がこれまでの参加者の反応や感想から感じている割合であり、第三者機関による調査や統計に基づくものではありません。</p>
-  </section>
-  <section class="reveal">
-    <h2 class="section-title">体験の流れ</h2>
-    <ol class="flow-list">
-      <li><strong>呼吸を感じる</strong></li>
-      <li><strong>立ち方を見つめる</strong></li>
-      <li><strong>歩き方を変えてみる</strong></li>
-    </ol>
-  </section>
-  <section class="reveal">
-    <div class="cta"><a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform" target="_blank" rel="noopener">申込フォームはこちら</a></div> <h2 class="section-title">講師紹介</h2>
-    <p class="lead"><strong>殺陣師 福田ひろし（福和倭迅会 代表）</strong><br>1999年より舞台に立ち、2005年頃より殺陣に携わる。2019年に福和倭迅会を立ち上げ、2024年に活動拠点を神奈川県・西湘へ。殺陣・呼吸法・テーブル茶道・口伝数秘術を、「すべては呼吸へと還る」を軸に伝えている。</p>
-  </section>
-  <section class="apply reveal">
-    <h2 class="section-title">よくある質問</h2> <div class="faq" style="text-align: left;"> <h3>Q. 初めてでも、運動経験がなくても大丈夫ですか？</h3> <p>A. はい。初心者の方、運動経験のない方も歓迎です。</p> <h3>Q. 服装はどうすればよいですか？</h3> <p>A. 動きやすい普段着でお越しください。</p> <h3>Q. 座って行うのですか？</h3> <p>A. 基本的に立位での呼吸・身体操作・歩行を行います。</p> </div> <h2 class="section-title">お申し込み</h2>
-    <p class="lead">下記の申込フォームからお申し込みください。</p>
-    <a class="btn-primary" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform" target="_blank" rel="noopener">申込フォームはこちら</a>
-    <p class="note">フォーム以外のお申し込み・お問い合わせ：八亀庵・湯探歩 080-4638-0202（山本）／福和倭迅会 Instagram のDM</p>
-  </section>
-</main>
+
+<!-- SECTION 03 呼吸と身体のつながり -->
+<section>
+<div class="wrap">
+<h2>呼吸が変わると、身体の感覚も変わる。</h2>
+<p>殺陣の世界では、刀の動きだけでなく、立ち方、重心、足運び、呼吸など、身体全体の使い方が大切になります。</p>
+<p>力任せに動くのではなく、身体の中心を感じながら動く。</p>
+<p>そのためには、身体のどこに力が入り、どのように重心が移動し、呼吸と動きがどうつながっているのかを感じることが重要です。</p>
+<p>今回の体験会では、殺陣師として培ってきた身体の使い方をもとに、日本古来の呼吸法や身体操作をお伝えします。</p>
+<p>刀を使った立ち回りや演武を行うものではありません。</p>
+<p>呼吸を入口に、立ち方や歩き方を見つめ直し、自分自身の身体の中心を感じていく時間です。</p>
+</div>
+</section>
+
+<!-- SECTION 04 実際に体験した方の声 -->
+<section>
+<div class="wrap">
+<h2>身体の変化は、自分で感じるもの。</h2>
+<p>これまで私が実施してきたワークショップでは、参加者の8割以上の方が、体験後に「軸が通った」と実感したと話してくださっています。</p>
+<p>これは、私自身がこれまでの参加者の反応や感想から感じている割合であり、第三者機関による調査や統計に基づくものではありません。</p>
+<p>また、残りの方についても、体験の冒頭と比べて、楽に立てるようになったという変化が見られています。</p>
+<div class="voice">
+<p>実際に、参加された方からは、</p>
+<p class="quote">「子どもを抱っこしたときに、身体がブレなくなった」</p>
+<p style="margin:0;">という日常生活での変化を伝えていただいたこともあります。</p>
+</div>
+<p style="margin-top:22px;">こちらは、これまで実施してきたワークショップ（殺陣ワークショップ）で、呼吸法を体験した方々の声です。体験の場でいただいた感想を、そのまま掲載しています。</p>
+<div class="voices">
+<div class="vcard"><p>「しっかりと地面の上に立っていることを感じることができているように感じる」</p></div>
+<div class="vcard"><p>「これまで漠然と立っていたことを実感した」</p></div>
+<div class="vcard"><p>「地面の感触ってこうだったのか」</p></div>
+<div class="vcard"><p>「呼吸だけでこんなに変わるなんて気づかなかった」</p></div>
+<div class="vcard"><p>「地面を意識した時、初めて深く息を吐くことができたような気がする」</p></div>
+<div class="vcard"><p>「体の中に太い軸が一本ドーンと立ったような感じがする」</p></div>
+<div class="vcard"><p>「呼吸って本当に大事だったんですね」</p></div>
+<div class="vcard"><p>「意識するだけでこんなに変わるなんて想像もしていなかった」</p></div>
+</div>
+<p style="margin-top:18px;">同じ体験をしても、感じ方や気づきは人それぞれです。</p>
+<p>大切なのは、誰かと比べることではなく、自分自身の身体でその違いを感じてみること。</p>
+<p>今回も、そんな発見のある時間を一緒に過ごせたらと思っています。</p>
+<a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform">体験会に申し込む</a>
+<p class="btn-note">申込フォームが開きます</p>
+</div>
+</section>
+
+<!-- SECTION 05 60分の体験内容 -->
+<section>
+<div class="wrap">
+<h2>呼吸から始まる、3つの体験。</h2>
+<div class="cards">
+<div class="card">
+<img src="images/yugawara-card-kokyu.jpg" alt="呼吸を感じる福田ひろし">
+<div class="body">
+<h3>01｜呼吸を感じる</h3>
+<p>まずは、自分自身の呼吸に意識を向けます。普段何気なく行っている呼吸を見つめ直し、身体とのつながりを感じていきます。</p>
+</div>
+</div>
+<div class="card">
+<img src="images/yugawara-card-tachikata.jpg" alt="立ち方を見つめる福田ひろし">
+<div class="body">
+<h3>02｜立ち方を見つめる</h3>
+<p>身体の中心や重心を意識しながら、自然に立つ感覚を探ります。力を入れて姿勢を作るのではなく、身体がどのように支え合っているのかを感じてみましょう。</p>
+</div>
+</div>
+<div class="card">
+<img src="images/yugawara-card-aruki.jpg" alt="歩き方を変えてみる（足元）">
+<div class="body">
+<h3>03｜歩き方を変えてみる</h3>
+<p>呼吸と身体の軸を意識しながら、実際に歩いてみます。いつもの歩き方と何が違うのか。自分自身の身体の感覚を確かめてみましょう。</p>
+</div>
+</div>
+</div>
+<p style="margin-top:20px;">最後は、体験する前と後の身体の感覚を振り返ります。</p>
+<p>知識を覚えることよりも、自分自身で気づくことを大切にしています。</p>
+</div>
+</section>
+
+<!-- SECTION 06 講師紹介 -->
+<section>
+<div class="wrap">
+<h2>講師　福田ひろし</h2>
+<p>殺陣師・福和倭迅会 代表</p>
+<p>1999年より舞台に立ち、2005年頃より殺陣に携わる。</p>
+<p>2019年に福和倭迅会を立ち上げ、2024年に活動拠点を神奈川県・西湘地域へ。</p>
+<p>日俳連アクション部会 殺陣上級ライセンス。</p>
+<p>長年の舞台経験と殺陣を通じて培ってきた身体の使い方をもとに、呼吸・身体操作・日本の身体文化を伝えている。</p>
+<p>現在は殺陣のほか、テーブル茶道や口伝数秘術なども通じて、人が自分自身の感覚や中心を見つめ直す場づくりに取り組んでいる。</p>
+<p>大切にしているのは、特別な技術を身につけることだけではなく、自分自身の身体と向き合い、日常に呼吸を取り戻すこと。</p>
+</div>
+</section>
+
+<!-- SECTION 07 開催概要 -->
+<section>
+<div class="wrap">
+<h2>開催概要</h2>
+<div class="overview">
+<dl>
+<dt>開催日</dt><dd>2026年12月5日（土）・6日（日）</dd>
+<dt>時間</dt><dd>13:00〜14:00（各日60分）</dd>
+<dt>会場</dt><dd>八亀庵（神奈川県湯河原町）</dd>
+<dt>参加費</dt><dd>お一人様 3,000円（各日）</dd>
+<dt>対象</dt><dd>初心者歓迎・運動経験不問</dd>
+<dt>服装</dt><dd>動きやすい普段着でご参加ください</dd>
+<dt>内容</dt><dd>日本古来の呼吸法・立ち方・歩き方</dd>
+</dl>
+</div>
+<p style="margin-top:14px;">※基本的に立位での呼吸・身体操作・歩行を行います。<br>
+※刀を使った立ち回りや演武は行いません。</p>
+</div>
+</section>
+
+<!-- SECTION 08 よくある質問 -->
+<section>
+<div class="wrap">
+<h2>よくある質問</h2>
+<dl class="faq">
+<dt>Q. 初めてでも参加できますか？</dt>
+<dd>はい。初心者の方も歓迎です。武道や殺陣の経験は必要ありません。</dd>
+<dt>Q. 運動が苦手でも大丈夫ですか？</dt>
+<dd>はい。激しい運動を行う体験会ではありません。ご自身の状態に合わせて、無理のない範囲でご参加ください。</dd>
+<dt>Q. どんな服装で参加すればよいですか？</dt>
+<dd>動きやすい普段着でご参加ください。和装や特別な道具は必要ありません。</dd>
+<dt>Q. 座って行う体験ですか？</dt>
+<dd>基本的に立位で行い、実際に歩く体験も含まれます。</dd>
+<dt>Q. 刀を使った体験はありますか？</dt>
+<dd>今回は刀を使った立ち回りや演武を行いません。呼吸・立ち方・歩き方を中心とした体験会です。</dd>
+<dt>Q. どちらの日に参加すればよいですか？</dt>
+<dd>12月5日（土）、6日（日）のいずれか、ご都合のよい日をお選びください。</dd>
+</dl>
+</div>
+</section>
+
+<!-- SECTION 09 最後のメッセージ・申し込み -->
+<section class="final">
+<div class="wrap">
+<h2>いつもの呼吸に、<br>少しだけ意識を向けてみませんか。</h2>
+<p>呼吸を感じること。</p>
+<p>自分の身体を知ること。</p>
+<p>そして、いつもの立ち方や歩き方に、新しい発見を見つけること。</p>
+<p>特別な経験や準備は必要ありません。</p>
+<p>まずは、自分自身の呼吸を感じるところから。</p>
+<p>湯河原・八亀庵で、お待ちしています。</p>
+<p style="margin-top:22px;"><strong>2026年12月5日（土）・6日（日）</strong><br>
+13:00〜14:00（各日60分）<br>
+参加費：お一人様 3,000円<br>
+会場：八亀庵（湯河原町）</p>
+<h3 style="color:var(--navy);margin-top:26px;">お申し込み方法</h3>
+<p>① 申込フォーム</p>
+<a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform">体験会に申し込む</a>
+<p style="margin-top:22px;">② 八亀庵・湯探歩<br>電話：080-4638-0202（山本）</p>
+<p>③ 福和倭迅会<br>Instagram・ThreadsのDMからもお申し込み・お問い合わせいただけます。</p>
+<div class="sns">
+<a class="btn-sub" href="https://www.instagram.com/wajinkai/" target="_blank" rel="noopener">Instagram</a>
+<a class="btn-sub" href="https://www.threads.com/@wajinkai" target="_blank" rel="noopener">Threads</a>
+</div>
+</div>
+</section>
+
 <footer>
-  <nav class="footer-nav" aria-label="フッターメニュー">
-    <a href="index.html">TOP</a>
-    <a href="about.html">和倭迅について</a>
-    <a href="sokudo.html">速読</a>
-    <a href="tate.html">殺陣</a>
-    <a href="tea.html">テーブル茶道</a>
-    <a href="profile.html">プロフィール</a>
-    <a href="index.html#contact">お問い合わせ</a>
-  </nav>
-  <small>© 2026 福和倭迅会</small>
+<div class="wrap">福和倭迅会</div>
 </footer>
-<script>
-document.getElementById('navToggle').addEventListener('click', () => {
-  const menu = document.getElementById('navMenu');
-  const open = menu.classList.toggle('open');
-  document.getElementById('navToggle').setAttribute('aria-expanded', open ? 'true' : 'false');
-});
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-}, { threshold: .12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-<script src="assets/site-common.js"></script>
+
 </body>
 </html>
