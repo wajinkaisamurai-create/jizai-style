@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!-- 本番準備版（sokudo-prep.html）：本番 sokudo.html への反映前の確認用。noindex は本番反映時に解除します。 -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>息道 -SOKUDOU-｜福和倭迅会</title>
+<style>
+:root{
+--paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+section{padding:44px 0;}
+h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;color:var(--navy);line-height:1.5;}
+p{margin-bottom:14px;}
+a{color:var(--navy);}
+.hero{padding:124px 0 8px;text-align:center;}
+.hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
+.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero .sub{font-size:16px;}
+.btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
+
+.btn.sub{background:transparent;color:var(--navy);border:2px solid var(--navy);margin-top:14px;}.btn-note{text-align:center;font-size:13px;color:#666;}
+.box{background:var(--card);border-radius:12px;padding:24px 22px;box-shadow:0 2px 10px rgba(29,42,74,.06);}
+.box.gold{border:2px solid var(--gold);box-shadow:none;}
+table.menu{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;}
+table.menu th,table.menu td{padding:13px 16px;border-bottom:1px solid #eee5d0;text-align:left;font-size:15px;}
+table.menu tr:last-child th,table.menu tr:last-child td{border-bottom:none;}
+table.menu td.price{text-align:right;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.elements{display:grid;gap:10px;}
+@media(min-width:640px){.elements{grid-template-columns:1fr 1fr;}}
+.el{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:10px 16px;font-size:15px;}
+.el b{color:var(--navy);}
+.cards{display:grid;gap:18px;}
+@media(min-width:640px){.cards{grid-template-columns:repeat(3,1fr);}}
+.card{background:var(--card);border-radius:12px;padding:20px 18px;box-shadow:0 2px 10px rgba(29,42,74,.08);}
+.card h3{font-size:18px;margin-bottom:4px;}
+.card .price{color:var(--gold);font-weight:bold;font-size:17px;margin-bottom:8px;}
+.card p{font-size:14px;margin:0;}
+.note{font-size:13px;color:#666;}
+.final{text-align:center;}
+footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;font-size:13px;color:#777;}
+/* ===== 共通ナビゲーション（他ページと共通） ===== */
+.header{position:fixed;width:100%;top:0;left:0;background:rgba(247,242,231,.94);backdrop-filter:blur(8px);border-bottom:1px solid #ddd2b8;z-index:1000;}
+.header nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;}
+.nav-brand{color:var(--ink);font-size:15px;letter-spacing:.22em;font-weight:400;text-decoration:none;flex-shrink:0;}
+.nav-brand span{display:inline-block;margin-left:8px;font-style:italic;font-size:13px;color:var(--gold);}
+.nav-menu{display:flex;gap:24px;align-items:center;}
+.nav-item{color:#77705f;font-size:12px;letter-spacing:.16em;text-decoration:none;white-space:nowrap;transition:color .3s;}
+.nav-item:hover{color:var(--gold);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:1001;}
+.nav-toggle span{display:block;width:22px;height:1px;background:#77705f;transition:all .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media(max-width:760px){
+.header nav{padding:13px 20px;}
+.nav-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(247,242,231,.97);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:80px;padding-bottom:40px;gap:0;z-index:1000;overflow-y:auto;}
+.nav-menu.open{display:flex;}
+.nav-toggle{display:flex;}
+.nav-item{font-size:.88rem;letter-spacing:.22em;padding:14px 0;width:100%;text-align:center;border-bottom:1px solid rgba(75,47,31,.08);}
+.nav-item:first-child{border-top:1px solid rgba(75,47,31,.08);}
+}
+.footer-nav{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap;}
+.footer-nav a{font-size:12px;color:#77705f;letter-spacing:.1em;text-decoration:none;}
+.copyright{font-size:11px;color:#99917c;letter-spacing:.15em;}
+.page-img{width:100%;height:auto;border-radius:12px;display:block;}
+.hero-img{margin-top:26px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
+.sheet-img{margin-top:18px;border:1px solid #eee5d0;}
+.oracle-img{max-width:480px;margin:0 auto 20px;}
+.face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
+.tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
+.hero .tagline{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
+.sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
+.btn-sub{display:inline-block;border:2px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
+.voices{display:grid;gap:12px;margin-top:6px;}
+@media(min-width:640px){.voices{grid-template-columns:1fr 1fr;}}
+.vcard{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;box-shadow:0 2px 8px rgba(29,42,74,.06);}
+.vcard p{margin:0;font-size:15px;}
+.vcard .who{font-size:13px;color:#666;margin-top:6px;}
+.stagemap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0 6px;}
+.stage{display:inline-block;border:1.5px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:var(--card);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:bold;}
+.stage.zero{border-color:var(--gold);color:var(--gold);}
+.sarrow{color:#999;font-size:13px;}
+.sgroup{width:100%;font-size:13px;color:#666;margin-top:2px;}
+</style>
+</head>
+<body>
+<header class="header">
+<nav>
+<a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
+<button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-menu" id="navMenu">
+<a href="index.html" class="nav-item">トップ</a>
+<a href="about.html" class="nav-item">目指すところ</a>
+<a href="sokudo.html" class="nav-item" style="color: var(--gold);">息道</a>
+<a href="tate.html" class="nav-item">殺陣道場</a>
+<a href="tea.html" class="nav-item">テーブル茶道</a>
+<a href="passcode.html" class="nav-item">口伝数秘術</a>
+<a href="profile.html" class="nav-item">代表紹介</a>
+</div>
+</nav>
+</header>
+
+<!-- HERO -->
+
+<!-- HERO -->
+<header class="hero">
+<div class="wrap">
+<h1>息道 -SOKUDOU-</h1>
+<p class="tagline">刀を抜く前に、まず呼吸。サムライの身体は、立つところから始まる。</p>
+</div>
+</header>
+
+<!-- 息道とは -->
+<section>
+<div class="wrap">
+<h2>息道とは</h2>
+<p>息道は、8段階の設計を持つ呼吸法です。</p>
+<p>呼吸は、整えるものではなく、戻るものです。息道とは、呼吸を通して自分の感覚へ戻る道です。深呼吸の練習でも、メンタルトレーニングでもありません。身体がすでに知っていることを、もう一度思い出すための時間です。</p>
+<p>福和倭迅会の活動は、「すべては呼吸へと還る」という考え方でつながっています。息道は、その中心にある呼吸そのものを扱います。</p>
+</div>
+</section>
+
+<!-- 成り立ち -->
+<section>
+<div class="wrap">
+<h2>成り立ち</h2>
+<p>殺陣師が、呼吸を語る理由があります。</p>
+<h3>声を届けるための呼吸</h3>
+<p>高校球児がベンチから外野まで声を届かせるために腹の底から声を出していた。約30年ほど前、舞台の上で声を届けていた。マイクのない小劇場で、どんな状態でも声を出し続けるために身に付けた呼吸です。教えるために学んだのではなく、自分が続けるために掘り続けた。</p>
+<h3>殺陣と呼吸</h3>
+<p>殺陣は舞台上の表現。この動きには呼吸が深く関わっている。自分が動くときはもちろん、味方役とのコンマ数秒差の動き合わせ、敵役との手数を重ねる間。そして、決着の瞬間、生き切る、事切れる瞬間まで。勝つも負けるも、全て呼吸が噛み合わなくては成立しない。</p>
+<h3>手術の経験から</h3>
+<p>胃がん手術の経験から、この呼吸が自分を助けてくれている。息道は、その道のりから形成されました。</p>
+</div>
+</section>
+
+<!-- 8段階の設計 -->
+<section>
+<div class="wrap">
+<h2>8段階の設計</h2>
+<p>息道は、段階0の確認から始まります。始めに今の呼吸の状態を確かめ、段階1〜3は身体を使う段階、段階4〜8はイメージの段階へと進み、最後にもう一度、段階0で呼吸の状態を確かめます。</p>
+<div class="stagemap">
+<span class="stage zero">段階0</span><span class="sarrow">→</span>
+<span class="stage">段階1</span><span class="sarrow">→</span>
+<span class="stage">段階2</span><span class="sarrow">→</span>
+<span class="stage">段階3</span><span class="sarrow">→</span>
+<span class="stage">段階4</span><span class="sarrow">→</span>
+<span class="stage">段階5</span><span class="sarrow">→</span>
+<span class="stage">段階6</span><span class="sarrow">→</span>
+<span class="stage">段階7</span><span class="sarrow">→</span>
+<span class="stage">段階8</span><span class="sarrow">→</span>
+<span class="stage zero">段階0</span>
+<p class="sgroup">段階1〜3：身体を使う段階／段階4〜8：イメージの段階</p>
+</div>
+<p>体験では段階1〜3を、本編では段階0〜8を通して行います。</p>
+</div>
+</section>
+
+<!-- 息道の視点 -->
+<section>
+<div class="wrap">
+<h2>息道の視点</h2>
+<p>息道は、数ある呼吸法の中の一つです。ただし、その視点は殺陣師のものです。身体全体に意識を巡らせ、軸を整え、動きそのものを変えていく。</p>
+<p>江戸の頃までの日本人は皆、こういう身体の使い方をしていたのではないか。私はそう考えています。日本の古来からあったと考える、呼吸と意識のつながりを土台に、実際に軸が整うのかを、ご自身の身体で確かめながら進めていきます。</p>
+<p>意識して呼吸を行うことは、身体の細部を知覚することです。普段、何気なく行っている行動に意識が通ると、どうなるのか。その実験を交えてお伝えしています。</p>
+</div>
+</section>
+
+<!-- 体験と本編 -->
+<section>
+<div class="wrap">
+<h2>体験と本編</h2>
+<div class="cards">
+<div class="card">
+<h3>体験</h3>
+<p class="price">¥3,000／60分</p>
+<p>段階0の確認から入り、段階1〜3を行い、最後にもう一度段階0で確かめます。「変化に気づく場」です。</p>
+</div>
+<div class="card">
+<h3>本編</h3>
+<p class="price">¥5,500／90分</p>
+<p>段階0〜8を通して行い、最後に段階0で確かめます。「変化を自分のものにする場」です。少人数制（定員5名）で、人数が増える場合は、グループワーク、もしくは応相談の形式でお受けします。</p>
+</div>
+<div class="card">
+<h3>本編4回チケット</h3>
+<p class="price">¥20,000</p>
+<p>本編を4回受けられるチケットです。続けて通うことで、変化を日常に定着させていきます。</p>
+</div>
+<div class="card">
+<h3>ワークショップ</h3>
+<p class="price">¥5,000／120分</p>
+<p>呼吸に、歩行と、ゆっくり動く殺陣の所作を組み合わせた複合型のワークショップです。場所代の扱いは、開催ごとに明記します。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- 参加者の声 -->
+<section>
+<div class="wrap">
+<h2>参加者の声</h2>
+<p>2026年9月28日に里のengawaで開催した「殺陣師に学ぶ 呼吸と身体の使い方」（呼吸・歩行・殺陣の所作を組み合わせた120分のワークショップ）の、参加者アンケートから紹介します。</p>
+<div class="voices">
+<div class="vcard"><p>「意識の置き所で全く体が変わるのを実感しました」</p></div>
+<div class="vcard"><p>「地に足をつけるという事が体感をもって理解できた」</p></div>
+<div class="vcard"><p>「呼吸が浅かったんだなということがわかった」</p></div>
+<div class="vcard"><p>「胸が開いて呼吸がしやすくなった」</p><p class="who">40代</p></div>
+<div class="vcard"><p>「むだな動きはないと感じた。体の動きが楽しかった」</p><p class="who">50代</p></div>
+</div>
+<p style="margin-top:16px;">アンケートでは、違いを感じたところとして「身体の軸」5件、「気持ち」5件、「呼吸の深さ」4件が挙がり、時間の長さは全員が「ちょうどいい」と答えました。</p>
+<p class="note">出典：2026年9月28日「殺陣師に学ぶ 呼吸と身体の使い方」（里のengawa）ワークショップ参加者の声</p>
+<div class="box gold" style="margin-top:18px;">
+<p style="margin:0;">これまでのワークショップで、参加者の方から届いた声です。<br>「子どもを抱っこしたときに、身体がブレなくなった」</p>
+</div>
+<p style="margin-top:16px;">これまで私が実施してきたワークショップでは、参加者の8割以上の方が、体験後に「軸が通った」と実感したと話してくださっています。これは、私自身がこれまでの参加者の反応や感想から感じている割合であり、第三者機関による調査や統計に基づくものではありません。</p>
+</div>
+</section>
+
+<!-- 体験会のご案内 -->
+<section>
+<div class="wrap">
+<h2>体験会のご案内</h2>
+<p>現在募集中の体験会です。</p>
+<div class="box">
+<h3 style="margin-top:0;">『呼吸だけで、軸が通る。』体験会</h3>
+<p>2026年12月5日（土）・6日（日）13:00〜14:00、八亀庵（湯河原町）。参加費 ¥3,000。今回の体験会で触れるのは段階1〜3です。</p>
+<a class="btn" href="lp-yugawara.html">体験会の詳細を見る</a>
+</div>
+</div>
+</section>
+
+<!-- 受け方・申込 -->
+<section>
+<div class="wrap">
+<h2>受け方・お申し込み</h2>
+<p>体験・本編は、フォームからのお申し込みを受けて、日程を相談のうえ決めます。会場は、ご指定の場所へ出向く形と、リモートに対応しています。</p>
+<a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdAL5lDwuKWBT7d08agWFxSCNlzZxLch9ZIjiNkp1gUzpiX3w/viewform">申込フォームへ</a>
+<p class="note" style="text-align:center;">Googleフォームが開きます</p>
+<a class="btn sub" href="https://lin.ee/tJDJseM">公式LINE</a>
+<p class="note" style="text-align:center;">公式LINEが開きます</p>
+<p>ご相談・ご質問は公式LINEからも受け付けています。LINEでもお申し込みできます。お申し込み後のご連絡は、メールで始めます。</p>
+</div>
+</section>
+
+<!-- 法人・団体の方へ -->
+<section>
+<div class="wrap">
+<h2>法人・団体の方へ</h2>
+<p>企業・団体・学校などのグループ向けに、呼吸と身体の使い方のワークショップを行います。体験の内容を土台に、歩行や所作の要素を組み合わせることもできます。</p>
+<p>時間は60〜120分（相談のうえ調整します）。人数・料金は応相談です。実施までの流れは、お問い合わせ → お見積もり → 実施、となります。</p>
+<p>お申し込みは、申込フォームの種別「法人・団体での実施」からお願いします。</p>
+</div>
+</section>
+
+<!-- FINAL -->
+<section class="final">
+<div class="wrap">
+<h2>まず、呼吸から。</h2>
+<p>体験のお申し込み、ご相談はこちらから。</p>
+<a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdAL5lDwuKWBT7d08agWFxSCNlzZxLch9ZIjiNkp1gUzpiX3w/viewform">申込フォームへ</a>
+<p class="note" style="text-align:center;">Googleフォームが開きます</p>
+<div class="sns">
+<a class="btn-sub" href="https://www.instagram.com/wajinkai/" target="_blank" rel="noopener">Instagram</a>
+<a class="btn-sub" href="https://www.threads.com/@wajinkai" target="_blank" rel="noopener">Threads</a>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="footer-nav">
+<a href="index.html">TOP</a>
+<a href="about.html">倭迅会の目指すところ</a>
+<a href="sokudo.html">息道</a>
+<a href="sokudo-group.html">息道・グループ体験</a>
+<a href="sokudo-private.html">息道・個別／法人</a>
+<a href="tate.html">殺陣道場</a>
+<a href="tea.html">テーブル茶道</a>
+<a href="passcode.html">口伝数秘術</a>
+<a href="profile.html">代表紹介</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
+</div>
+<p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+/* ナビゲーション開閉（他ページと共通） */
+const _toggle = document.getElementById('navToggle');
+const _menu = document.getElementById('navMenu');
+if (_toggle && _menu) {
+  _toggle.addEventListener('click', () => {
+    _toggle.classList.toggle('open');
+    _menu.classList.toggle('open');
+  });
+  _menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      _toggle.classList.remove('open');
+      _menu.classList.remove('open');
+    });
+  });
+}
+</script>
+</body>
+</html>
