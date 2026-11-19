@@ -25,7 +25,7 @@ p{margin-bottom:14px;}
 .btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
 .btn-note{text-align:center;font-size:13px;color:#666;}
 .sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
-  .btn-sub{display:inline-block;border:2px solid var(--navy);color:var(--navy);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
+.btn-sub{display:inline-block;border:2px solid var(--navy);color:var(--navy);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
 .ask li{margin:0 0 6px 1.2em;}
 .voice{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:24px 22px;}
 .voice.quote{font-size:19px;font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,serif;color:var(--navy);}
@@ -46,6 +46,12 @@ p{margin-bottom:14px;}
 .overview dd{margin:0;}
 .faq dt{font-weight:bold;color:var(--navy);margin-top:16px;}
 .faq dd{margin:4px 0 0;}
+.stagemap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0 6px;}
+.stage{display:inline-block;border:1.5px solid var(--navy);color:var(--navy);background:var(--card);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:bold;}
+.stage.on{background:var(--navy);color:#fff;}
+.stage.zero{border-color:var(--gold);color:var(--gold);}
+.sarrow{color:#999;font-size:13px;}
+.sgroup{width:100%;font-size:13px;color:#666;margin-top:2px;}
 .final{text-align:center;}
 .final h2{font-size:28px;}
 footer{padding:28px 0 40px;text-align:center;font-size:13px;color:#777;}
@@ -166,6 +172,29 @@ footer{padding:28px 0 40px;text-align:center;font-size:13px;color:#777;}
 </div>
 </section>
 
+
+<!-- SECTION 05b 段階の地図 -->
+<section>
+<div class="wrap">
+<h2>息道の段階の地図</h2>
+<p>息道は、段階0の確認から始まり、段階1〜8へと進む設計になっています。段階1〜3は身体を使う段階、段階4〜8はイメージの段階です。</p>
+<div class="stagemap">
+<span class="stage zero">段階0</span><span class="sarrow">→</span>
+<span class="stage on">段階1</span><span class="sarrow">→</span>
+<span class="stage on">段階2</span><span class="sarrow">→</span>
+<span class="stage on">段階3</span><span class="sarrow">→</span>
+<span class="stage">段階4</span><span class="sarrow">→</span>
+<span class="stage">段階5</span><span class="sarrow">→</span>
+<span class="stage">段階6</span><span class="sarrow">→</span>
+<span class="stage">段階7</span><span class="sarrow">→</span>
+<span class="stage">段階8</span><span class="sarrow">→</span>
+<span class="stage zero">段階0</span>
+<p class="sgroup">段階0：始めと終わりに、呼吸の状態を確かめます。</p>
+</div>
+<p style="margin-top:14px;"><strong>今回の体験会で触れるのは段階1〜3です。</strong>本編では、段階0〜8を通して行います。</p>
+</div>
+</section>
+
 <!-- SECTION 06 講師紹介 -->
 <section>
 <div class="wrap">
@@ -240,10 +269,10 @@ footer{padding:28px 0 40px;text-align:center;font-size:13px;color:#777;}
 <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSdOIMCjU-grgXB5JMCqDyjj9SCeXit3RR_Fhd9F7v88wxeNVw/viewform">体験会に申し込む</a>
 <p style="margin-top:22px;">② 八亀庵・湯探歩<br>電話：080-4638-0202（山本）</p>
 <p>③ 福和倭迅会<br>Instagram・ThreadsのDMからもお申し込み・お問い合わせいただけます。</p>
-  <div class="sns">
-    <a class="btn-sub" href="https://www.instagram.com/wajinkai/" target="_blank" rel="noopener">Instagram</a>
-    <a class="btn-sub" href="https://www.threads.com/@wajinkai" target="_blank" rel="noopener">Threads</a>
-  </div>
+<div class="sns">
+<a class="btn-sub" href="https://www.instagram.com/wajinkai/" target="_blank" rel="noopener">Instagram</a>
+<a class="btn-sub" href="https://www.threads.com/@wajinkai" target="_blank" rel="noopener">Threads</a>
+</div>
 </div>
 </section>
 
