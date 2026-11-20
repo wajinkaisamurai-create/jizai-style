@@ -84,14 +84,16 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 .vcard p{margin:0;font-size:15px;}
 .vcard .who{font-size:13px;color:#666;margin-top:6px;}
 @media(min-width:640px){.cards.menu{grid-template-columns:repeat(2,1fr);}}
-.eventbox{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:22px;margin-bottom:26px;box-shadow:0 2px 10px rgba(29,42,74,.07);}
+.eventbox{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:24px 22px;margin-bottom:26px;}
 .eventbox h3{margin-top:0;}
-.eventbox .btn{margin-bottom:2px;}
-.stagemap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:16px 0 6px;}
+.eventbox .btn{margin-top:18px;margin-bottom:2px;}
+.stagemap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:18px 0 8px;background:var(--card);border:1px solid #eee5d0;border-radius:12px;padding:16px 18px;}
 .stage{display:inline-block;border:1.5px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:var(--card);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:bold;}
 .stage.zero{border-color:var(--gold);color:var(--gold);}
 .sarrow{color:#999;font-size:13px;}
 .sgroup{width:100%;font-size:13px;color:#666;margin-top:2px;}
+.hero .tagline::after{content:"";display:block;width:56px;height:2px;background:var(--gold);margin:20px auto 0;}
+@media(max-width:640px){.eventbox{padding:18px 16px;}.stagemap{padding:12px 14px;}}
 </style>
 </head>
 <body>
