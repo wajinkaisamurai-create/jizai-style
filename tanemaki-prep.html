@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!-- 本番準備版（tanemaki-prep.html）：新規ページ「種まき」の確認用。noindex は本番公開時に解除します。 -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>種まき｜福和倭迅会</title>
+<style>
+:root{
+--paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+section{padding:44px 0;}
+h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;color:var(--navy);line-height:1.5;}
+p{margin-bottom:14px;}
+a{color:var(--navy);}
+.hero{padding:124px 0 8px;text-align:center;}
+.hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
+.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero .sub{font-size:16px;}
+.btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
+
+.btn.sub{background:transparent;color:var(--navy);border:2px solid var(--navy);margin-top:14px;}.btn-note{text-align:center;font-size:13px;color:#666;}
+.box{background:var(--card);border-radius:12px;padding:24px 22px;box-shadow:0 2px 10px rgba(29,42,74,.06);}
+.box.gold{border:2px solid var(--gold);box-shadow:none;}
+table.menu{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;}
+table.menu th,table.menu td{padding:13px 16px;border-bottom:1px solid #eee5d0;text-align:left;font-size:15px;}
+table.menu tr:last-child th,table.menu tr:last-child td{border-bottom:none;}
+table.menu td.price{text-align:right;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.elements{display:grid;gap:10px;}
+@media(min-width:640px){.elements{grid-template-columns:1fr 1fr;}}
+.el{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:10px 16px;font-size:15px;}
+.el b{color:var(--navy);}
+.cards{display:grid;gap:18px;}
+@media(min-width:640px){.cards{grid-template-columns:repeat(3,1fr);}}
+.card{background:var(--card);border-radius:12px;padding:20px 18px;box-shadow:0 2px 10px rgba(29,42,74,.08);}
+.card h3{font-size:18px;margin-bottom:4px;}
+.card .price{color:var(--gold);font-weight:bold;font-size:17px;margin-bottom:8px;}
+.card p{font-size:14px;margin:0;}
+.note{font-size:13px;color:#666;}
+.final{text-align:center;}
+footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;font-size:13px;color:#777;}
+/* ===== 共通ナビゲーション（他ページと共通） ===== */
+.header{position:fixed;width:100%;top:0;left:0;background:rgba(247,242,231,.94);backdrop-filter:blur(8px);border-bottom:1px solid #ddd2b8;z-index:1000;}
+.header nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;}
+.nav-brand{color:var(--ink);font-size:15px;letter-spacing:.22em;font-weight:400;text-decoration:none;flex-shrink:0;}
+.nav-brand span{display:inline-block;margin-left:8px;font-style:italic;font-size:13px;color:var(--gold);}
+.nav-menu{display:flex;gap:24px;align-items:center;}
+.nav-item{color:#77705f;font-size:12px;letter-spacing:.16em;text-decoration:none;white-space:nowrap;transition:color .3s;}
+.nav-item:hover{color:var(--gold);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:1001;}
+.nav-toggle span{display:block;width:22px;height:1px;background:#77705f;transition:all .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media(max-width:760px){
+.header nav{padding:13px 20px;}
+.nav-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(247,242,231,.97);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:80px;padding-bottom:40px;gap:0;z-index:1000;overflow-y:auto;}
+.nav-menu.open{display:flex;}
+.nav-toggle{display:flex;}
+.nav-item{font-size:.88rem;letter-spacing:.22em;padding:14px 0;width:100%;text-align:center;border-bottom:1px solid rgba(75,47,31,.08);}
+.nav-item:first-child{border-top:1px solid rgba(75,47,31,.08);}
+}
+.footer-nav{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap;}
+.footer-nav a{font-size:12px;color:#77705f;letter-spacing:.1em;text-decoration:none;}
+.copyright{font-size:11px;color:#99917c;letter-spacing:.15em;}
+.page-img{width:100%;height:auto;border-radius:12px;display:block;}
+.hero-img{margin-top:26px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
+.sheet-img{margin-top:18px;border:1px solid #eee5d0;}
+.oracle-img{max-width:480px;margin:0 auto 20px;}
+.face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
+.tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
+.hero .tagline{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
+.sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
+.btn-sub{display:inline-block;border:2px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
+.voices{display:grid;gap:12px;margin-top:6px;}
+@media(min-width:640px){.voices{grid-template-columns:1fr 1fr;}}
+.vcard{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;box-shadow:0 2px 8px rgba(29,42,74,.06);}
+.vcard p{margin:0;font-size:15px;}
+.vcard .who{font-size:13px;color:#666;margin-top:6px;}
+@media(min-width:640px){.cards.menu{grid-template-columns:repeat(2,1fr);}}
+.eventbox{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:24px 22px;margin-bottom:26px;}
+.eventbox h3{margin-top:0;}
+.eventbox .btn{margin-top:18px;margin-bottom:2px;}
+.stagemap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:18px 0 8px;background:var(--card);border:1px solid #eee5d0;border-radius:12px;padding:16px 18px;}
+.stage{display:inline-block;border:1.5px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:var(--card);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:bold;}
+.stage.zero{border-color:var(--gold);color:var(--gold);}
+.sarrow{color:#999;font-size:13px;}
+.sgroup{width:100%;font-size:13px;color:#666;margin-top:2px;}
+.hero .tagline::after{content:"";display:block;width:56px;height:2px;background:var(--gold);margin:20px auto 0;}
+.concept-img{margin-top:18px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
+@media(max-width:640px){.eventbox{padding:18px 16px;}.stagemap{padding:12px 14px;}}
+</style>
+</head>
+<body>
+<header class="header">
+<nav>
+<a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
+<button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-menu" id="navMenu">
+<a href="index.html" class="nav-item">トップ</a>
+<a href="about.html" class="nav-item">目指すところ</a>
+<a href="sokudo.html" class="nav-item" style="color: var(--gold);">息道</a>
+<a href="tate.html" class="nav-item">殺陣道場</a>
+<a href="tea.html" class="nav-item">テーブル茶道</a>
+<a href="passcode.html" class="nav-item">口伝数秘術</a>
+<a href="profile.html" class="nav-item">代表紹介</a>
+</div>
+</nav>
+</header>
+
+
+
+<!-- HERO -->
+<header class="hero">
+<div class="wrap">
+<h1>種まき</h1>
+<p class="tagline">新しい企画の種と、開催した場の記録を置く場所です。</p>
+<img class="page-img hero-img" src="images/sokudo-hero.jpg" alt="庭で刀を構える福田ひろし">
+<p>福和倭迅会の活動は、ひとつの企画から始まります。このページでは、開催した場の報告と、これから育てていく企画の種を、進行具合とともに置いていきます。</p>
+</div>
+</header>
+
+<!-- 最新の動き -->
+<section>
+<div class="wrap">
+<h2>最新の動き</h2>
+<div class="box">
+<p>・2026年12月5日（土）・6日（日）『呼吸だけで、軸が通る。』体験会（湯河原）参加者募集中です。<a href="#mi">実りの節へ</a></p>
+<p>・2026年11月7日（土）1日リトリート『星と共に生きる』を開催しました。<a href="#report">開催報告へ</a></p>
+<p style="margin:0;">・2026年9月28日（日）ワークショップ「殺陣師に学ぶ 呼吸と身体の使い方」を開催しました。<a href="#report">開催報告へ</a></p>
+</div>
+</div>
+</section>
+
+<!-- 開催報告 -->
+<section id="report">
+<div class="wrap">
+<h2>開催報告</h2>
+<p>実際に開催された場の記録です。新しいものを上に積み重ねていきます。</p>
+
+<div class="eventbox">
+<h3>1日リトリート『星と共に生きる』</h3>
+<p>2026年11月7日（土）／金木犀のおうち（南足柄市）／関連する柱：口伝数秘術</p>
+<p>共催の仲間と一緒に開いた、1日のリトリートです。私は、口伝数秘による自己理解のグループワークを担当しました。グループワークでは、参加者の皆さんが次々に「楽しかった」と話してくださったことが、印象に残っています。</p>
+</div>
+
+<div class="eventbox">
+<h3>「殺陣師に学ぶ 呼吸と身体の使い方」ワークショップ</h3>
+<p>2026年9月28日（日）／里のengawa／関連する柱：息道・殺陣</p>
+<p>呼吸法を中心に、歩き方と刀の所作を体験する120分のワークショップを、午前と午後の2回開催しました。アンケートでは、違いを感じたところとして「身体の軸」「気持ち」「呼吸の深さ」が多く挙がり、時間の長さは全員が「ちょうどいい」と答えました。</p>
+<p>参加者の声（アンケートより）：<br>
+「意識の置き所で全く体が変わるのを実感しました」<br>
+「地に足をつけるという事が体感をもって理解できた」</p>
+<a class="btn sub" href="sokudo.html">息道のページを見る</a>
+</div>
+</div>
+</section>
+
+<!-- 実り -->
+<section id="mi">
+<div class="wrap">
+<h2>実り ― 開催が決まった企画</h2>
+<p>種から育って、実際にイベントになった企画や、参加者募集の段になった企画を集めています。</p>
+<div class="eventbox">
+<h3>『呼吸だけで、軸が通る。』体験会</h3>
+<p>2026年12月5日（土）・6日（日）13:00〜14:00、八亀庵（湯河原町）。参加費 ¥3,000。参加者募集中です。</p>
+<a class="btn" href="lp-yugawara.html">体験会の詳細を見る</a>
+</div>
+</div>
+</section>
+
+<!-- 企画の種 -->
+<section id="tane">
+<div class="wrap">
+<h2>企画の種</h2>
+<p>これから育てていく企画の構想です。状態が進みましたら、このページでお知らせします。関心のある企画がありましたら、ページ末尾のフォームやLINEでお知らせください。</p>
+
+<div class="card" style="margin-bottom:16px;">
+<h3>旅リトリート <span class="note">［状態：構想中］</span></h3>
+<p>神社仏閣や磐座をめぐりながら、下道の寄り道を楽しむ小さな旅の構想です。車中泊も可、宿は安いところから探す、「この指とまれ」の形で集まる旅を考えています。参加しやすい時期や、行ってみたい場所がありましたら、ぜひお聞かせください。</p>
+</div>
+
+<div class="card" style="margin-bottom:16px;">
+<h3>街歩きと身体の使い方 <span class="note">［状態：構想中］</span></h3>
+<p>殺陣師の視点から見る身体の使い方を、実際の街歩き・散歩の中で試していく企画です。屋内でのワークショップで立ち方や歩き方の感覚をつかみ、その足で街へ出て歩くまでを、一連の流れで行います。</p>
+</div>
+
+<div class="card">
+<h3>Somatid Detox Retreat（松戸） <span class="note">［状態：再日程調整中］</span></h3>
+<p>松戸市馬橋で予定していたリトリートは、日程を改めて調整しています。新しい日程が決まりましたら、このページと新着でお知らせします。</p>
+</div>
+</div>
+</section>
+
+<!-- 参加者の方へのご案内 -->
+<section>
+<div class="wrap">
+<h2>参加者の方へのご案内</h2>
+<p>これまでの体験会やワークショップ、リトリートに参加してくださった方には、次回の開催案内を先行してお届けします。開催が決まった企画は「実り」の節に、育ちかけの企画は「企画の種」の節に置いていきますので、進行具合をあわせてご覧いただけます。</p>
+</div>
+</section>
+
+<!-- お問い合わせ・関心の届け先 -->
+<section class="final">
+<div class="wrap">
+<h2>関心の届け先・お問い合わせ</h2>
+<p>種への関心や参加の希望は、フォームとLINEで受け付けています。やってみたい企画案の提案も、広く募集しています。</p>
+<a class="btn" href="https://docs.google.com/forms/d/1BFIHS2W_eWjJbQUQLGoyGYxGgp2V2ZeTEs_su0OmQSI/viewform">お問い合わせフォーム</a>
+<p class="note" style="text-align:center;">Googleフォームが開きます</p>
+<a class="btn sub" href="https://lin.ee/tJDJseM">公式LINEで連絡する</a>
+<p class="note" style="text-align:center;">公式LINEが開きます</p>
+</div>
+</section>
+
+<footer>
+<div class="footer-nav">
+<a href="index.html">TOP</a>
+<a href="about.html">倭迅会の目指すところ</a>
+<a href="sokudo.html">息道</a>
+<a href="sokudo-group.html">息道・グループ体験</a>
+<a href="sokudo-private.html">息道・個別／法人</a>
+<a href="tate.html">殺陣道場</a>
+<a href="tea.html">テーブル茶道</a>
+<a href="passcode.html">口伝数秘術</a>
+<a href="profile.html">代表紹介</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
+</div>
+<p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+/* ナビゲーション開閉（他ページと共通） */
+const _toggle = document.getElementById('navToggle');
+const _menu = document.getElementById('navMenu');
+if (_toggle && _menu) {
+  _toggle.addEventListener('click', () => {
+    _toggle.classList.toggle('open');
+    _menu.classList.toggle('open');
+  });
+  _menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      _toggle.classList.remove('open');
+      _menu.classList.remove('open');
+    });
+  });
+}
+</script>
+</body>
+</html>
