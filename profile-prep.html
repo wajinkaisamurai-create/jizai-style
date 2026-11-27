@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<!-- 自己紹介ページ（準備版）。本番 profile.html の作り直し下書き。2026-11-27 制作係作成。 -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>代表紹介・プロフィール | 福和倭迅会</title>
+<link rel="icon" href="images/rogo.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+:root{
+--paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;line-height:1.9;font-size:16px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+section{padding:44px 0;}
+h2{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;color:var(--navy);line-height:1.5;}
+p{margin-bottom:14px;}
+a{color:var(--navy);}
+.hero{padding:124px 0 8px;text-align:center;}
+.hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
+.hero h1{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero .sub{font-size:16px;}
+.btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
+
+.btn.sub{background:transparent;color:var(--navy);border:2px solid var(--navy);margin-top:14px;}.btn-note{text-align:center;font-size:13px;color:#666;}
+.box{background:var(--card);border-radius:12px;padding:24px 22px;box-shadow:0 2px 10px rgba(29,42,74,.06);}
+.box.gold{border:2px solid var(--gold);box-shadow:none;}
+table.menu{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;}
+table.menu th,table.menu td{padding:13px 16px;border-bottom:1px solid #eee5d0;text-align:left;font-size:15px;}
+table.menu tr:last-child th,table.menu tr:last-child td{border-bottom:none;}
+table.menu td.price{text-align:right;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.elements{display:grid;gap:10px;}
+@media(min-width:640px){.elements{grid-template-columns:1fr 1fr;}}
+.el{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:10px 16px;font-size:15px;}
+.el b{color:var(--navy);}
+.cards{display:grid;gap:18px;}
+@media(min-width:640px){.cards{grid-template-columns:repeat(3,1fr);}}
+.card{background:var(--card);border-radius:12px;padding:20px 18px;box-shadow:0 2px 10px rgba(29,42,74,.08);}
+.card h3{font-size:18px;margin-bottom:4px;}
+.card .price{color:var(--gold);font-weight:bold;font-size:17px;margin-bottom:8px;}
+.card p{font-size:14px;margin:0;}
+.note{font-size:13px;color:#666;}
+.final{text-align:center;}
+footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;font-size:13px;color:#777;}
+/* ===== 共通ナビゲーション（他ページと共通） ===== */
+.header{position:fixed;width:100%;top:0;left:0;background:rgba(247,242,231,.94);backdrop-filter:blur(8px);border-bottom:1px solid #ddd2b8;z-index:1000;}
+.header nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;}
+.nav-brand{color:var(--ink);font-size:15px;letter-spacing:.22em;font-weight:400;text-decoration:none;flex-shrink:0;}
+.nav-brand span{display:inline-block;margin-left:8px;font-style:italic;font-size:13px;color:var(--gold);}
+.nav-menu{display:flex;gap:24px;align-items:center;}
+.nav-item{color:#77705f;font-size:12px;letter-spacing:.16em;text-decoration:none;white-space:nowrap;transition:color .3s;}
+.nav-item:hover{color:var(--gold);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:1001;}
+.nav-toggle span{display:block;width:22px;height:1px;background:#77705f;transition:all .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media(max-width:760px){
+.header nav{padding:13px 20px;}
+.nav-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(247,242,231,.97);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:80px;padding-bottom:40px;gap:0;z-index:1000;overflow-y:auto;}
+.nav-menu.open{display:flex;}
+.nav-toggle{display:flex;}
+.nav-item{font-size:.88rem;letter-spacing:.22em;padding:14px 0;width:100%;text-align:center;border-bottom:1px solid rgba(75,47,31,.08);}
+.nav-item:first-child{border-top:1px solid rgba(75,47,31,.08);}
+}
+.footer-nav{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap;}
+.footer-nav a{font-size:12px;color:#77705f;letter-spacing:.1em;text-decoration:none;}
+.copyright{font-size:11px;color:#99917c;letter-spacing:.15em;}
+.page-img{width:100%;height:auto;border-radius:12px;display:block;}
+.hero-img{margin-top:26px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
+.sheet-img{margin-top:18px;border:1px solid #eee5d0;}
+.oracle-img{max-width:480px;margin:0 auto 20px;}
+.face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
+.tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
+.hero .tagline{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
+.sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
+.btn-sub{display:inline-block;border:2px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
+.voices{display:grid;gap:12px;margin-top:6px;}
+@media(min-width:640px){.voices{grid-template-columns:1fr 1fr;}}
+.vcard{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:14px 18px;box-shadow:0 2px 8px rgba(29,42,74,.06);}
+.vcard p{margin:0;font-size:15px;}
+.vcard .who{font-size:13px;color:#666;margin-top:6px;}
+@media(min-width:640px){.cards.menu{grid-template-columns:repeat(2,1fr);}}
+.eventbox{border:2px solid var(--gold);background:var(--card);border-radius:12px;padding:24px 22px;margin-bottom:26px;}
+.eventbox h3{margin-top:0;}
+.eventbox .btn{margin-top:18px;margin-bottom:2px;}
+.stagemap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:18px 0 8px;background:var(--card);border:1px solid #eee5d0;border-radius:12px;padding:16px 18px;}
+.stage{display:inline-block;border:1.5px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:var(--card);border-radius:999px;padding:3px 12px;font-size:14px;font-weight:bold;}
+.stage.zero{border-color:var(--gold);color:var(--gold);}
+.sarrow{color:#999;font-size:13px;}
+.sgroup{width:100%;font-size:13px;color:#666;margin-top:2px;}
+.hero .tagline::after{content:"";display:block;width:56px;height:2px;background:var(--gold);margin:20px auto 0;}
+.concept-img{margin-top:18px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
+@media(max-width:640px){.eventbox{padding:18px 16px;}.stagemap{padding:12px 14px;}}
+
+/* ===== 旧ページとの統一：フォントと表示アニメーション（2026-11-27） ===== */
+.nav-item,.footer-nav a{font-family:"Noto Sans JP",sans-serif;}
+.nav-brand{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;color:#1c1a16;line-height:1.25;}
+.nav-brand span{font-family:"Cormorant Garamond",serif;color:#7a6248;}
+.header{background:rgba(245,242,236,0.92);border-bottom:1px solid rgba(75,47,31,0.18);box-shadow:0 1px 0 rgba(75,47,31,0.08);}
+.header nav{max-width:1180px;margin:0 auto;box-sizing:border-box;}
+@media(max-width:760px){
+.nav-brand{font-size:13px;letter-spacing:0.18em;color:rgba(28,26,22,0.9);max-width:calc(100vw - 84px);}
+.nav-brand span{display:block;margin:3px 0 0;font-size:12px;letter-spacing:0.1em;}
+.header nav{min-height:58px;padding:11px 18px;}
+.header{background:rgba(245,242,236,0.9);}
+}
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease;}
+html.js .reveal.visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){html.js .reveal{transition:none;}}
+
+.history{width:100%;border-collapse:collapse;margin-top:10px;}
+.history th,.history td{padding:10px 8px;border-bottom:1px solid #e3d9c2;text-align:left;vertical-align:top;line-height:1.8;}
+.history th{white-space:nowrap;color:var(--navy);font-weight:600;}
+</style>
+</head>
+<body>
+<header class="header">
+<nav>
+<a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
+<button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-menu" id="navMenu">
+<a href="index.html" class="nav-item">トップ</a>
+<a href="about.html" class="nav-item">目指すところ</a>
+<a href="sokudo.html" class="nav-item">息道</a>
+<a href="tate.html" class="nav-item">殺陣道場</a>
+<a href="tea.html" class="nav-item">テーブル茶道</a>
+<a href="passcode.html" class="nav-item">口伝数秘術</a>
+<a href="profile.html" class="nav-item" style="color: var(--gold);">代表紹介</a>
+<a href="tanemaki.html" class="nav-item">イベント・企画の種</a>
+</div>
+</nav>
+</header>
+<header class="hero">
+  <div class="wrap">
+    <p class="pre">自在流 殺陣・息道</p>
+    <h1>福田 ひろし</h1>
+    <p class="tagline">殺陣の人。お茶の人。数秘の人。</p>
+    <p class="sub">福和倭迅会（ふくわ わじんかい）代表／Hiroshi Fukuta</p>
+    <p class="sub">殺陣師／息道 提唱者／口伝数秘術 鑑定士／テーブル茶道インストラクター</p>
+    <img class="page-img hero-img" src="images/Image5.jpg" alt="縁側で刀を手に静かに座る福田ひろし">
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>入口と場</h2>
+    <p>たぶん、どれも間違っていません。でも、自分の中では、どれも入口です。自分が本当に作りたいのは、場です。</p>
+    <p>詰め込みすぎない方が、人って勝手に動き始める気がしています。気づいたら、それぞれが自分の役割を見つけている。「ここに居ていいんだ」そんな感覚が生まれる場所を作りたいと思っています。</p>
+    <p>殺陣、テーブル茶道、口伝数秘術、息道。福和倭迅会には、いくつかの入口があります。刀から入る人。お茶から入る人。数字から入る人。呼吸から入る人。入口は、違っていてかまいません。</p>
+    <p>誰と居るかで、呼吸って結構変わる気がしています。どんな空気の中に身を置くか。それって、思っている以上に大事なんだと思います。</p>
+    <p>ここに来る人に、特別な条件はありません。職業も、年齢も、性格も、趣味も、障害の有無も関係ない。それぞれが、自分の得意や興味を持って来られる場所。それぞれが無理をせず、補い合える場所。教える場所というより、思い出す場所。正解はすでに、あなたの身体の中にあります。</p>
+    <p>ここは、誰かが強く引っ張る場所ではありません。自分は、どちらかというと待つ側の人間です。前に立って管理するより、見て、聞いて、必要な時にだけ返す。そのくらいが、ちょうどいい。</p>
+    <p>管理されすぎた場所は、少しずつ息苦しくなっていく気がします。もちろん最低限のルールは必要です。でも、禁止事項ばかり増えると、人は自然に動けなくなる。無理をして同じ形になろうとせず、違うままで共生している。多分、ずっと昔から、そういう場所が欲しかったんだと思います。</p>
+    <p>私が目指しているのは、「教室」というより、縁側に近い空間です。ふらっと来てもいい。ただ居るだけでもいい。話したくなったら話せばいい。参加したくなったら、その時に参加する。少しギルドみたいな場所。そんなモノが作れたら面白いな、と思っています。</p>
+    <div class="eventbox">
+      <h3>出会う</h3>
+      <p>違う入口を持つ人が、自然に出会える場。</p>
+    </div>
+    <div class="eventbox">
+      <h3>混ざる</h3>
+      <p>違うまま補い合い、自然に機能していく状態。</p>
+    </div>
+    <div class="eventbox">
+      <h3>始まる</h3>
+      <p>帰る頃、少し呼吸が楽になっている。それだけでも、十分だと思っています。</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>転機</h2>
+    <p>胃の手術をしました。たった3分の1無くなっただけで、それまで無意識にできていた呼吸が、急に苦しくなりました。</p>
+    <p>最初に違和感を感じたのは、入院中の寝巻きでした。寝巻きのズボンのゴムが、お腹を横一文字に締める。それだけで、息が入りづらい。自分でも驚きました。</p>
+    <p>逆に、帯を締めた時は違いました。腰骨の位置で身体が安定し、息が自然に入ってくる。その時、改めて実感しました。和装の構造が、呼吸を助ける働きを持っている可能性があるということを。</p>
+    <p>無理をしている自覚は、あまりありませんでした。満員電車、都心の空気、決められたルールの中で自分の意見を飲み込み続ける働き方。今振り返ると、あの働き方は、少しずつ呼吸を浅くしていたんだと思います。</p>
+    <p>身体は、言葉より先に知っていました。洋装が悪いわけではありません。ただ、自分の身体には合わなかった。帯は、腹を必要以上に締め付けず、身体を支えてくれました。</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>経歴</h2>
+    <table class="history">
+      <tr><th>1999年</th><td>舞台に立ち始める</td></tr>
+      <tr><th>2005年ごろ</th><td>殺陣を始める</td></tr>
+      <tr><th>2017年5月</th><td>日本俳優連合アクション部会 殺陣上級ライセンスを取得</td></tr>
+      <tr><th>2019年</th><td>福和倭迅会を設立</td></tr>
+      <tr><th>2024年</th><td>拠点を神奈川県・西湘へ移す。テーブル茶道「雪月花」インストラクター資格を取得（2024年3月）</td></tr>
+    </table>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>活動の記録</h2>
+    <div class="eventbox">
+      <h3>さんにち市・活き活きマルシェ</h3>
+      <p>地域のマルシェで、殺陣体験・数秘術鑑定・テーブル茶道体験などを実施。「知っているつもりだった日本文化を、改めて知れた」「"あぁ、自分だな"って感じがした」——そんな声をいただいています。</p>
+    </div>
+    <div class="eventbox">
+      <h3>箱根遊船「大茶会」</h3>
+      <p>芦ノ湖の湖上、お茶をテーマにした船内でのお点前体験。正座不要のテーブル茶道で、初めての方でも楽しめる内容です。静かな中に、いろいろな感覚が詰まっている時間を大切にしています。</p>
+    </div>
+    <div class="eventbox">
+      <h3>出張体験・企画相談</h3>
+      <p>会場・人数・目的に合わせて、その場が一番活きる形を一緒に考えます。まずはLINEなどから、気になったタイミングでご相談ください。</p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>贈られた言葉</h2>
+    <p style="text-align:center;font-size:22px;letter-spacing:.08em;">幸結来 ―サムライ―</p>
+    <p>祭りで出会った書家へ、殺陣での刀の所作をお伝えした際、「文字が降りてきた」と言って贈っていただいた言葉です。幸せを結び、来たる。今も大切に持ち歩いています。</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>今、伝えたいこと</h2>
+    <p>ずっと、息が詰まっていました。でも当時の自分は、そのことに気づいていませんでした。言いたいことを飲み込む。言葉にならない。「なんでもない」と笑う。人のいい顔だけ貼り付けて、なるべく自分を消そうとしていた時期があります。自分を出すことは、誰かの迷惑になる気がしていました。</p>
+    <p>今も、全部解決したわけではありません。まだ途中です。ただ、身体が変わったことで、ようやく少しずつわかってきました。人は、無理をし続けると、呼吸から先に苦しくなるのだと。</p>
+    <p>だから、変わらなくていいんです。変わるのは、本人が願った時だけだから。ただ、きっかけくらいは渡せるかもしれない。そのくらいに思っています。</p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>四本柱への案内</h2>
+    <div class="eventbox">
+      <h3>息道 -SOKUDOU-</h3>
+      <p>呼吸を通して、自分の感覚へ戻る道。段階0〜8の呼吸法のワークを、体験と本編で開いています。</p>
+      <p style="margin:0; text-align:center;"><a class="btn-sub" href="sokudo.html">息道のページを見る</a></p>
+    </div>
+    <div class="eventbox">
+      <h3>殺陣道場</h3>
+      <p>舞台に立ち続けてきた殺陣師の道場です。初めての方の体験から、趣味・初級・中級・上級のクラスまで。</p>
+      <p style="margin:0; text-align:center;"><a class="btn-sub" href="tate.html">殺陣道場のページを見る</a></p>
+    </div>
+    <div class="eventbox">
+      <h3>テーブル茶道</h3>
+      <p>正座不要、椅子に座って楽しむお点前体験。私の他の活動との組み合わせや、コラボレーションのご相談も受けています。</p>
+      <p style="margin:0; text-align:center;"><a class="btn-sub" href="tea.html">テーブル茶道のページを見る</a></p>
+    </div>
+    <div class="eventbox">
+      <h3>口伝数秘術 MY SOUL PASSCODE</h3>
+      <p>数字は、自分の設計図。名前と生年月日を鍵に読み解く鑑定と、読み方を学ぶ講座を開いています。</p>
+      <p style="margin:0; text-align:center;"><a class="btn-sub" href="passcode.html">口伝数秘術のページを見る</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="wrap">
+    <h2>お問い合わせ</h2>
+    <p>「何かが違う」もしそんな感覚が少しでもあるなら。その違和感を、無理に消さなくて大丈夫です。来たくなった時は、いつでもどうぞ。ここで待っています。</p>
+    <p>初めての方の見学・ご相談も歓迎しています。体調に合わせて、無理のない形でご参加いただけます。神奈川県西湘地区を拠点に活動中です。まずは希望内容をお知らせください。</p>
+    <p style="text-align:center;"><a class="btn" href="https://sites.google.com/view/wajinkai-wabunka/contact" target="_blank" rel="noopener">お問合せフォーム</a></p>
+    <p style="text-align:center;"><a class="btn sub" href="https://lin.ee/tJDJseM" target="_blank" rel="noopener">公式LINEで連絡する</a></p>
+  </div>
+</section>
+
+<footer>
+<div class="footer-nav">
+<a href="index.html">TOP</a>
+<a href="about.html">倭迅会の目指すところ</a>
+<a href="sokudo.html">息道</a>
+<a href="sokudo-group.html">息道・グループ体験</a>
+<a href="sokudo-private.html">息道・個別／法人</a>
+<a href="tate.html">殺陣道場</a>
+<a href="tea.html">テーブル茶道</a>
+<a href="passcode.html">口伝数秘術</a>
+<a href="profile.html">代表紹介</a>
+<a href="tanemaki.html">イベント・企画の種</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
+</div>
+<p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
+
+<script>
+/* ナビゲーション開閉（他ページと共通） */
+const _toggle = document.getElementById('navToggle');
+const _menu = document.getElementById('navMenu');
+if (_toggle && _menu) {
+  _toggle.addEventListener('click', () => {
+    _toggle.classList.toggle('open');
+    _menu.classList.toggle('open');
+  });
+  _menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      _toggle.classList.remove('open');
+      _menu.classList.remove('open');
+    });
+  });
+}
+</script>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  function showAll(){ els.forEach(function(el){ el.classList.add('visible'); }); }
+  if(!('IntersectionObserver' in window)){ showAll(); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 120);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(function(el){ obs.observe(el); });
+  setTimeout(showAll, 2500);
+})();
+</script>
+</body>
+</html>
