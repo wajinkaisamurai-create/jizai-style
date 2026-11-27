@@ -5,21 +5,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MY SOUL PASSCODE 講座｜福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
 :root{
 --paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;line-height:1.9;font-size:16px;}
 .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
 section{padding:44px 0;}
-h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
-h3{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;color:var(--navy);line-height:1.5;}
+h2{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;color:var(--navy);line-height:1.5;}
 p{margin-bottom:14px;}
 a{color:var(--navy);}
 .hero{padding:124px 0 8px;text-align:center;}
 .hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
-.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero h1{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
 .hero .sub{font-size:16px;}
 .btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
 
@@ -73,8 +77,15 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 .oracle-img{max-width:480px;margin:0 auto 20px;}
 .face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
 .tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
-.hero .tagline{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.hero .tagline{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
 .cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
+
+/* ===== 旧ページとの統一：フォントと表示アニメーション（2026-11-27） ===== */
+.nav-item,.footer-nav a{font-family:"Noto Sans JP",sans-serif;}
+.nav-brand{font-family:"Noto Serif JP",serif;}
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease;}
+html.js .reveal.visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){html.js .reveal{transition:none;}}
 </style>
 </head>
 <body>
@@ -111,7 +122,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </header>
 
 <!-- 講座について -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>講座について</h2>
 <p>この講座は、修了した方に、実際に鑑定士として鑑定を行っていただくための講座です。口伝数秘術の基礎から、MY SOUL PASSCODE の10要素の読み解きまでを、全5回で学びます。</p>
@@ -122,7 +133,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 各回の内容 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>各回の内容</h2>
 <table class="menu">
@@ -138,7 +149,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 修了後の活動 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>修了後の活動について</h2>
 <p>修了後は、実際に鑑定士として、出店などで鑑定を行うことができます。活動の形は自由で、実践会員として活動していただいても、独立して、世界観をご自身用に変換して使っていただいても構いません。</p>
@@ -147,7 +158,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 実践会員 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>実践会員について</h2>
 <p>実践会員は、月会費 ¥1,000の会員制度です。ご登録いただくと、次のものをご利用いただけます。</p>
@@ -163,7 +174,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 受講料 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>受講料</h2>
 <table class="menu">
@@ -176,7 +187,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- お支払い方法 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>お支払い方法</h2>
 <p>対面の場合は、クレジットカード・電子マネー・バーコード決済もご利用いただけます。</p>
@@ -185,7 +196,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </div>
 </section>
 <!-- 申込 -->
-<section class="final">
+<section class="reveal final">
 <div class="wrap">
 <h2>お申し込み</h2>
 <p>お申し込みはフォームから受け付けています。申込の種別で「講座」をお選びください。ご相談・ご質問は、公式LINEからも可能です。</p>
@@ -231,6 +242,24 @@ if (_toggle && _menu) {
     });
   });
 }
+</script>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  function showAll(){ els.forEach(function(el){ el.classList.add('visible'); }); }
+  if(!('IntersectionObserver' in window)){ showAll(); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 120);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(function(el){ obs.observe(el); });
+  setTimeout(showAll, 2500);
+})();
 </script>
 </body>
 </html>

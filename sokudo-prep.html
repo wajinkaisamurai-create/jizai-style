@@ -6,21 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>息道 -SOKUDOU-｜福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
 :root{
 --paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;line-height:1.9;font-size:16px;}
 .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
 section{padding:44px 0;}
-h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
-h3{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;color:var(--navy);line-height:1.5;}
+h2{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;color:var(--navy);line-height:1.5;}
 p{margin-bottom:14px;}
 a{color:var(--navy);}
 .hero{padding:124px 0 8px;text-align:center;}
 .hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
-.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero h1{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
 .hero .sub{font-size:16px;}
 .btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
 
@@ -74,7 +78,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 .oracle-img{max-width:480px;margin:0 auto 20px;}
 .face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
 .tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
-.hero .tagline{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.hero .tagline{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
 .cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
 .sns{display:flex;gap:12px;justify-content:center;align-items:center;flex-wrap:wrap;margin:10px auto 0;width:100%;}
 .btn-sub{display:inline-block;border:2px solid var(--navy, #1d2a4a);color:var(--navy, #1d2a4a);background:transparent;text-align:center;text-decoration:none;font-weight:bold;font-size:15px;padding:9px 26px;border-radius:999px;}
@@ -95,6 +99,13 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 .hero .tagline::after{content:"";display:block;width:56px;height:2px;background:var(--gold);margin:20px auto 0;}
 .concept-img{margin-top:18px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
 @media(max-width:640px){.eventbox{padding:18px 16px;}.stagemap{padding:12px 14px;}}
+
+/* ===== 旧ページとの統一：フォントと表示アニメーション（2026-11-27） ===== */
+.nav-item,.footer-nav a{font-family:"Noto Sans JP",sans-serif;}
+.nav-brand{font-family:"Noto Serif JP",serif;}
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease;}
+html.js .reveal.visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){html.js .reveal{transition:none;}}
 </style>
 </head>
 <body>
@@ -131,7 +142,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </header>
 
 <!-- 息道とは -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>息道とは</h2>
 <p>8段階の設計を持つ呼吸法です。</p>
@@ -142,7 +153,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 成り立ち -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>成り立ち</h2>
 <p>殺陣師が、呼吸を語る理由があります。</p>
@@ -157,7 +168,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 8段階の設計 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>8段階の設計</h2>
 <p>息道は、段階0の確認から始まります。始めに今の呼吸の状態を確かめ、段階1〜3は身体を使う段階、段階4〜8はイメージの段階へと進み、最後にもう一度、段階0で呼吸の状態を確かめます。</p>
@@ -179,7 +190,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 息道の視点 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>息道の考え方</h2>
 <p>息道は、数ある呼吸法の中の一つです。ただし、その考え方は殺陣師のものです。身体全体に意識を巡らせ、軸を整え、動きそのものを変えていく。</p>
@@ -189,7 +200,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 体験と本編 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>体験と本編</h2>
 <div class="cards menu">
@@ -218,7 +229,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 参加者の声 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>参加者の声</h2>
 <h3>アンケートでいただいた声</h3>
@@ -246,7 +257,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 体験会のご案内 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>体験会のご案内</h2>
 <p>現在募集中の体験会・イベントです。</p>
@@ -259,7 +270,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 受け方・申込 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>受け方・お申し込み</h2>
 <p>体験・本編は、フォームからのお申し込みを受けて、日程を相談のうえ決めます。ご指定の場所へ出向く形と、リモートに対応しています。</p>
@@ -273,7 +284,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 法人・団体の方へ -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>法人・団体の方へ</h2>
 <p>企業・団体・学校などのグループ向けに、呼吸と身体の使い方のワークショップを行います。体験の内容を土台に、歩行や所作の要素を組み合わせることもできます。</p>
@@ -284,7 +295,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- FINAL -->
-<section class="final">
+<section class="reveal final">
 <div class="wrap">
 <h2>まず、呼吸から。</h2>
 <p>体験のお申し込み、ご相談はこちらから。</p>
@@ -331,6 +342,24 @@ if (_toggle && _menu) {
     });
   });
 }
+</script>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  function showAll(){ els.forEach(function(el){ el.classList.add('visible'); }); }
+  if(!('IntersectionObserver' in window)){ showAll(); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 120);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(function(el){ obs.observe(el); });
+  setTimeout(showAll, 2500);
+})();
 </script>
 </body>
 </html>

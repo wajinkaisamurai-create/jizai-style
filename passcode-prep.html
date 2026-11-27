@@ -6,21 +6,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>口伝数秘術 MY SOUL PASSCODE｜福和倭迅会</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
 <style>
 :root{
 --paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;line-height:1.9;font-size:16px;}
 .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
 section{padding:44px 0;}
-h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
-h3{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;color:var(--navy);line-height:1.5;}
+h2{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;color:var(--navy);line-height:1.5;}
 p{margin-bottom:14px;}
 a{color:var(--navy);}
 .hero{padding:124px 0 8px;text-align:center;}
 .hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
-.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero h1{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
 .hero .sub{font-size:16px;}
 .btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
 
@@ -74,8 +78,15 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 .oracle-img{max-width:480px;margin:0 auto 20px;}
 .face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
 .tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
-.hero .tagline{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.hero .tagline{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
 .cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
+
+/* ===== 旧ページとの統一：フォントと表示アニメーション（2026-11-27） ===== */
+.nav-item,.footer-nav a{font-family:"Noto Sans JP",sans-serif;}
+.nav-brand{font-family:"Noto Serif JP",serif;}
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease;}
+html.js .reveal.visible{opacity:1;transform:translateY(0);}
+@media (prefers-reduced-motion: reduce){html.js .reveal{transition:none;}}
 </style>
 </head>
 <body>
@@ -112,7 +123,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </header>
 
 <!-- 口伝数秘術とMY SOUL PASSCODE -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>口伝数秘術と、MY SOUL PASSCODE</h2>
 <p>MY SOUL PASSCODE は、口伝数秘術を土台に、鑑定士・福田ひろしが独自に組み上げた鑑定です。</p>
@@ -124,7 +135,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- Personal Life Map 10要素 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>Personal Life Map（10要素）</h2>
 <p>鑑定では、次の10要素を読み解きます。</p>
@@ -146,7 +157,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 鑑定メニュー -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>鑑定メニュー</h2>
 <table class="menu">
@@ -161,7 +172,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- オラクルカード -->
-<section>
+<section class="reveal">
 
 <div class="wrap">
 <h2>オリジナル数秘オラクルカード</h2> 
@@ -187,7 +198,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 周期診断 -->
-<section id="cycle">
+<section id="cycle" class="reveal">
 <div class="wrap">
 <h2>周期診断</h2>
 <p>口伝数秘の周期（全体と個人、短期から長期まで）と、和路大運・九星大運・十二支大運（6〜10年の周期）を重ねて読みます。</p>
@@ -202,7 +213,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 講座 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>講座</h2>
 <p>読み手になりたい方へ。口伝数秘の読み方を学ぶ講座（全5回）をご用意しています。修了後は、鑑定士として活動することもできます。</p>
@@ -212,7 +223,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 数秘のお茶会 -->
-<section class="tea-bg" id="ochakai">
+<section class="reveal tea-bg" id="ochakai">
 <div class="wrap">
 <h2>数秘のお茶会（初回体験会）</h2>
 <div class="box gold">
@@ -227,7 +238,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 受け方 -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>鑑定の受け方</h2>
 <div class="box">
@@ -240,7 +251,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- note -->
-<section>
+<section class="reveal">
 <div class="wrap">
 <h2>note「今月の海図」</h2>
 <p>無料連載「今月の海図」を note で公開しています。その月の数字の流れを、毎月の海図としてお届けします。</p>
@@ -249,7 +260,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 鑑定後の方へ -->
-<section id="after">
+<section id="after" class="reveal">
 <div class="wrap">
 <h2>鑑定を受けた方へ</h2>
 <p>鑑定は、地図を受け取って終わりではありません。数字の流れは月ごとに変わっていきます。受け取った地図を、その流れと重ねながら日常の中で使っていくことが大切です。</p>
@@ -265,7 +276,7 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 </section>
 
 <!-- 相談・申込 -->
-<section class="final">
+<section class="reveal final">
 <div class="wrap">
 <img class="face-img" src="images/passcode-face.webp" alt="鑑定士・福田ひろし">
 <h2>ご相談・お申し込み</h2>
@@ -309,6 +320,24 @@ if (_toggle && _menu) {
     });
   });
 }
+</script>
+
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  function showAll(){ els.forEach(function(el){ el.classList.add('visible'); }); }
+  if(!('IntersectionObserver' in window)){ showAll(); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry, i){
+      if(entry.isIntersecting){
+        setTimeout(function(){ entry.target.classList.add('visible'); }, i * 120);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(function(el){ obs.observe(el); });
+  setTimeout(showAll, 2500);
+})();
 </script>
 </body>
 </html>
