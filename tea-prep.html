@@ -102,7 +102,13 @@ footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;fon
 
 /* ===== 旧ページとの統一：フォントと表示アニメーション（2026-11-27） ===== */
 .nav-item,.footer-nav a{font-family:"Noto Sans JP",sans-serif;}
-.nav-brand{font-family:"Noto Serif JP",serif;}
+.nav-brand{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP",serif;color:#1c1a16;line-height:1.25;}
+.nav-brand span{font-family:"Cormorant Garamond",serif;color:#7a6248;}
+.header{background:rgba(245,242,236,0.92);border-bottom:1px solid rgba(75,47,31,0.18);box-shadow:0 1px 0 rgba(75,47,31,0.08);}
+@media(max-width:760px){
+.nav-brand{font-size:13px;letter-spacing:0.18em;color:rgba(28,26,22,0.9);}
+.nav-brand span{display:block;margin:3px 0 0;font-size:12px;letter-spacing:0.1em;}
+}
 html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity 1s ease,transform 1s ease;}
 html.js .reveal.visible{opacity:1;transform:translateY(0);}
 @media (prefers-reduced-motion: reduce){html.js .reveal{transition:none;}}
