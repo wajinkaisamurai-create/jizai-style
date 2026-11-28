@@ -1,273 +1,152 @@
 <!DOCTYPE html>
+<!-- 旧URL（sokudo-private.html）の転送ページ。2026-11-28、個別・法人向けのご案内は息道ページ（sokudo.html）へ吸収し、このURLは転送ページに置き換えた。 -->
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>個別・法人向け | 息道 -SOKUDOU-</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&family=Noto+Sans+JP:wght@300;400&display=swap">
-  <style>
-    /* ===== 共通ナビゲーション ===== */
-    .header {
-      position: fixed;
-      width: 100%; top: 0; left: 0;
-      background: rgba(245,242,236,0.92);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--line);
-      z-index: 1000;
-    }
-    .header nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 40px;
-    }
-    .nav-brand {
-      color: var(--ink);
-      font-size: 15px;
-      letter-spacing: 0.22em;
-      font-weight: 400;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .nav-brand span {
-      display: inline-block;
-      margin-left: 8px;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 13px;
-      color: var(--accent);
-    }
-    .nav-menu {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-    .nav-item {
-      color: var(--ink-light);
-      font-size: 12px;
-      letter-spacing: 0.16em;
-      font-family: "Noto Sans JP", sans-serif;
-      font-weight: 300;
-      text-decoration: none;
-      transition: color 0.3s;
-      white-space: nowrap;
-    }
-    .nav-item:hover { color: var(--accent); }
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      z-index: 1001;
-    }
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 1px;
-      background: var(--ink-light);
-      transition: all 0.3s;
-    }
-    .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .nav-toggle.open span:nth-child(2) { opacity: 0; }
-    .nav-toggle.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-    @media (max-width: 760px) {
-      .header nav { padding: 13px 20px; }
-      .nav-menu {
-        display: none;
-        position: fixed;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: rgba(245,242,236,0.97);
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
-        padding-top: 80px;
-        padding-bottom: 40px;
-        gap: 0;
-        z-index: 1000;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-      .nav-menu.open { display: flex; }
-      .nav-toggle { display: flex; }
-      .nav-item {
-        font-size: 0.88rem;
-        letter-spacing: 0.22em;
-        padding: 14px 0;
-        width: 100%;
-        text-align: center;
-        border-bottom: 1px solid rgba(75,47,31,0.08);
-      }
-      .nav-item:first-child { border-top: 1px solid rgba(75,47,31,0.08); }
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>個別・法人のご案内は息道ページへ移りました｜福和倭迅会</title>
+<link rel="icon" href="images/rogo.jpg" type="image/jpeg">
+<meta http-equiv="refresh" content="5; url=sokudo.html">
+<style>
+:root{
+--paper:#f7f2e7; --ink:#2b2b26; --navy:#1d2a4a; --gold:#a8862f; --card:#fffdf7;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--paper);color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",YuGothic,"Noto Sans JP",sans-serif;line-height:1.9;font-size:16px;}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+section{padding:44px 0;}
+h2{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:26px;color:var(--navy);line-height:1.5;margin-bottom:20px;}
+h3{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;color:var(--navy);line-height:1.5;}
+p{margin-bottom:14px;}
+a{color:var(--navy);}
+.hero{padding:124px 0 8px;text-align:center;}
+.hero .pre{color:var(--gold);font-weight:bold;letter-spacing:.12em;font-size:15px;}
+.hero h1{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:32px;color:var(--navy);line-height:1.45;margin:14px 0 10px;}
+.hero .sub{font-size:16px;}
+.btn{display:block;max-width:420px;margin:26px auto 6px;background:var(--navy);color:#fff;text-align:center;text-decoration:none;font-weight:bold;font-size:18px;padding:16px 20px;border-radius:999px;}
 
-   :root { 
-     --bg:#f5f2ec;
-     --bg2:#ebe5d8; 
-     --bg3:#e6e2d9; 
-     --bg-dark:#1c1a16; 
-     --ink:#1c1a16; 
-     --ink-mid:#4a4640; 
-     --ink-light:#8a8278; 
-     --accent:#7a6248; 
-     --accent2:#b8956a; 
-     --gold: #a8862f; 
-     --deep: #1f2f2b;
-     --line: rgba(75, 47, 31, 0.18); 
-     --paper:#fffaf0; 
-     --white:#fff; 
-     --shadow: 0 18px 45px rgba(31, 26, 22, 0.08);
-    }
-
-    body { background-color: var(--bg); color: var(--ink); font-family: "Noto Serif JP", serif; line-height: 1.8; margin: 0; }
-    section { max-width: 800px; margin: 0 auto; padding: 5rem 1.5rem; }
-    .hero-lite { text-align: center; padding: 6rem 1.5rem; background: var(--paper); border-bottom: 1px solid var(--line); }
-    .card { background: white; padding: 24px 22px; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 3rem; }
-    h2 { font-weight: 300; color: var(--deep); border-left: 3px solid var(--gold); padding-left: 15px; margin-bottom: 1.5rem; }
-    .price-tag { font-size: 1.2rem; color: var(--gold); margin-top: 1rem; display: block; font-weight: 600; }
-    .btn-consult { display: block; text-align: center; background: #1d2a4a; color: white; padding: 16px 20px; border-radius: 999px; text-decoration: none; margin-top: 2rem; }
-
-
-    section { position: relative; z-index: 1; padding: 6rem 1.5rem; max-width: 900px; margin: 0 auto; text-align: center; }
-    
-    .origin-section { background-color: var(--deep); color: var(--paper); max-width: 100%; padding: 8rem 1.5rem; }
-    .origin-inner { max-width: 750px; margin: 0 auto; text-align: left; }
-    .origin-title { font-size: 1.6rem; color: var(--gold); margin-bottom: 3rem; text-align: center; font-weight: 300; }
-
-    .entrance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 3rem; }
-    .entrance-card { background: var(--paper); padding: 40px 20px; border-radius: 12px; border: 1px solid var(--line); transition: 0.3s; text-decoration: none; color: inherit; display: flex; flex-direction: column; justify-content: space-between; }
-    .entrance-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--gold); }
-    .entrance-card.main { border: 2px solid var(--gold); }
-    .card-label { font-size: 0.7rem; color: var(--accent); margin-bottom: 1rem; letter-spacing: 0.1em; }
-    .card-title { font-size: 1.05rem; color: var(--deep); margin-bottom: 1rem; }
-    .btn-card { font-size: 0.8rem; padding: 10px; border-radius: 999px; border: 1px solid var(--line); display: block; text-align: center; }
-    .main .btn-card { background: var(--deep); color: white; border: none; }
-
-    /* ===== Footer（tate.html 構造保持） ===== */
-    footer { padding: 80px 20px; border-top: 1px solid var(--line); text-align: center; position: relative; z-index: 1; }
-    .footer-nav { display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
-    .footer-nav a { font-size: 12px; color: var(--ink-light); letter-spacing: 0.1em; }
-    .copyright { font-size: 11px; color: var(--ink-light); letter-spacing: 0.15em; }
-
-    @media (max-width: 850px) {
-      .img-text-section, .img-text-section.reverse { flex-direction: column; text-align: center; gap: 30px; }
-      .img-text-section .text-wrap { max-width: 100%; transform: none; }
-      .img-text-section .sense-image { flex: none; }
-      .text-wrap h2 { text-align: center; }
-      .hero-content h1 { letter-spacing: 0.24em; padding-left: 0.24em; }
-      .price-row { flex-direction: column; padding: 30px 22px; }
-      .item-name { padding-right: 0; margin-bottom: 15px; }
-      .item-price { width: 100%; text-align: right; border-top: 1px dashed var(--line); padding-top: 15px; }
-      section { padding: 6rem 1.2rem; }
-      .entrance-grid { grid-template-columns: 1fr; }
-    }
-
-
+.btn.sub{background:transparent;color:var(--navy);border:2px solid var(--navy);margin-top:14px;}.btn-note{text-align:center;font-size:13px;color:#666;}
+.box{background:var(--card);border-radius:12px;padding:24px 22px;box-shadow:0 2px 10px rgba(29,42,74,.06);}
+.box.gold{border:2px solid var(--gold);box-shadow:none;}
+table.menu{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;}
+table.menu th,table.menu td{padding:13px 16px;border-bottom:1px solid #eee5d0;text-align:left;font-size:15px;}
+table.menu tr:last-child th,table.menu tr:last-child td{border-bottom:none;}
+table.menu td.price{text-align:right;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.elements{display:grid;gap:10px;}
+@media(min-width:640px){.elements{grid-template-columns:1fr 1fr;}}
+.el{background:var(--card);border-left:4px solid var(--gold);border-radius:8px;padding:10px 16px;font-size:15px;}
+.el b{color:var(--navy);}
+.cards{display:grid;gap:18px;}
+@media(min-width:640px){.cards{grid-template-columns:repeat(3,1fr);}}
+.card{background:var(--card);border-radius:12px;padding:20px 18px;box-shadow:0 2px 10px rgba(29,42,74,.08);}
+.card h3{font-size:18px;margin-bottom:4px;}
+.card .price{color:var(--gold);font-weight:bold;font-size:17px;margin-bottom:8px;}
+.card p{font-size:14px;margin:0;}
+.note{font-size:13px;color:#666;}
+.final{text-align:center;}
+footer{padding:56px 20px 40px;border-top:1px solid #ddd2b8;text-align:center;font-size:13px;color:#777;}
+/* ===== 共通ナビゲーション（他ページと共通） ===== */
+.header{position:fixed;width:100%;top:0;left:0;background:rgba(247,242,231,.94);backdrop-filter:blur(8px);border-bottom:1px solid #ddd2b8;z-index:1000;}
+.header nav{display:flex;justify-content:space-between;align-items:center;padding:16px 40px;}
+.nav-brand{color:var(--ink);font-size:15px;letter-spacing:.22em;font-weight:400;text-decoration:none;flex-shrink:0;}
+.nav-brand span{display:inline-block;margin-left:8px;font-style:italic;font-size:13px;color:var(--gold);}
+.nav-menu{display:flex;gap:24px;align-items:center;}
+.nav-item{color:#77705f;font-size:12px;letter-spacing:.16em;text-decoration:none;white-space:nowrap;transition:color .3s;}
+.nav-item:hover{color:var(--gold);}
+.nav-toggle{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:1001;}
+.nav-toggle span{display:block;width:22px;height:1px;background:#77705f;transition:all .3s;}
+.nav-toggle.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-toggle.open span:nth-child(2){opacity:0;}
+.nav-toggle.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media(max-width:760px){
+.header nav{padding:13px 20px;}
+.nav-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(247,242,231,.97);flex-direction:column;align-items:center;justify-content:flex-start;padding-top:80px;padding-bottom:40px;gap:0;z-index:1000;overflow-y:auto;}
+.nav-menu.open{display:flex;}
+.nav-toggle{display:flex;}
+.nav-item{font-size:.88rem;letter-spacing:.22em;padding:14px 0;width:100%;text-align:center;border-bottom:1px solid rgba(75,47,31,.08);}
+.nav-item:first-child{border-top:1px solid rgba(75,47,31,.08);}
+}
+.footer-nav{display:flex;justify-content:center;gap:24px;margin-bottom:32px;flex-wrap:wrap;}
+.footer-nav a{font-size:12px;color:#77705f;letter-spacing:.1em;text-decoration:none;}
+.copyright{font-size:11px;color:#99917c;letter-spacing:.15em;}
+.page-img{width:100%;height:auto;border-radius:12px;display:block;}
+.hero-img{margin-top:26px;box-shadow:0 4px 18px rgba(29,42,74,.12);}
+.sheet-img{margin-top:18px;border:1px solid #eee5d0;}
+.oracle-img{max-width:480px;margin:0 auto 20px;}
+.face-img{width:170px;height:auto;margin:6px auto 14px;display:block;}
+.tea-bg{background:linear-gradient(rgba(247,242,231,.76),rgba(247,242,231,.80)),url('images/passcode-tea-bg.jpg') center/cover no-repeat;}
+.hero .tagline{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Shippori Mincho",serif;font-size:19px;color:var(--gold);letter-spacing:.1em;margin:4px 0 10px;font-weight:600;}
+.cycle-img{display:block;width:100%;max-width:560px;margin:18px auto 4px;border-radius:10px;box-shadow:0 4px 18px rgba(31,42,68,.15);}
 </style>
-  <link rel="stylesheet" href="assets/site-common.css">
-  <link rel="icon" href="images/rogo.jpg" type="image/jpeg">
 </head>
 <body>
 <header class="header">
-  <nav>
-    <a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
-    <button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
-      <span></span><span></span><span></span>
-    </button>
-    <div class="nav-menu" id="navMenu">
-      <a href="index.html" class="nav-item">トップ</a>
-      <a href="about.html" class="nav-item">目指すところ</a>
-      <a href="sokudo.html" class="nav-item" style="color: var(--accent);">息道</a>
-      <a href="tate.html" class="nav-item">殺陣道場</a>
-      <a href="tea.html" class="nav-item">テーブル茶道</a>
-      <a href="passcode.html" class="nav-item">口伝数秘術</a>
-      <a href="profile.html" class="nav-item">代表紹介</a>
-      <a href="tanemaki.html" class="nav-item">イベント・企画の種</a>
-    </div>
-  </nav>
+<nav>
+<a href="index.html" class="nav-brand">福和倭迅会<span>Jizai Style.</span></a>
+<button class="nav-toggle" id="navToggle" aria-label="メニューを開く">
+<span></span>
+<span></span>
+<span></span>
+</button>
+<div class="nav-menu" id="navMenu">
+<a href="index.html" class="nav-item">トップ</a>
+<a href="about.html" class="nav-item">目指すところ</a>
+<a href="sokudo.html" class="nav-item" style="color: var(--gold);">息道</a>
+<a href="tate.html" class="nav-item">殺陣道場</a>
+<a href="tea.html" class="nav-item">テーブル茶道</a>
+<a href="passcode.html" class="nav-item">口伝数秘術</a>
+<a href="profile.html" class="nav-item">代表紹介</a>
+<a href="tanemaki.html" class="nav-item">イベント・企画の種</a>
+</div>
+</nav>
+</header>
+<!-- HERO -->
+<header class="hero">
+<div class="wrap">
+<p class="pre">息道 -SOKUDOU-</p>
+<h1>個別・法人のご案内</h1>
+<p class="sub">個別・法人向けのご案内は、息道のページにまとめました。</p>
+<p>このページは、数秒後に自動で移動します。移動しない場合は、下のボタンからお進みください。</p>
+<a class="btn" href="sokudo.html">息道のページへ</a>
+<p class="btn-note">福和倭迅会 公式サイト「息道 -SOKUDOU-」のページです</p>
+</div>
 </header>
 
-<section class="hero-lite">
-  <h1 style="font-weight: 300;">一対一で、呼吸と向き合う。</h1>
-  <p style="color: var(--accent);">深く、静かに、自分のペースで。</p>
-</section>
+<footer>
+<div class="footer-nav">
+<a href="index.html">TOP</a>
+<a href="about.html">倭迅会の目指すところ</a>
+<a href="sokudo.html">息道</a>
+<a href="sokudo-group.html">息道・グループ体験</a>
+<a href="sokudo-private.html">息道・個別／法人</a>
+<a href="tate.html">殺陣道場</a>
+<a href="tea.html">テーブル茶道</a>
+<a href="passcode.html">口伝数秘術</a>
+<a href="profile.html">代表紹介</a>
+<a href="tanemaki.html">イベント・企画の種</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
+<a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
+</div>
+<p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
+</footer>
 
-<section>
-  <div class="card">
-    <h2>個別セッション</h2>
-    <p>グループの体験を土台に、より深い段階へ進みます。第0段から第8段まで、その人のペースで。無理に次へ行く必要はありません。同じ段階を繰り返すことのほうが、意味があることも多い。</p>
-    <p><strong>完全個別・福息8段階＋テーブル茶道</strong></p>
-    <span class="price-tag">応相談（LINEにてご連絡ください）</span>
-  </div>
-
-  <div class="card">
-    <h2>伴走プログラム</h2>
-    <p>単発のセッションではなく、時間をかけて変化を確認したい方へ。呼吸の変化は、一度では定着しません。継続の中で、身体に馴染んでいくものです。月2回の個別セッションと随時のテキスト相談で、日常に根付くまで伴走します。</p>
-    <span class="price-tag">¥60,000 〜 ¥80,000</span>
-  </div>
-
-  <div class="card">
-    <h2>法人・施設でのご利用</h2>
-    <p>企業研修、ウェルネスリトリート、宿泊施設への出張セッションに対応しています。息道単体のほか、殺陣・テーブル茶道との組み合わせも可能です。目的や規模に合わせて個別にご提案します。</p>
-    <a href="https://lin.ee/tJDJseM" class="btn-consult">LINEで相談する</a>
-  </div>
-
-  <div style="text-align: center; margin-top: 4rem; opacity: 0.7;">
-    <p style="font-size: 0.9rem;">まず読んでみたい方へ</p>
-    <a href="https://note.com/wajinkai_fukky" target="_blank" style="color: var(--accent);">noteを読む →</a>
-  </div>
-</section>
-
-  <footer>
-    <div class="footer-nav">
-    <a href="index.html">TOP</a>
-    <a href="about.html">倭迅会の目指すところ</a>
-    <a href="sokudo.html">息道</a>
-    <a href="sokudo-group.html">息道・グループ体験</a>
-    <a href="sokudo-private.html">息道・個別／法人</a>
-    <a href="tate.html">殺陣道場</a>
-    <a href="tea.html">テーブル茶道</a>
-    <a href="passcode.html">口伝数秘術</a>
-    <a href="profile.html">代表紹介</a>
-    <a href="tanemaki.html">イベント・企画の種</a>
-    <a href="https://sites.google.com/view/wajinkai-wabunka/schedule">イベント・スケジュール</a>
-    <a href="https://sites.google.com/view/wajinkai-wabunka/contact">お問合せフォーム</a>
-    </div>
-    <p class="copyright">© 福和倭迅会 / Jizai Style. All rights reserved.</p>
-  </footer>
-
-
-  <script>
-    /* ナビゲーション開閉 */
-    const _toggle = document.getElementById('navToggle');
-    const _menu   = document.getElementById('navMenu');
-    if (_toggle && _menu) {
-      _toggle.addEventListener('click', () => {
-        _toggle.classList.toggle('open');
-        _menu.classList.toggle('open');
-      });
-      /* メニュー内リンクをタップしたら閉じる */
-      _menu.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          _toggle.classList.remove('open');
-          _menu.classList.remove('open');
-        });
-      });
-    }
-    /* スクロールアニメーション */
-    const _obs = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 120);
-          _obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => _obs.observe(el));
-  </script>
-
-  <script src="assets/site-common.js"></script>
+<script>
+/* ナビゲーション開閉（他ページと共通） */
+const _toggle = document.getElementById('navToggle');
+const _menu = document.getElementById('navMenu');
+if (_toggle && _menu) {
+  _toggle.addEventListener('click', () => {
+    _toggle.classList.toggle('open');
+    _menu.classList.toggle('open');
+  });
+  _menu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      _toggle.classList.remove('open');
+      _menu.classList.remove('open');
+    });
+  });
+}
+</script>
 </body>
 </html>
