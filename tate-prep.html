@@ -138,10 +138,6 @@ h3{font-size:16px;}
 .quals li::before{content:"・";color:var(--gold);margin-right:2px;}
 
 /* ===== 殺陣道場ページ用 ===== */
-.price{width:100%;border-collapse:collapse;margin-top:10px;}
-.price th,.price td{padding:10px 8px;border-bottom:1px solid #e3d9c2;text-align:left;vertical-align:top;line-height:1.8;}
-.price th{color:var(--navy);font-weight:600;white-space:nowrap;}
-.price td.price-yen{white-space:nowrap;}
 .oval-photo{display:block;width:min(300px,72vw);aspect-ratio:4/5;object-fit:cover;object-position:center 22%;border-radius:50%;margin:22px auto 6px;box-shadow:0 4px 18px rgba(29,42,74,.14);}
 .flow-step{margin-bottom:12px;}
 .flow-step strong{color:var(--navy);}
@@ -197,17 +193,19 @@ h3{font-size:16px;}
 <section class="reveal">
   <div class="wrap">
     <h2>得られる三つの変化</h2>
-    <div class="eventbox">
+    <div class="cards">
+    <div class="card">
       <h3>軸の通った動き</h3>
       <p>刀という「外側の軸」を扱うことで、自らの正中線が自覚されます。一挙手一投足に説得力が生まれます。</p>
     </div>
-    <div class="eventbox">
+    <div class="card">
       <h3>間を読む感覚</h3>
       <p>殺陣は、相手との呼吸、間合い合わせの連続です。言葉になる前の気配を感じ取り、落ち着いて動く感覚が育ちます。</p>
     </div>
-    <div class="eventbox">
+    <div class="card">
       <h3>場に立つ身体</h3>
       <p>刀を持ち、声を出し、場に立つ。その経験が、日常の立ち居振る舞いを根本から変えます。</p>
+    </div>
     </div>
   </div>
 </section>
@@ -228,13 +226,13 @@ h3{font-size:16px;}
   <div class="wrap">
     <h2>クラスと料金</h2>
     <p>目的に合わせて選べる体系をご用意しています。趣味クラスは楽しむためのクラス、初級・中級・上級はプロを目指す人に向けたクラスです。</p>
-    <table class="price">
-      <tr><th>はじめての1日体験</th><td>初回のみ／2時間。実際の稽古会に参加し、呼吸の整えから、立ち方や歩き方、刀の扱い方までの一連の流れを体験します。</td><td class="price-yen">¥2,000</td></tr>
-      <tr><th>趣味クラス</th><td>体を動かしたり、趣味として殺陣を楽しみたい方向けのクラスです。月1〜2回の参加が目安。発表会参加も可能。都度払いのみ。</td><td class="price-yen">¥2,500／回</td></tr>
-      <tr><th>初級クラス</th><td>基礎を正しく。舞台的な視点を加えながら、一対一の動きを中心に、表現としての殺陣を学ぶ。</td><td class="price-yen">¥3,500／回<br>4回チケット ¥12,000</td></tr>
-      <tr><th>中級クラス</th><td>表現として使う。一対多の動き、役者側のカメラワークを取り入れ、舞台・ステージで通用するレベルへ。</td><td class="price-yen">¥6,000／回<br>4回チケット ¥20,000</td></tr>
-      <tr><th>上級クラス</th><td>本番で通用する技術へ。舞台構成・演出・台本構成・撮影者側のカメラワークまで扱います。</td><td class="price-yen">¥8,000／回<br>4回チケット ¥28,000</td></tr>
-      <tr><th>個別レッスン</th><td>2時間の枠で進めます。日時はご相談ください。</td><td class="price-yen">¥10,000</td></tr>
+    <table class="menu">
+      <tr><th>はじめての1日体験</th><td>初回のみ／2時間。実際の稽古会に参加し、呼吸の整えから、立ち方や歩き方、刀の扱い方までの一連の流れを体験します。</td><td class="price">¥2,000</td></tr>
+      <tr><th>趣味クラス</th><td>体を動かしたり、趣味として殺陣を楽しみたい方向けのクラスです。月1〜2回の参加が目安。発表会参加も可能。都度払いのみ。</td><td class="price">¥2,500／回</td></tr>
+      <tr><th>初級クラス</th><td>基礎を正しく。舞台的な視点を加えながら、一対一の動きを中心に、表現としての殺陣を学ぶ。</td><td class="price">¥3,500／回<br>4回チケット ¥12,000</td></tr>
+      <tr><th>中級クラス</th><td>表現として使う。一対多の動き、役者側のカメラワークを取り入れ、舞台・ステージで通用するレベルへ。</td><td class="price">¥6,000／回<br>4回チケット ¥20,000</td></tr>
+      <tr><th>上級クラス</th><td>本番で通用する技術へ。舞台構成・演出・台本構成・撮影者側のカメラワークまで扱います。</td><td class="price">¥8,000／回<br>4回チケット ¥28,000</td></tr>
+      <tr><th>個別レッスン</th><td>2時間の枠で進めます。日時はご相談ください。</td><td class="price">¥10,000</td></tr>
     </table>
     <p class="note">回数券（4回チケット）は3ヶ月有効です。会場費・交通費・出張費・備品費などが別途必要な場合があります。</p>
   </div>
